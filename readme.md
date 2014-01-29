@@ -24,11 +24,8 @@ In one line, send your objects to another position (here x=20 and y=30), with a 
 // 1. the target
 // 2. the type of interpolation
 // 3. the duration in seconds
-```
+// Additional methods specify the target values, and the easing function. 
 
-//Additional methods specify the target values, and the easing function. 
-
-```dart 
 Tween.to(mySprite, Type.POSITION_XY, 1.0)
   ..targetValues = [20, 30]
   ..easing = Elastic.INOUT;
