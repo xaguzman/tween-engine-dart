@@ -4,7 +4,7 @@ part of tweenengine;
 /**
  * Computes the next value of the interpolation.
 *
- * time The current time, between 0 and 1.
+ * [time] The current time, between 0 and 1.
  * Returns the current value.
  */
 typedef num ComputingFunction(num time);
@@ -14,8 +14,10 @@ typedef num ComputingFunction(num time);
  * Base class for every easing equation. You can create your own equations
  * and directly use them in the Tween engine by inheriting from this class.
  *
- * @see Tween
- * @author Aurelien Ribon | http://www.aurelienribon.com/
+ * see [Tween]
+  * author 
+ *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+ *    Xavier Guzman (dart port)
  */
 abstract class TweenEquation {
 
@@ -40,7 +42,9 @@ abstract class TweenEquation {
 /**
  * Collection of built-in easing equations
  *
- * @author Aurelien Ribon | http://www.aurelienribon.com/
+  * author 
+ *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+ *    Xavier Guzman (dart port)
  */
 abstract class TweenEquations {
         static final Linear easeNone = Linear.INOUT;

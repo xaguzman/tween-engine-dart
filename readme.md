@@ -9,7 +9,7 @@ About
 This is a dart port of the [original java Universal Tween Engine][1] created by Aurelien Ribbon. This readme is an adaptation of the original's engine 
 readme which includes how things are handled in the dart version of the engine.
 
-Some tests have been conducted, but the engine can't be considered complete / bug free. Use at your own risk.
+The engine can't be considered complete / bug free. Use at your own risk.
 ______
 
 Introduction

@@ -4,29 +4,27 @@ part of tweenengine;
  * TweenCallbacks are used to trigger actions at some specific times. They are
  * used in both Tweens and Timelines. The moment when the callback is
  * triggered depends on its registered triggers:
- * <p/>
  *
- * <b>BEGIN</b>: right after the delay (if any)<br/>
- * <b>START</b>: at each iteration beginning<br/>
- * <b>END</b>: at each iteration ending, before the repeat delay<br/>
- * <b>COMPLETE</b>: at last END event<br/>
- * <b>BACK_BEGIN</b>: at the beginning of the first backward iteration<br/>
- * <b>BACK_START</b>: at each backward iteration beginning, after the repeat delay<br/>
- * <b>BACK_END</b>: at each backward iteration ending<br/>
- * <b>BACK_COMPLETE</b>: at last BACK_END event
- * <p/>
- *
- * <pre> {@code
+ * * [TweenCallback.BEGIN]: right after the delay (if any)
+ * * [TweenCallback.START]: at each iteration beginning
+ * * [TweenCallback.END]: at each iteration ending, before the repeat delay
+ * * [TweenCallback.COMPLETE]: at last END event
+ * * [TweenCallback.BACK_BEGIN]: at the beginning of the first backward iteration
+ * * [TweenCallback.BACK_START]: at each backward iteration beginning, after the repeat delay
+ * * [TweenCallback.BACK_END]: at each backward iteration ending
+ * * [TweenCallback.BACK_COMPLETE]: at last BACK_END event
+ * 
  * forward :      BEGIN                                   COMPLETE
  * forward :      START    END      START    END      START    END
  * |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
  * backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
  * backward:      bCOMPLETE                                 bBEGIN
- * }</pre>
  *
- * @see Tween
- * @see Timeline
- * @author Aurelien Ribon | http://www.aurelienribon.com/
+ * see [Tween]
+ * see [Timeline]
+ * author 
+ *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+ *    Xavier Guzman (dart port)
  */
 class TweenCallback {
     static const int BEGIN = 0x01;
@@ -41,6 +39,7 @@ class TweenCallback {
     static const int ANY_BACKWARD = 0xF0;
     static const int ANY = 0xFF;
 
+    ///a handler which can take actions when any event occurs on a tween
     CallbackHandler onEvent;
 }
 

@@ -4,14 +4,13 @@ part of tweenengine;
  * A TweenManager updates all your tweens and timelines at once.
  * Its main interest is that it handles the tween/timeline life-cycles for you,
  * as well as the pooling constraints (if object pooling is enabled).
- * <p/>
  *
- * Just give it a bunch of tweens or timelines and call update() periodically,
+ * Just give it a bunch of tweens or timelines and call [update] periodically,
  * you don't need to care for anything else! Relax and enjoy your animations.
  *
- * @see Tween
- * @see Timeline
- * @author Aurelien Ribon | http://www.aurelienribon.com/
+ * author 
+ *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+ *    Xavier Guzman (dart port)
  */
 class TweenManager {
   // -------------------------------------------------------------------------
@@ -81,7 +80,6 @@ class TweenManager {
    * manager. **The delta time represents the elapsed time between now and the
    * last update call**. Each tween or timeline manages its local time, and adds
    * this delta to its local time to update itself.
-   * <p/>
    *
    * Slow motion, fast motion and backward play can be easily achieved by
    * tweaking this delta time. Multiply it by -1 to play the animation
@@ -106,7 +104,7 @@ class TweenManager {
   }
 
   /**
-   * Gets the number of managed _objects. An object may be a tween or a timeline. Note that a timeline 
+   * Gets the number of managed objects. An object may be a tween or a timeline. Note that a timeline 
    * only counts for 1 object, since it manages its children itself.
    * 
    * To get the count of running tweens, see [runningTweensCount]}.
@@ -129,8 +127,8 @@ class TweenManager {
 
   /**
    * Gets an immutable list of every managed object.
-   * <p/>
-   * <b>Provided for debug purpose only.</b>
+   * 
+   * **Provided for debug purpose only.**
    */
   List<BaseTween> get_objects() {
     return new List<BaseTween>.from(_objects, growable: false);
