@@ -43,7 +43,7 @@ Tween.call(...); // calls a method (useful with a delay)
 // Current options are:
 
 ```dart
-myTween.delay(0.5f);
+myTween.delay = 0.5f;
 myTween.repeat(2, 0.5f);
 myTween.repeatYoyo(2, 0.5f);
 myTween.pause();
