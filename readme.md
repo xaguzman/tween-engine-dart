@@ -130,8 +130,6 @@ Source code extensively documented!
 
 ----------
 
-Get
-
 Get started and documentation index
 -----------------------------------
 pending
