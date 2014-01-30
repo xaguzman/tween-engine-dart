@@ -1,6 +1,6 @@
 part of tweenengine.tests;
 
-class Repetitions extends Test{
+class Repetitions extends Screen{
   Vector2 pos1, pos2;
   
   Repetitions(CanvasRenderingContext2D context): super(context);

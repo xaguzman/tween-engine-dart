@@ -1,6 +1,6 @@
 part of tweenengine.tests;
 
-class SimpleTimeline extends Test{
+class SimpleTimeline extends Screen{
   Vector2 pos, size;
   Color color;
   

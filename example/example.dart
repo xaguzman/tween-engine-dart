@@ -3,13 +3,13 @@ library tweenengine.tests;
 import 'dart:html';
 import 'package:tweenengine/tweenengine.dart';
 
-part 'test.dart';
+part 'screen.dart';
 part 'accesors.dart';
-part 'tests/functions.dart';
-part 'tests/simple_tween.dart';
-part 'tests/simple_timeline.dart';
-part 'tests/repetitions.dart';
-part 'tests/waypoints.dart';
+part 'screens/functions.dart';
+part 'screens/simple_tween.dart';
+part 'screens/simple_timeline.dart';
+part 'screens/repetitions.dart';
+part 'screens/waypoints.dart';
 
 main(){
   
@@ -24,14 +24,16 @@ main(){
 class TestApp{
   CanvasElement canvas ;
   CanvasRenderingContext2D context;
+  DivElement info;
   Vector2 v;
   TweenManager manager;
   num lastUpdate = 0 ;
-  Test currentTest;
+  Screen currentTest;
   
   TestApp(String canvasId){
     this.canvas = querySelector(canvasId);
     this.context = canvas.getContext("2d");
+    this.info = querySelector("#info");
     this.v = new Vector2()
       ..x = 30
       ..y = 30;
@@ -52,6 +54,7 @@ class TestApp{
     //currentTest = new Repetitions(context);
     currentTest = new Waypoints(context);
     currentTest.initialize();
+    info.text = currentTest.info;
   }
   
   

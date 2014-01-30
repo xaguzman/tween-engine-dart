@@ -1,6 +1,6 @@
 part of tweenengine.tests;
 
-class Functions extends Test{
+class Functions extends Screen{
   List<Vector2> vectors;
   Map<int, List<TweenEquation>> equations;
   int state;

@@ -1,6 +1,6 @@
 part of tweenengine.tests;
 
-class Waypoints extends Test{
+class Waypoints extends Screen{
   Vector2 pos;
   
   Waypoints(CanvasRenderingContext2D context): super(context);

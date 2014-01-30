@@ -1,6 +1,6 @@
 part of tweenengine.tests;
 
-abstract class Test {
+abstract class Screen {
   final TweenManager _tweenManager = new TweenManager();
   List<bool> _useDots;
   CanvasRenderingContext2D context;
@@ -12,7 +12,7 @@ abstract class Test {
   num wpw = 10;
   num wph ;
   
-  Test(this.context){
+  Screen(this.context){
     this.wph = 10;
     this.wph = 10 * (context.canvas.height / context.canvas.width);
     

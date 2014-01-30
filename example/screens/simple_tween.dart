@@ -1,6 +1,6 @@
 part of tweenengine.tests;
 
-class SimpleTween extends Test{
+class SimpleTween extends Screen{
   Vector2 pos;
   
   SimpleTween(CanvasRenderingContext2D context): super(context);
