@@ -1,4 +1,4 @@
-part of tweenengine.tests;
+part of tweenengine.example;
 
 class Vector2{
   num x , y;

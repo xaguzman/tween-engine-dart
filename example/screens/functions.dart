@@ -1,11 +1,11 @@
-part of tweenengine.tests;
+part of tweenengine.example;
 
 class Functions extends Screen{
   List<Vector2> vectors;
   Map<int, List<TweenEquation>> equations;
   int state;
   
-  Functions(CanvasRenderingContext2D context): super(context);
+  Functions(CanvasRenderingContext2D context): super(context, "Easing Functions");
   
   initialize(){
     vectors = [
@@ -20,7 +20,6 @@ class Functions extends Screen{
        2 : [Back.INOUT, Elastic.INOUT, Bounce.INOUT]
     };
     state = 0;
-    this.title = "Easing functions";
     this.info = """The most common easing functions - used in JQuery and Flash - are available,
         plus your owns (click canvas to switch functions).""";
     startFunctions(0.5);
@@ -95,7 +94,6 @@ class Functions extends Screen{
   
   dispose(){
     _tweenManager.killAll();
-    //context.canvas.onClick.
   }
   
 }

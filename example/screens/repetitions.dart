@@ -1,16 +1,15 @@
-part of tweenengine.tests;
+part of tweenengine.example;
 
 class Repetitions extends Screen{
   Vector2 pos1, pos2;
   
-  Repetitions(CanvasRenderingContext2D context): super(context);
+  Repetitions(CanvasRenderingContext2D context): super(context, "Repetitions");
   
   initialize(){
     
     pos1 = new Vector2(); 
     pos2 = new Vector2();
     
-    this.title = "Repetitions";
     this.info = "Difference between 'repeat' and 'repeat yoyo' ";
         
     Timeline.createSequence()

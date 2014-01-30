@@ -1,17 +1,16 @@
-part of tweenengine.tests;
+part of tweenengine.example;
 
 class SimpleTimeline extends Screen{
   Vector2 pos, size;
   Color color;
   
-  SimpleTimeline(CanvasRenderingContext2D context): super(context);
+  SimpleTimeline(CanvasRenderingContext2D context): super(context, "Simple Timeline");
   
   initialize(){
     
     pos = new Vector2(); size = new Vector2();
     color = new Color();
     
-    this.title = "Simple timeline";
     this.info = """A 'timeline' sequences multiple tweens (or other timelines)
         either one after the other, or all at once""";
     

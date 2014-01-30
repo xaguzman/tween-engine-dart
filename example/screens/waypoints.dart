@@ -1,15 +1,14 @@
-part of tweenengine.tests;
+part of tweenengine.example;
 
 class Waypoints extends Screen{
   Vector2 pos;
   
-  Waypoints(CanvasRenderingContext2D context): super(context);
+  Waypoints(CanvasRenderingContext2D context): super(context, "Waypoints");
   
   initialize(){
     
     pos = new Vector2(50, 30);
     
-    this.title = "Waypoints";
     this.info = """Tweens can navigate through waypoints, which define a 'bezier' path (here 
                     using a Catmull-Rom spline).""";
     

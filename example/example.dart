@@ -1,4 +1,4 @@
-library tweenengine.tests;
+library tweenengine.example;
 
 import 'dart:html';
 import 'package:tweenengine/tweenengine.dart';
@@ -10,10 +10,11 @@ part 'screens/simple_tween.dart';
 part 'screens/simple_timeline.dart';
 part 'screens/repetitions.dart';
 part 'screens/waypoints.dart';
+part 'screens/main_menu.dart';
 
 main(){
   
-  var app = new TestApp("#canvas");
+  var app = new ExampleApp("#canvas");
   app.start();
   
   window.animationFrame.then(app.render);
@@ -21,22 +22,18 @@ main(){
 
 
 
-class TestApp{
+class ExampleApp{
   CanvasElement canvas ;
   CanvasRenderingContext2D context;
   DivElement info;
-  Vector2 v;
   TweenManager manager;
   num lastUpdate = 0 ;
   Screen currentTest;
   
-  TestApp(String canvasId){
+  ExampleApp(String canvasId){
     this.canvas = querySelector(canvasId);
     this.context = canvas.getContext("2d");
     this.info = querySelector("#info");
-    this.v = new Vector2()
-      ..x = 30
-      ..y = 30;
     manager = new TweenManager();
     context.canvas.onClick.listen( (MouseEvent e){
       currentTest.onClick(e);
@@ -52,9 +49,9 @@ class TestApp{
     //currentTest = new SimpleTween(context);
     //currentTest = new SimpleTimeline(context);
     //currentTest = new Repetitions(context);
-    currentTest = new Waypoints(context);
-    currentTest.initialize();
-    info.text = currentTest.info;
+    //currentTest = new Waypoints(context);
+    setScreen(new MainMenu(context));
+    
   }
   
   
@@ -66,8 +63,17 @@ class TestApp{
     context.fillRect(0, 0, canvas.width, canvas.height);
     
     currentTest.render(deltaTime);
-    //context.stroke();
     window.animationFrame.then(render);
+  }
+  
+  void setScreen(Screen screen){
+    if (currentTest != null)
+      currentTest.dispose();
+    
+    currentTest = screen
+        ..app = this
+        ..initialize();
+    info.text = currentTest.info;
   }
 }
 

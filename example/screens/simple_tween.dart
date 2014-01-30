@@ -1,22 +1,22 @@
-part of tweenengine.tests;
+part of tweenengine.example;
 
 class SimpleTween extends Screen{
   Vector2 pos;
   
-  SimpleTween(CanvasRenderingContext2D context): super(context);
+  SimpleTween(CanvasRenderingContext2D context): super(context, "Simple Tween");
   
   initialize(){
     
     pos = new Vector2(150, 200);
     
-    this.title = "Simple Tween";
     this.info = """A 'tween' is an interpolation from a value to another
         (click anywhere in the canvas to start a 'position tween')""";
   }
   
   void onClick(MouseEvent e){
-    num x =  e.client.x;
-    num y = e.client.y;
+    var boundingRect = context.canvas.getBoundingClientRect();
+    num x =  e.client.x - boundingRect.left;
+    num y = e.client.y - boundingRect.top;
     
     Tween.to(pos, VectorAccessor.XY, 1)
       ..delay = 0.3
