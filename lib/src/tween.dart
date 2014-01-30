@@ -459,11 +459,12 @@ class Tween extends BaseTween<Tween> {
    */
   void set waypoint(targetValues) {
     if(targetValues is num){
-          if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
-          _waypoints[_waypointsCnt] = targetValues;
-          _waypointsCnt += 1;
+      if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
+      _waypoints[_waypointsCnt] = targetValues;
+      _waypointsCnt += 1;
     }else if (targetValues is List<num>){
       if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
+      _waypoints.setAll( _waypointsCnt * targetValues.length, targetValues);
       _waypointsCnt += 1;
     }
   }

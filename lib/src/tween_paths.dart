@@ -11,7 +11,7 @@ part of tweenengine;
  * 
  * Returns the next value of the interpolation.
  */
-typedef num PathComputingFunction(num t, Float32List points, int pointsCnt);
+typedef num PathComputingFunction(num t, List<num> points, int pointsCnt);
 
 /**
  * Base class for every paths. You can create your own paths and directly use

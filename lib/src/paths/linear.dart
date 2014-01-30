@@ -9,7 +9,7 @@ class LinearPath extends TweenPath {
     this.compute = _compute;
   }
 
-  num _compute(num t, Float32List points, int pointsCnt) {
+  num _compute(num t, List<num> points, int pointsCnt) {
     int segment = ((pointsCnt-1) * t).floor();
     segment = Math.max(segment, 0);
     segment = Math.min(segment, pointsCnt-2);
