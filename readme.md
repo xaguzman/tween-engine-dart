@@ -9,6 +9,7 @@ About
 This is a dart port of the [original java Universal Tween Engine][1] created by Aurelien Ribbon. This readme is an adaptation of the original's engine 
 readme which includes how things are handled in the dart version of the engine.
 
+You can find a demo of the library [here][2]
 The engine might have some bugs. Use at your own risk.
 ______
 
@@ -125,7 +126,5 @@ Simple timers can be built with Tween.callBack().
 Source code extensively documented!
 
 
-----------
-
-
   [1]: https://code.google.com/p/java-universal-tween-engine/
+  [2]: http://xaguzman.github.io/tween-engine-dart/
