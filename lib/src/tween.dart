@@ -382,7 +382,7 @@ class Tween extends BaseTween<Tween> {
    * Adds a waypoint to the path. The default path runs from the start values
    * to the end values linearly. If you add waypoints, the default path will
    * use a smooth catmull-rom spline to navigate between the waypoints, but
-   * you can change this behavior by setting the [:path:].
+   * you can change this behavior by setting the [path].
    *
    * [num_OR_numList] The targets of this waypoint. Can be either a num, or a List<num> 
    */
