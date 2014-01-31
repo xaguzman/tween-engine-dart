@@ -1,6 +1,7 @@
 name: tweenengine
-author: Xavier Guzman
+author: Xavier Guzman <xaguzman@gmail.com>
 version: 0.9.0
+homepage: https://github.com/xaguzman/tween-engine-dart
 description: "A port of the java Universal tween engine created by Aurelien Ribbon.\r\
   \n\r\nThis library helps you to animate any attribute for any object"
 environment:
