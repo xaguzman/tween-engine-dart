@@ -39,8 +39,9 @@ class TweenCallback {
     static const int ANY_BACKWARD = 0xF0;
     static const int ANY = 0xFF;
 
-    ///a handler which can take actions when any event occurs on a tween
+    ///The handler to execute when an event occur in the [Tween] or [Timeline]
     CallbackHandler onEvent;
 }
 
+///a handler which can take actions when any event occurs on a tween
 typedef void CallbackHandler(int type, BaseTween source);

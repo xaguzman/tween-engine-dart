@@ -6,11 +6,11 @@ part of tweenengine;
  */
 class Pool<T> {
   List<T> _objects;
-  Callback<T> _callback;
+  PoolCallback<T> _callback;
 
   InstanceCreator<T> create;
 
-  Pool(Callback<T> this._callback) {
+  Pool(PoolCallback<T> this._callback) {
     this._objects = new List();
   }
 
@@ -41,12 +41,15 @@ class Pool<T> {
   
 }
 
+//Defines the actions to take when an object is pooled / unpooled
 typedef void CallbackAction<T>(T obj);
+
+///A function that returns a newly created object of type T
 typedef T InstanceCreator<T>();
 
-class Callback<T> {
+class PoolCallback<T> {
   CallbackAction onPool;
   CallbackAction onUnPool;
   
-  Callback([this.onPool, this.onUnPool]);
+  PoolCallback([this.onPool, this.onUnPool]);
 }

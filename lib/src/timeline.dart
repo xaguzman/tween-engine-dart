@@ -48,7 +48,7 @@ class Timeline extends BaseTween<Timeline> {
   // Static -- pool
   // -------------------------------------------------------------------------
 
-  static final Callback<Timeline> _poolCallback = new Callback<Timeline>()
+  static final PoolCallback<Timeline> _poolCallback = new PoolCallback<Timeline>()
       ..onPool = (Timeline obj) { obj.reset(); }
       ..onUnPool = (Timeline obj) { obj.reset(); };
   

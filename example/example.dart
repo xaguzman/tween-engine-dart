@@ -46,8 +46,8 @@ class ExampleApp{
   start(){
     Tween.registerAccessor(Vector2, new VectorAccessor() );
     Tween.registerAccessor(Color, new ColorAccessor() );
-    Tween.setCombinedAttributesLimit(4);
-    Tween.setWaypointsLimit(4);
+    Tween.combinedAttributesLimit = 4;
+    Tween.waypointsLimit = 4;
     setScreen(new MainMenu(context));
     
   }

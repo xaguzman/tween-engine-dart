@@ -53,26 +53,26 @@ part of tweenengine;
  *    Xavier Guzman (dart port)
  */
 abstract class TweenAccessor<T> {
-        /**
-         * Gets one or many values from the target object associated to the
-         * given tween type. It is used by the Tween Engine to determine starting
-         * values.
-         *
-         * [target] The target object of the tween.
-         * [tweenType] An integer representing the tween type.
-         * [returnValues] An array which should be modified by this method.
-         * 
-         * Returns the count of modified slots from the returnValues array.
-         */
-        int getValues(T target, int tweenType, List<num> returnValues);
-
-        /**
-         * This method is called by the Tween Engine each time a running tween
-         * associated with the current target object has been updated.
-         *
-         * [target] The target object of the tween.
-         * [tweenType] An integer representing the tween type.
-         * [newValues] The new values determined by the Tween Engine.
-         */
-        void setValues(T target, int tweenType, List<num> newValues);
+  /**
+   * Gets one or many values from the target object associated to the
+   * given tween type. It is used by the Tween Engine to determine starting
+   * values.
+   *
+   * [target] The target object of the tween.
+   * [tweenType] An integer representing the tween type.
+   * [returnValues] An array which should be modified by this method.
+   * 
+   * Returns the count of modified slots from the returnValues array.
+   */
+  int getValues(T target, int tweenType, List<num> returnValues);
+  
+  /**
+   * This method is called by the Tween Engine each time a running tween
+   * associated with the current target object has been updated.
+   *
+   * [target] The target object of the tween.
+   * [tweenType] An integer representing the tween type.
+   * [newValues] The new values determined by the Tween Engine.
+   */
+  void setValues(T target, int tweenType, List<num> newValues);
 }

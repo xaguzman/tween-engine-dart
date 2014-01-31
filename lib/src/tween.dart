@@ -77,23 +77,23 @@ class Tween extends BaseTween<Tween> {
   static int _waypointsLimit = 0;
 
   ///Changes the [limit] for combined attributes. Defaults to 3 to reduce memory footprint.
-  static void setCombinedAttributesLimit(int limit) { 
+  static void set combinedAttributesLimit(int limit){ 
     Tween._combinedAttrsLimit = limit; 
   }
 
   ///Changes the [limit] of allowed waypoints for each tween. Defaults to 0 to reduce memory footprint.
-  static void setWaypointsLimit(int limit){ 
+  static void set waypointsLimit(int limit){ 
     Tween._waypointsLimit = limit; 
   }
 
   ///Gets the version number of the library.
-  static String getVersion() => "0.9.0";
+  static String get version => "0.9.0";
 
   // -------------------------------------------------------------------------
   // Static -- pool
   // -------------------------------------------------------------------------
 
-  static final Callback<Tween> _poolCallback = new Callback<Tween>()
+  static final PoolCallback<Tween> _poolCallback = new PoolCallback<Tween>()
       ..onPool = (Tween obj) { obj.reset(); }
       ..onUnPool = (Tween obj) { obj.reset(); };
       
@@ -105,8 +105,8 @@ class Tween extends BaseTween<Tween> {
   /// Used for debug purpose. Gets the current number of objects that are waiting in the Tween pool.
   int getPoolSize() => _pool.size();
 
-  ///Increases the minimum capacity of the pool. Capacity defaults to 20.
-  static void ensurePoolCapacity(int minCapacity) => _pool.ensureCapacity(minCapacity);
+  //Increases the minimum capacity of the pool. Capacity defaults to 20.
+  //static void ensurePoolCapacity(int minCapacity) => _pool.ensureCapacity(minCapacity);
 
   // -------------------------------------------------------------------------
   // Static -- tween accessors
@@ -119,20 +119,20 @@ class Tween extends BaseTween<Tween> {
    * used by tweens applied to every objects implementing the registered
    * class, or inheriting from it.
    *
-   * [someClass] An object type.
+   * [someType] An object type.
    * [defaultAccessor] Th e accessor that will be used to tween any object of class "someClass".
    */
-  static void registerAccessor(Type someClass, TweenAccessor defaultAccessor) {
-    _registeredAccessors[someClass] = defaultAccessor;
+  static void registerAccessor(Type someType, TweenAccessor defaultAccessor) {
+    _registeredAccessors[someType] = defaultAccessor;
   }
 
   /**
    * Gets the registered TweenAccessor associated with the given object class.
    *
-   * [someClass] An object type.
+   * [someType] An object type.
    */
-  static TweenAccessor getRegisteredAccessor(Type someClass) {
-    return _registeredAccessors[someClass];
+  static TweenAccessor getRegisteredAccessor(Type someType) {
+    return _registeredAccessors[someType];
   }
 
   // -------------------------------------------------------------------------
@@ -377,55 +377,65 @@ class Tween extends BaseTween<Tween> {
     if (isStarted) throw new Exception("You can't cast the target of a tween once it is started");
     _targetClass = targetClass;
   }
-        
+
   /**
-   * Sets the easing equation of the tween. Existing equations can be accessed via 
+   * Adds a waypoint to the path. The default path runs from the start values
+   * to the end values linearly. If you add waypoints, the default path will
+   * use a smooth catmull-rom spline to navigate between the waypoints, but
+   * you can change this behavior by setting the [:path:].
+   *
+   * [num_OR_numList] The targets of this waypoint. Can be either a num, or a List<num> 
+   */
+  void addWaypoint(num_OR_numList) {
+    if(num_OR_numList is num){
+      if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
+      _waypoints[_waypointsCnt] = num_OR_numList;
+      _waypointsCnt += 1;
+    }else if (num_OR_numList is List<num>){
+      if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
+      _waypoints.setAll( _waypointsCnt * num_OR_numList.length, num_OR_numList);
+      _waypointsCnt += 1;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Getters & Setters
+  // -------------------------------------------------------------------------
+
+  ///Gets the target object.
+  get target => _target;
+
+  ///Gets the type of the tween.
+  int get tweenType => _type;
+
+  /**
+   * The easing [equation][TweenEquation] of the tween. Existing equations can be accessed via 
    * [TweenEquations] static instances, but you can of course implement your owns, see [TweenEquation]. 
    * Default equation is Quad.INOUT.
-   *
-   * Proposed equations are:
-   * * Linear.INOUT,<br/>
-   * * Quad.IN | OUT | INOUT,<br/>
-   * * Cubic.IN | OUT | INOUT,<br/>
-   * * Quart.IN | OUT | INOUT,<br/>
-   * * Quint.IN | OUT | INOUT,<br/>
-   * * Circ.IN | OUT | INOUT,<br/>
-   * * Sine.IN | OUT | INOUT,<br/>
-   * * Expo.IN | OUT | INOUT,<br/>
-   * * Back.IN | OUT | INOUT,<br/>
-   * * Bounce.IN | OUT | INOUT,<br/>
-   * * Elastic.IN | OUT | INOUT
-   *
-   * see [TweenEquation]
-   * see [TweenEquations]
    */
+  TweenEquation get easing => _equation;
   void set easing(TweenEquation easeEquation) {
     _equation = easeEquation;
   }
 
-  
-  
   /**
-   * Sets the target values of the interpolation. The interpolation will run from the 
-   * **values at start time (after the delay, if any)** to these target values.
+   * Target value(s) of the interpolation. The interpolation will run from the 
+   * **value(s) at start time (after the delay, if any)** to these target value(s).
    *
    * To sum-up:
    * * start values: values at start time, after delay
-   * * end values: params
-   *
-   * targetValues The target value(s)s of the interpolation. Can be either a num, or a List<num> if 
-   * multiple target values are needed
-   * 
+   * * end values: [targetValues]
    */
-  void set targetValues(targetValues) {
-    if(targetValues is num)
-      _targetValues[0] = targetValues;
-    else if (targetValues is List<num>){
+  List<num> get targetValues => _targetValues;
+  void set targetValues(num_OR_numList) {
+    if(num_OR_numList is num)
+      _targetValues[0] = num_OR_numList;
+    else if (num_OR_numList is List<num>){
       if (_targetValues.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
-      _targetValues.setAll(0, targetValues);
+      _targetValues.setAll(0, num_OR_numList);
     }
   }
-
+  
   /**
    * Sets the target values of the interpolation, relatively to the **values
    * at start time (after the delay, if any)**.
@@ -437,79 +447,36 @@ class Tween extends BaseTween<Tween> {
    * targetValues The relative target values of the interpolation. Can be either a num, or a List<num> if 
    * multiple target values are needed
    */
-  void set targetRelative(targetValues) {
-    if(targetValues is num)
-      _targetValues[0] = isInitialized ? targetValues + _startValues[0] : targetValues;
-    else if (targetValues is List<num>){
-      if (targetValues.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
-      for (int i=0; i< targetValues.length; i++) {
-        _targetValues[i] = isInitialized ? targetValues[i] + _startValues[i] : targetValues[i];
+  void set targetRelative(num_OR_numList) {
+    if(num_OR_numList is num)
+      _targetValues[0] = isInitialized ? num_OR_numList + _startValues[0] : num_OR_numList;
+    else if (num_OR_numList is List<num>){
+      if (num_OR_numList.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
+      for (int i=0; i< num_OR_numList.length; i++) {
+        _targetValues[i] = isInitialized ? num_OR_numList[i] + _startValues[i] : num_OR_numList[i];
       }
     }
     _isRelative = true;
   }
-
+  
+  
   /**
-   * Adds a waypoint to the path. The default path runs from the start values
-   * to the end values linearly. If you add waypoints, the default path will
-   * use a smooth catmull-rom spline to navigate between the waypoints, but
-   * you can change this behavior by setting the [:path:].
-   *
-   * [targetValues] The targets of this waypoint. Can be either a num, or a List<num> 
-   */
-  void set waypoint(targetValues) {
-    if(targetValues is num){
-      if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
-      _waypoints[_waypointsCnt] = targetValues;
-      _waypointsCnt += 1;
-    }else if (targetValues is List<num>){
-      if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
-      _waypoints.setAll( _waypointsCnt * targetValues.length, targetValues);
-      _waypointsCnt += 1;
-    }
-  }
-
-  /**
-   * Sets the algorithm that will be used to navigate through the waypoints,
+   * The algorithm that will be used to navigate through the waypoints,
    * from the start values to the end values. Default is a catmull-rom spline,
-   * but you can find other paths in the {@link TweenPaths} class.
-   *
-   * @param path A TweenPath implementation.
-   * @return The current tween, for chaining instructions.
-   * @see TweenPath
-   * @see TweenPaths
+   * but you can find other paths in the [TweenPaths] class.
    */
+  TweenPath get path => _path;
   void set path(TweenPath path) {
     _path = path;
   }
 
-  // -------------------------------------------------------------------------
-  // Getters
-  // -------------------------------------------------------------------------
-
-  ///Gets the target object.
-  get target => _target;
-
-//  ///Gets the type of the tween.
-//  int tweenType => _type;
-
-  ///Gets the easing equation.
-  TweenEquation get easing => _equation;
-
-  /**
-   * Gets the target values. The returned buffer is as long as the maximum
-   * allowed combined values. Therefore, you're surely not interested in all
-   * its content. 
-   */
-  List<num> get targetValues => _targetValues;
-
-  ///Gets the number of combined animations.
+  ///the number of combined animations.
   int get combinedAttributesCount=> _combinedAttrsCnt;
 
-  ///Gets the TweenAccessor used with the target.
+  ///the TweenAccessor used with the target.
   TweenAccessor get accessor=> _accessor;
 
-  ///Gets the class that was used to find the associated TweenAccessor.
+  ///the class that was used to find the associated TweenAccessor.
   Type get targetClass => _targetClass;
 
   // -------------------------------------------------------------------------

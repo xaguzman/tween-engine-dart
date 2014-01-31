@@ -130,9 +130,7 @@ class TweenManager {
    * 
    * **Provided for debug purpose only.**
    */
-  List<BaseTween> get_objects() {
-    return new List<BaseTween>.from(_objects, growable: false);
-  }
+  List<BaseTween> get objects => new List<BaseTween>.from(_objects, growable: false);
 
   // -------------------------------------------------------------------------
   // Helpers

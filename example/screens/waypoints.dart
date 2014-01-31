@@ -13,10 +13,10 @@ class Waypoints extends Screen{
                     using a Catmull-Rom spline). Press escape to go back""";
     
     Tween.to(pos, VectorAccessor.XY, 3)
-      ..waypoint = [200,100]
-      ..waypoint = [150, 150]
-      ..waypoint = [180, 180]
-      ..waypoint = [380, 50]
+      ..addWaypoint ([200,100] )
+      ..addWaypoint ([150, 150])
+      ..addWaypoint ([180, 180])
+      ..addWaypoint ([380, 50])
       ..targetValues = [350, 250]
       ..easing = Quad.INOUT
       ..path = TweenPaths.catmullRom
