@@ -12,7 +12,7 @@ class SimpleTimeline extends Screen{
     color = new Color();
     
     this.info = """A 'timeline' sequences multiple tweens (or other timelines)
-        either one after the other, or all at once""";
+        either one after the other, or all at once. Press escape to go back""";
     
     Timeline.createSequence()
       ..push(Tween.set(pos, VectorAccessor.XY)..targetValues = [100, 100])
@@ -45,6 +45,13 @@ class SimpleTimeline extends Screen{
       ..lineWidth = 2
       ..setStrokeColorRgb(255, 255, 255, color.a)
       ..stroke();
+  }
+  
+  void onKeyDown(KeyboardEvent e){
+    if (e.keyCode == KeyCode.ESC){
+      app.setScreen(new MainMenu(context));
+      dispose();
+    }
   }
   
   dispose(){

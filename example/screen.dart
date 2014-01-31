@@ -15,6 +15,8 @@ abstract class Screen {
   }
   
   void onClick(MouseEvent e) {}
+  
+  void onKeyDown(KeyboardEvent e) {}
       
   initialize();
   

@@ -39,9 +39,8 @@ class MainMenu extends Screen{
         }
       }
     }
-    
   } 
-  
+    
   render(num delta){
     super.render(delta);
     _tweenManager.update(delta);

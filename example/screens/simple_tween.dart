@@ -10,7 +10,7 @@ class SimpleTween extends Screen{
     pos = new Vector2(150, 200);
     
     this.info = """A 'tween' is an interpolation from a value to another
-        (click anywhere in the canvas to start a 'position tween')""";
+        (click anywhere in the canvas to start a 'position tween'). Press escape to go back""";
   }
   
   void onClick(MouseEvent e){
@@ -24,7 +24,12 @@ class SimpleTween extends Screen{
     ..start(_tweenManager);
   } 
   
-  
+  void onKeyDown(KeyboardEvent e){
+    if (e.keyCode == KeyCode.ESC){
+      app.setScreen(new MainMenu(context));
+      dispose();
+    }
+  }
   
   render(num delta){
     super.render(delta);

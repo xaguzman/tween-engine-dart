@@ -21,7 +21,7 @@ class Functions extends Screen{
     };
     state = 0;
     this.info = """The most common easing functions - used in JQuery and Flash - are available,
-        plus your owns (click canvas to switch functions).""";
+        plus your owns (click canvas to switch functions). Press escape to go back""";
     startFunctions(0.5);
     
   }
@@ -43,6 +43,13 @@ class Functions extends Screen{
         state = 0;
         startFunctions(1.0); 
         break;
+    }
+  }
+  
+  void onKeyDown(KeyboardEvent e){
+    if (e.keyCode == KeyCode.ESC){
+      app.setScreen(new MainMenu(context));
+      dispose();
     }
   }
   

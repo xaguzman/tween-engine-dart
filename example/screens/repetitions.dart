@@ -10,7 +10,7 @@ class Repetitions extends Screen{
     pos1 = new Vector2(); 
     pos2 = new Vector2();
     
-    this.info = "Difference between 'repeat' and 'repeat yoyo' ";
+    this.info = "Difference between 'repeat' and 'repeat yoyo'. Press escape to go back ";
         
     Timeline.createSequence()
       ..push(Tween.set(pos1, VectorAccessor.XY)..targetValues = [100, 90])
@@ -36,6 +36,13 @@ class Repetitions extends Screen{
       ..fillStyle = 'white'
       ..fillText("Normal", 15, 120)
       ..fillText("Yoyo", 15, 200);;
+  }
+  
+  void onKeyDown(KeyboardEvent e){
+    if (e.keyCode == KeyCode.ESC){
+      app.setScreen(new MainMenu(context));
+      dispose();
+    }
   }
   
   dispose(){

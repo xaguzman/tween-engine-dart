@@ -10,7 +10,7 @@ class Waypoints extends Screen{
     pos = new Vector2(50, 30);
     
     this.info = """Tweens can navigate through waypoints, which define a 'bezier' path (here 
-                    using a Catmull-Rom spline).""";
+                    using a Catmull-Rom spline). Press escape to go back""";
     
     Tween.to(pos, VectorAccessor.XY, 3)
       ..waypoint = [200,100]
@@ -23,6 +23,13 @@ class Waypoints extends Screen{
       ..repeatYoyo(Tween.INFINITY, 0.2)
       ..delay = 0.5
       ..start(_tweenManager);
+  }
+  
+  void onKeyDown(KeyboardEvent e){
+    if (e.keyCode == KeyCode.ESC){
+      app.setScreen(new MainMenu(context));
+      dispose();
+    }
   }
   
   render(num delta){

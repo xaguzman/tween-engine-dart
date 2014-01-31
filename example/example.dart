@@ -38,6 +38,9 @@ class ExampleApp{
     context.canvas.onClick.listen( (MouseEvent e){
       currentTest.onClick(e);
     });
+    window.onKeyDown.listen( (KeyboardEvent e){
+      currentTest.onKeyDown(e);
+    });
   }
   
   start(){
@@ -45,11 +48,6 @@ class ExampleApp{
     Tween.registerAccessor(Color, new ColorAccessor() );
     Tween.setCombinedAttributesLimit(4);
     Tween.setWaypointsLimit(4);
-    //currentTest = new Functions(context);
-    //currentTest = new SimpleTween(context);
-    //currentTest = new SimpleTimeline(context);
-    //currentTest = new Repetitions(context);
-    //currentTest = new Waypoints(context);
     setScreen(new MainMenu(context));
     
   }
