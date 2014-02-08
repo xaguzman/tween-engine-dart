@@ -16,9 +16,66 @@ ______
 Introduction
 ============
 
-The Universal Tween Engine enables the interpolation of every attribute from any object in any dart project(server or client side). Implement the TweenAccessor interface, register it to the engine, and animate anything you want!
+The Universal Tween Engine enables the interpolation of every attribute from any object in any dart project(server or client side). Tweens are 'fire and forget'.
 
-In one line, send your objects to another position (here x=20 and y=30), with a smooth elastic transition, during 1 second).
+Implement the TweenAccessor interface, register it to the engine, and animate anything you want! 
+
+```dart
+class MyAccessor implements TweenAccessor<MyClass>{
+  static const Type1 = 1;
+  
+  int getValues(MyClass target, int tweenType, List<num> returnValues){
+    if ( tweenType == MyAccessor.Type1 ){
+      returnValues[0] = target.x;
+      returnValues[1] = target.y;
+      return 2;
+    }
+    return 0;
+  }
+
+  void setValues(MyClass target, int tweenType, List<num> newValues){
+    if ( tweenType == MyAccessor.Type1 ){
+      target.x = newValues[0];
+      target.y = newValues[1];
+    }
+  }
+}
+
+class MyClass{
+  num x, y;
+}
+
+main(){
+   Tween.registerAccessor(MyClass, new MyAccessor() );
+}
+
+```
+
+_For the tween to be completed, a continuous call to TweenManager.Update(delta) is needed.
+The delta parameter represents the time elapsed in **milliseconds** since last call to TweenManager.update_.
+
+An easy way to obtain the delta is the window.onanimationFrame method:
+
+```dart
+
+TweenManager myManager;
+main(){
+  ...
+  myManager = new TweenManager();
+  window.animationFrame.then(update);
+}
+
+num lastUpdate = 0;
+update(num delta){
+  num deltaTime = (delta - lastUpdate) / 1000;
+  lastUpdate = delta;
+  
+  myManager.update(deltaTime);
+  window.animationFrame.then(update);
+}
+```
+
+Next, send your objects to another position (here x=20 and y=30), with a smooth elastic transition, during 1 second.
 
 ```dart
 // Arguments are 
@@ -27,12 +84,17 @@ In one line, send your objects to another position (here x=20 and y=30), with a 
 // 3. the duration in seconds
 // Additional methods specify the target values, and the easing function. 
 
-Tween.to(mySprite, Type.POSITION_XY, 1.0)
-  ..targetValues = [20, 30]
-  ..easing = Elastic.INOUT;
+main(){
+  ...
+  Tween.to(myClass, MyAccessor.Type1, 1.0)
+    ..targetValues = [20, 30]
+    ..easing = Elastic.INOUT;
+  window.animationFrame.then(update);
+}
+
 ```
 
-// Possibilities are:
+Possibilities are:
 
 ```dart
 Tween.to(...); // interpolates from the current values to the targets
@@ -41,7 +103,7 @@ Tween.set(...); // apply the target values without animation (useful with a dela
 Tween.call(...); // calls a method (useful with a delay)
 ```
 
-// Current options are:
+Current options are:
 
 ```dart
 myTween.delay = 0.5;
@@ -54,7 +116,7 @@ myTween.setCallbackTriggers(flags);
 myTween.setUserData(obj);
 ```
 
-// You can of course chain everything (with dart's method cascading):
+ You can of course chain everything (with dart's method cascading):
 
 ```dart
 Tween.to(...)
@@ -63,8 +125,8 @@ Tween.to(...)
  ..start(myManager);
 ```
 
-// Moreover, slow-motion, fast-motion and reverse play is easy,
-// you just need to change the speed of the update:
+By altering the delta parameter, adding slow-motion, fast-motion or reverse play is easy,
+you just need to change the speed of the update:
 
 ```dart
 myManager.update(delta * speed);
