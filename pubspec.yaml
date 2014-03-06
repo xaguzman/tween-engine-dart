@@ -5,6 +5,6 @@ homepage: https://github.com/xaguzman/tween-engine-dart
 description: "A port of the java Universal tween engine created by Aurelien Ribbon.\r\
   \n\r\nThis library helps you to animate any attribute for any object"
 environment:
-  sdk: >=1.1.1+6 <2.0.0
+  sdk: ">=1.1.1+6 <2.0.0"
 dependencies:
   browser: any
