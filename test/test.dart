@@ -136,7 +136,7 @@ main() {
         }
       };
 
-      Tween.to(myClass, MyAccessor.XY, 1.0)
+      Tween.to(myClass, MyAccessor.XY, 0.1)
         ..targetValues = [20, 30]
         ..easing = Elastic.INOUT
         ..setCallback(myCallback)
@@ -150,7 +150,7 @@ main() {
 
     test('it basically works', () {
 
-      var myClass = new MyTweenable();
+      var life = new MyTweenable();
 
       // The following are expected to be called exactly once
       // Note that `expectAsync1` will soon be deprecated.
@@ -167,6 +167,7 @@ main() {
             break;
           case TweenCallback.COMPLETE:
             expectOnComplete(tween);
+            expect(life.answer, equals(69));
             break;
           case TweenCallback.START:
             expectOnStart(tween);
@@ -179,8 +180,12 @@ main() {
         }
       };
 
-      Tween.to(myClass, MyTweenable.ANSWER, 1.0)
-        ..targetValues = [666]
+      // Sanity checks
+      expect(life.answer, equals(42));
+
+      // Tween the answer
+      Tween.to(life, MyTweenable.ANSWER, 0.1)
+        ..targetValues = [69]
         ..easing = Linear.INOUT
         ..setCallback(myCallback)
         ..setCallbackTriggers(TweenCallback.ANY)
