@@ -287,7 +287,7 @@ class Tween extends BaseTween<Tween> {
   // -------------------------------------------------------------------------
 
   // Main
-  Object _target;
+  var _target;
   Type _targetClass;
   TweenAccessor<Object> _accessor;
   int _type;
