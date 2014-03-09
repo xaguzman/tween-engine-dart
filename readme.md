@@ -3,20 +3,24 @@ License
 
 Apache License 2.0
 
+
 About
 =====
 
-This is a dart port of the [original java Universal Tween Engine][1] created by Aurelien Ribbon. This readme is an adaptation of the original's engine 
-readme which includes how things are handled in the dart version of the engine.
+This is a dart port of the [original java Universal Tween Engine][1] created by Aurelien Ribbon.
+This readme is an adaptation of the original's engine readme and includes how things are handled in the dart version of the engine.
 
-You can find a demo of the library [here][2]
+You can find a demo of the library [here][2].
 The engine might have some bugs. Use at your own risk.
+
 ______
+
 
 Introduction
 ============
 
-The Universal Tween Engine enables the interpolation of every attribute from any object in any dart project(server or client side). Tweens are 'fire and forget'.
+The Universal Tween Engine enables the interpolation of every attribute from any object in any dart project (server or client side).
+Tweens are 'fire and forget'.
 
 Implement the TweenAccessor interface, register it to the engine, and animate anything you want! 
 
@@ -42,11 +46,11 @@ class MyAccessor implements TweenAccessor<MyClass>{
 }
 
 class MyClass{
-  num x, y;
+  num x=0, y=0;
 }
 
 main(){
-   Tween.registerAccessor(MyClass, new MyAccessor() );
+   Tween.registerAccessor(MyClass, new MyAccessor());
 }
 
 ```
@@ -54,7 +58,7 @@ main(){
 _For the tween to be completed, a continuous call to TweenManager.Update(delta) is needed.
 The delta parameter represents the time elapsed in **milliseconds** since last call to TweenManager.update_.
 
-An easy way to obtain the delta is the window.onanimationFrame method:
+An easy way to obtain the delta is the `window.animationFrame` method:
 
 ```dart
 
@@ -116,7 +120,7 @@ myTween.setCallbackTriggers(flags);
 myTween.setUserData(obj);
 ```
 
- You can of course chain everything (with dart's method cascading):
+You can of course chain everything (with dart's method cascading):
 
 ```dart
 Tween.to(...)
@@ -172,20 +176,36 @@ Tween.callBack(myCallback)
   ..start(myManager);
 ```
 
-Main features are:
 
-Supports every interpolation function defined by Robert Penner: http://www.robertpenner.com/easing/
-Can be used with any object. You just have to implement the TweenAccessor interface when you want interpolation capacities.
-Every attribute can be interpolated. The only requirement is that what you want to interpolate can be represented as a number.
-One line is sufficient to create and start a simple interpolation.
-Delays can be specified, to trigger the interpolation only after some time.
-Many callbacks can be specified (when tweens complete, start, end, etc.).
-Tweens and Timelines are pooled by default. If enabled, there won't be any object allocation during runtime! 
-Tweens can be sequenced when used in Timelines.
-Tweens can act on more than one value at a time, so a single tween can change the whole position (X and Y) of a sprite for instance !
-Tweens and Timelines can be repeated, with a yoyo style option.
-Simple timers can be built with Tween.callBack().
-Source code extensively documented!
+Main features
+=============
+
+- Supports every [interpolation function defined by Robert Penner](http://www.robertpenner.com/easing/).
+- Can be used with any object. You just have to implement the `TweenAccessor` interface when you want interpolation capacities.
+- Every attribute can be interpolated. The only requirement is that what you want to interpolate can be represented as a number.
+- One line is sufficient to create and start a simple interpolation.
+- Delays can be specified, to trigger the interpolation only after some time.
+- Many callbacks can be specified (when tweens complete, start, end, etc.).
+- Tweens and Timelines are pooled by default. If enabled, there won't be any object allocation during runtime!
+- Tweens can be sequenced when used in Timelines.
+- Tweens can act on more than one value at a time, so a single tween can change the whole position (X and Y) of a sprite for instance !
+- Tweens and Timelines can be repeated, with a yoyo style option.
+- Simple timers can be built with `Tween.callBack()`.
+- Source code extensively documented!
+- Test suite included!
+
+
+Testing suite
+=============
+
+Since `0.10.0`, tweenengine has a (crude) test suite.
+It leverages the `unittest` package.
+
+To run it, you'll either need _Dartium_ or _dart2js_.
+
+1. Browse `test/test.html` using Dartium.
+2. Compile `test/test.dart` to `test/test.dart.js` using dart2js, and then browse `test/test.html`.
+
 
 
   [1]: https://code.google.com/p/java-universal-tween-engine/
