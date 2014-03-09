@@ -114,10 +114,10 @@ abstract class BaseTween<T> {
   }
 
   /**
-   * Repeats the tween or timeline for a given number of times.
+   * Repeats the tween or timeline [count] times.
    * 
-   * * [count] The number of repetitions. For infinite repetition, use [Tween.INFINITY], or a negative number.
-   * * [delay] A delay between each iteration.
+   * [count] The number of repetitions. For infinite repetition, use [Tween.INFINITY], or a negative number.
+   * [delay] A delay between each iteration.
    */
   void repeat(int count, num delay) {
     if (_isStarted) throw new Exception("You can't change the repetitions of a tween or timeline once it is started");
@@ -127,10 +127,10 @@ abstract class BaseTween<T> {
   }
 
   /**
-   * Repeats the tween or timeline for a given number of times.
+   * Repeats the tween or timeline [count] times.
    * Every two iterations, it will be played backwards.
    *
-   * [count] The number of repetitions. For infinite repetition,  use [Tween.INFINITY], or '-1'.
+   * [count] The number of repetitions. For infinite repetition,  use [Tween.INFINITY], or `-1`.
    * [delay] A delay before each repetition.
    */
   void repeatYoyo(int count, num delay) {

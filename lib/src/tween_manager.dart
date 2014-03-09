@@ -75,7 +75,7 @@ class TweenManager {
   void resume() { _isPaused = false; }
 
   /**
-   * Updates every tweens with a delta time ang handles the tween life-cycles
+   * Updates all tweens with a [delta] time and handles the tweens life-cycles
    * automatically. If a tween is finished, it will be removed from the
    * manager. **The delta time represents the elapsed time between now and the
    * last update call**. Each tween or timeline manages its local time, and adds

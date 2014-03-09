@@ -1,9 +1,9 @@
 part of tweenengine;
 
 /**
- * TweenCallbacks are used to trigger actions at some specific times. They are
- * used in both Tweens and Timelines. The moment when the callback is
- * triggered depends on its registered triggers:
+ * TweenCallbacks are used to trigger actions at some specific times.
+ * They are used in both Tweens and Timelines.
+ * The moment when the callback is triggered depends on its registered triggers:
  *
  * * [TweenCallback.BEGIN]: right after the delay (if any)
  * * [TweenCallback.START]: at each iteration beginning
