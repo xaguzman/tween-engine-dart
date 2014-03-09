@@ -34,10 +34,40 @@ class MyClass {
 }
 
 /// Test fixture object with tweenable properties
-class MyTweenable {
+class MyTweenable implements Tweenable {
+  static const int ANSWER = 1;
+  static const int CIRCLE = 2;
+
   int answer = 42;
   num circle = 6.2831853;
+
+  int getTweenableValues(int tweenType, List<num> returnValues) {
+    if (tweenType == ANSWER) {
+      returnValues[0] = answer;
+    } else if (tweenType == CIRCLE) {
+      returnValues[0] = circle;
+    }
+    return 1;
+  }
+
+  void setTweenableValues(int tweenType, List<num> newValues) {
+    if (tweenType == ANSWER) {
+      answer = newValues[0];
+    } else if (tweenType == CIRCLE) {
+      circle = newValues[0];
+    }
+  }
 }
+
+
+// This is a very crude test suite, not covering much of the code base.
+// Some ideas of tests :
+// - backward events
+// - meaningful exceptions :
+//   - myClass with null properties
+//   - myClass with non-numeric properties
+
+
 
 main() {
 
@@ -75,13 +105,9 @@ main() {
 
     test('it basically works', () {
 
-      // This is a very crude test, not covering much of the code base
-      // Some ideas of tests :
-      // - backward events
-      // - meaningful exceptions :
-      //   - myClass with null properties
-      //   - myClass with non-numeric properties
+      var myClass = new MyClass();
 
+      // Register the accessor
       Tween.registerAccessor(MyClass, new MyAccessor());
 
       // The following are expected to be called exactly once
@@ -94,30 +120,68 @@ main() {
       myCallback.onEvent = (type, tween) {
         switch(type) {
           case TweenCallback.BEGIN:
-            print('BEGIN');
             expectOnBegin(tween);
             break;
           case TweenCallback.COMPLETE:
-            print('COMPLETE');
             expectOnComplete(tween);
             break;
           case TweenCallback.START:
-            print('START');
             expectOnStart(tween);
             break;
           case TweenCallback.END:
-            print('END');
             expectOnEnd(tween);
             break;
           default:
-            print('DEFAULT ' + type.toString());
+            print('DEFAULT CALLBACK CAUGHT ; type = ' + type.toString());
         }
       };
 
-      var myClass = new MyClass();
       Tween.to(myClass, MyAccessor.XY, 1.0)
         ..targetValues = [20, 30]
         ..easing = Elastic.INOUT
+        ..setCallback(myCallback)
+        ..setCallbackTriggers(TweenCallback.ANY)
+        ..start(myManager);
+    });
+
+  });
+
+  group('Using Tweenable', () {
+
+    test('it basically works', () {
+
+      var myClass = new MyTweenable();
+
+      // The following are expected to be called exactly once
+      // Note that `expectAsync1` will soon be deprecated.
+      Function expectOnBegin     = expectAsync1((tween){});
+      Function expectOnComplete  = expectAsync1((tween){});
+      Function expectOnStart     = expectAsync1((tween){});
+      Function expectOnEnd       = expectAsync1((tween){});
+
+      TweenCallback myCallback = new TweenCallback();
+      myCallback.onEvent = (type, tween) {
+        switch(type) {
+          case TweenCallback.BEGIN:
+            expectOnBegin(tween);
+            break;
+          case TweenCallback.COMPLETE:
+            expectOnComplete(tween);
+            break;
+          case TweenCallback.START:
+            expectOnStart(tween);
+            break;
+          case TweenCallback.END:
+            expectOnEnd(tween);
+            break;
+          default:
+            print('DEFAULT CALLBACK CAUGHT ; type = ' + type.toString());
+        }
+      };
+
+      Tween.to(myClass, MyTweenable.ANSWER, 1.0)
+        ..targetValues = [666]
+        ..easing = Linear.INOUT
         ..setCallback(myCallback)
         ..setCallbackTriggers(TweenCallback.ANY)
         ..start(myManager);
