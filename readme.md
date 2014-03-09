@@ -203,8 +203,21 @@ It leverages the `unittest` package.
 
 To run it, you'll either need _Dartium_ or _dart2js_.
 
-1. Browse `test/test.html` using Dartium.
-2. Compile `test/test.dart` to `test/test.dart.js` using dart2js, and then browse `test/test.html`.
+Using Dartium
+-------------
+
+Browse `test/test.html`.
+
+Using dart2js
+-------------
+
+Compile `test/test.dart` to `test/test.dart.js` :
+
+```bash
+$ dart2js test/test.dart -v -o test/test.dart.js
+```
+
+Then, browse `test/test.html`.
 
 
 
