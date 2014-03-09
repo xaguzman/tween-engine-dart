@@ -5,6 +5,7 @@ import 'dart:math' as Math;
 
 part 'src/base_tween.dart';
 part 'src/tween.dart';
+part 'src/tweenable.dart';
 part 'src/tween_accesor.dart';
 part 'src/tween_callback.dart';
 part 'src/tween_manager.dart';
