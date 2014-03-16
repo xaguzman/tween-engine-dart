@@ -22,7 +22,20 @@ Introduction
 The Universal Tween Engine enables the interpolation of every attribute from any object in any dart project (server or client side).
 Tweens are 'fire and forget'.
 
-Implement the TweenAccessor interface, register it to the engine, and animate anything you want! 
+Implementing
+------------
+
+Dart, unlike javascript, has no string accessors for objects, such as `myObject['myProperty']`.
+Reflection methods are still under development in Dart, and they will be slow.
+So, there are two ways of telling the engine which properties you want to tween.
+The first one is very useful if you do not have control over the class you want to tween a property of.
+The second one is a bit less verbose but requires code in the class you want to tween.
+
+Using `TweenAccessor`
+~~~~~~~~~~~~~~~~~~~~~
+
+Create an accessor that implements the `TweenAccessor` interface,
+register it to the engine, and animate anything you want!
 
 ```dart
 class MyAccessor implements TweenAccessor<MyClass>{
@@ -55,8 +68,53 @@ main(){
 
 ```
 
-_For the tween to be completed, a continuous call to TweenManager.Update(delta) is needed.
-The delta parameter represents the time elapsed in **milliseconds** since last call to TweenManager.update_.
+Using `Tweenable`
+~~~~~~~~~~~~~~~~~
+
+Make sure the class you want to tween implements the `Tweenable` interface.
+
+```dart
+class MyTweenable implements Tweenable {
+  static const int ANSWER = 1;
+  static const int CIRCLE = 2;
+
+  int answer = 42;
+  num circle = 6.2831853;
+
+  /**
+   * Updates [returnValues] with the values of the properties you want to tween
+   * when you run a `tweenType` tween.
+   * Returns the number of values set in [returnValues].
+   */
+  int getTweenableValues(int tweenType, List<num> returnValues) {
+    if (tweenType == ANSWER) {
+      returnValues[0] = answer;
+    } else if (tweenType == CIRCLE) {
+      returnValues[0] = circle;
+    }
+    return 1;
+  }
+
+  /**
+   * Updates this object's properties with values from [newValues],
+   * in the [tweenType] fashion of `getTweenableValues`.
+   */
+  void setTweenableValues(int tweenType, List<num> newValues) {
+    if (tweenType == ANSWER) {
+      answer = newValues[0];
+    } else if (tweenType == CIRCLE) {
+      circle = newValues[0];
+    }
+  }
+}
+```
+
+
+Updating
+--------
+
+_For the tween to be completed, a continuous call to your TweenManager's `.update(delta)` is needed.
+The delta parameter represents the time elapsed in **milliseconds** since last call to `update`_.
 
 An easy way to obtain the delta is the `window.animationFrame` method:
 
@@ -98,12 +156,16 @@ main(){
 
 ```
 
+
+API
+---
+
 Possibilities are:
 
 ```dart
-Tween.to(...); // interpolates from the current values to the targets
+Tween.to(...);   // interpolates from the current values to the targets
 Tween.from(...); // interpolates from the given values to the current ones
-Tween.set(...); // apply the target values without animation (useful with a delay)
+Tween.set(...);  // apply the target values without animation (useful with a delay)
 Tween.call(...); // calls a method (useful with a delay)
 ```
 
