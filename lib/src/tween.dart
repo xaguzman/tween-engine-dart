@@ -87,7 +87,7 @@ class Tween extends BaseTween<Tween> {
   }
 
   ///Gets the version number of the library.
-  static String get version => "0.9.0";
+  static String get version => "0.10.0";
 
   // -------------------------------------------------------------------------
   // Static -- pool
@@ -287,7 +287,7 @@ class Tween extends BaseTween<Tween> {
   // -------------------------------------------------------------------------
 
   // Main
-  Object _target;
+  var _target;
   Type _targetClass;
   TweenAccessor<Object> _accessor;
   int _type;
@@ -352,7 +352,8 @@ class Tween extends BaseTween<Tween> {
   Type _findTargetClass() {
     if (_registeredAccessors.containsKey(_target.runtimeType)) return _target.runtimeType;
     if (_target is TweenAccessor) return _target.runtimeType;
-          
+    if (_target is Tweenable) return _target.runtimeType;
+
     //TODO: find out about this
 //                Type parentClass = _target.runtimeType.getSuperclass();
 //                while (parentClass != null && !_registeredAccessors.containsKey(parentClass))
@@ -490,10 +491,13 @@ class Tween extends BaseTween<Tween> {
     if (_accessor == null && _target is TweenAccessor) _accessor = _target;
     if (_accessor != null) { 
       _combinedAttrsCnt = _accessor.getValues(_target, _type, _accessorBuffer) ;
-      if (_combinedAttrsCnt == null)
-        _combinedAttrsCnt = 0;
+      if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
     }
-    else throw new Exception("No TweenAccessor was found for the target");
+    else if (_target is Tweenable) {
+      _combinedAttrsCnt = _target.getTweenableValues(_type, _accessorBuffer) ;
+      if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
+    }
+    else throw new Exception("No TweenAccessor was found for the target, and it is not Tweenable either.");
 
     if (_combinedAttrsCnt > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
   }
@@ -505,7 +509,7 @@ class Tween extends BaseTween<Tween> {
   void initializeOverride() {
     if (_target == null) return;
 
-    _accessor.getValues(_target, _type, _startValues);
+    _getTweenedValues(_startValues);
 
     for (int i=0; i<_combinedAttrsCnt; i++) {
       _targetValues[i] += _isRelative ? _startValues[i] : 0;
@@ -527,12 +531,12 @@ class Tween extends BaseTween<Tween> {
 
     // Case iteration end has been reached
     if (!isIterationStep && step > lastStep) {
-      _accessor.setValues(_target, _type, isReverse(lastStep) ? _startValues : _targetValues);
+      _setTweenedValues(isReverse(lastStep) ? _startValues : _targetValues);
       return;
     }
 
     if (!isIterationStep && step < lastStep) {
-      _accessor.setValues(_target, _type, isReverse(lastStep) ? _targetValues : _startValues);
+      _setTweenedValues(isReverse(lastStep) ? _targetValues : _startValues);
       return;
     }
 
@@ -543,12 +547,12 @@ class Tween extends BaseTween<Tween> {
 
     // Case duration equals zero
     if (duration < 0.00000000001 && delta > -0.00000000001) {
-      _accessor.setValues(_target, _type, isReverse(step) ? _targetValues : _startValues);
+      _setTweenedValues(isReverse(step) ? _targetValues : _startValues);
       return;
     }
 
     if (duration < 0.00000000001 && delta < 0.00000000001) {
-      _accessor.setValues(_target, _type, isReverse(step) ? _startValues : _targetValues);
+      _setTweenedValues(isReverse(step) ? _startValues : _targetValues);
       return;
     }
 
@@ -573,7 +577,7 @@ class Tween extends BaseTween<Tween> {
       }
     }
 
-    _accessor.setValues(_target, _type, _accessorBuffer);
+    _setTweenedValues(_accessorBuffer);
   }
 
   // -------------------------------------------------------------------------
@@ -582,12 +586,12 @@ class Tween extends BaseTween<Tween> {
 
   void forceStartValues() {
     if (_target == null) return;
-    _accessor.setValues(_target, _type, _startValues);
+    _setTweenedValues(_startValues);
   }
 
   void forceEndValues() {
     if (_target == null) return;
-    _accessor.setValues(_target, _type, _targetValues);
+    _setTweenedValues(_targetValues);
   }
 
   bool containsTarget(Object target, [int tweenType = null]) {
@@ -599,6 +603,22 @@ class Tween extends BaseTween<Tween> {
   // -------------------------------------------------------------------------
   // Helpers
   // -------------------------------------------------------------------------
+
+  int _getTweenedValues(intoBuffer) {
+    if (_accessor != null) {
+      return _accessor.getValues(_target, _type, intoBuffer);
+    } else { // _target is Tweenable
+      return _target.getTweenableValues(_type, intoBuffer);
+    }
+  }
+
+  void _setTweenedValues(values) {
+    if (_accessor != null) {
+      _accessor.setValues(_target, _type, values);
+    } else { // _target is Tweenable
+      _target.setTweenableValues(_type, values);
+    }
+  }
 
   void _throwCombinedAttrsLimitReached() {
           String msg = """You cannot combine more than $_combinedAttrsLimit 

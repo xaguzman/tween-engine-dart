@@ -1,18 +1,21 @@
-# Eclipse files
+# Eclipse
 .children
 .project
 
-# IntelliJ files
+# IntelliJ
 .idea
 
-# OS X files
+# OS X
 .DS_Store
 
-# Windows files
+# Windows
 Thumbs.db
 
-# Dart files
+# Dart
 .buildlog
 packages
 pubspec.lock
 out
+test/*.js
+test/*.js.map
+test/*.js.deps
