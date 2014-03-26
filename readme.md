@@ -31,8 +31,8 @@ So, there are two ways of telling the engine which properties you want to tween.
 The first one is very useful if you do not have control over the class you want to tween a property of.
 The second one is a bit less verbose but requires code in the class you want to tween.
 
-Using `TweenAccessor`
-~~~~~~~~~~~~~~~~~~~~~
+
+### Using `TweenAccessor`
 
 Create an accessor that implements the `TweenAccessor` interface,
 register it to the engine, and animate anything you want!
@@ -68,8 +68,8 @@ main(){
 
 ```
 
-Using `Tweenable`
-~~~~~~~~~~~~~~~~~
+
+### Using `Tweenable`
 
 Make sure the class you want to tween implements the `Tweenable` interface.
 
