@@ -38,7 +38,7 @@ class MyTweenable implements Tweenable {
   static const int ANSWER = 1;
   static const int CIRCLE = 2;
 
-  int answer = 42;
+  num answer = 42;
   num circle = 6.2831853;
 
   int getTweenableValues(int tweenType, List<num> returnValues) {

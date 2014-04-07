@@ -46,7 +46,7 @@ part of tweenengine;
  *
  *     Tween.registerAccessor(Particle, new ParticleAccessor());
  *
- * And that's all, the Tween Engine can no work with all your particles!
+ * And that's all, the Tween Engine can now work with all your particles!
  *
  * author 
  *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)

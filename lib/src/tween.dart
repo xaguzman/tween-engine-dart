@@ -287,7 +287,7 @@ class Tween extends BaseTween<Tween> {
   // -------------------------------------------------------------------------
 
   // Main
-  var _target;
+  Object _target;
   Type _targetClass;
   TweenAccessor<Object> _accessor;
   int _type;
@@ -494,7 +494,7 @@ class Tween extends BaseTween<Tween> {
       if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
     }
     else if (_target is Tweenable) {
-      _combinedAttrsCnt = _target.getTweenableValues(_type, _accessorBuffer) ;
+      _combinedAttrsCnt = (_target as Tweenable).getTweenableValues(_type, _accessorBuffer) ;
       if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
     }
     else throw new Exception("No TweenAccessor was found for the target, and it is not Tweenable either.");
@@ -607,16 +607,18 @@ class Tween extends BaseTween<Tween> {
   int _getTweenedValues(intoBuffer) {
     if (_accessor != null) {
       return _accessor.getValues(_target, _type, intoBuffer);
-    } else { // _target is Tweenable
-      return _target.getTweenableValues(_type, intoBuffer);
+    } else if (_target is Tweenable) { // _target is Tweenable
+      return (_target as Tweenable).getTweenableValues(_type, intoBuffer);
     }
+    
+    return 0;
   }
 
   void _setTweenedValues(values) {
     if (_accessor != null) {
       _accessor.setValues(_target, _type, values);
-    } else { // _target is Tweenable
-      _target.setTweenableValues(_type, values);
+    } else if (_target is Tweenable) {
+      (_target as Tweenable).setTweenableValues(_type, values);
     }
   }
 
