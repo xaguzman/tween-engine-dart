@@ -8,4 +8,4 @@ environment:
 dependencies:
   browser: any
 dev_dependencies:
-  unittest: '>=0.9.0 < 0.10.0'
+  unittest: '>=0.9.0 <0.10.0'
