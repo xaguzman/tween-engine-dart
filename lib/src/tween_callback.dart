@@ -27,6 +27,9 @@ part of tweenengine;
  *    Xavier Guzman (dart port)
  */
 class TweenCallback {
+    
+    TweenCallback._();
+  
     static const int BEGIN = 0x01;
     static const int START = 0x02;
     static const int END = 0x04;
@@ -38,10 +41,7 @@ class TweenCallback {
     static const int ANY_FORWARD = 0x0F;
     static const int ANY_BACKWARD = 0xF0;
     static const int ANY = 0xFF;
-
-    ///The handler to execute when an event occur in the [Tween] or [Timeline]
-    CallbackHandler onEvent;
 }
 
 ///a handler which can take actions when any event occurs on a tween
-typedef void CallbackHandler(int type, BaseTween source);
+typedef void TweenCallbackHandler(int type, BaseTween source);

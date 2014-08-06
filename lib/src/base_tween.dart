@@ -35,7 +35,7 @@ abstract class BaseTween<T> {
   bool _isPaused; // true if pause() was called
 
   // Misc
-  TweenCallback _callback;
+  TweenCallbackHandler _callback;
   int _callbackTriggers;
   Object _userData;
 
@@ -141,16 +141,15 @@ abstract class BaseTween<T> {
   }
 
   /**
-   * Sets the [TweenCallback]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). 
+   * Sets the [TweenCallbackHandler]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). 
    * If you want to change this behavior and add more triggers, use the [setCallbackTriggers] method.
    */
-  void setCallback(TweenCallback callback) {
+  void setCallback(TweenCallbackHandler callback) {
     _callback = callback;
   }
-
+  
   /**
-   * Changes the triggers of the callback. The available triggers, listed as
-   * members of the [TweenCallback] interface, are:
+   * Changes the triggers of the callback. The available triggers are:
    *
    * * [TweenCallback.BEGIN]: right after the delay (if any)
    * * [TweenCallback.START]: at each iteration beginning
@@ -288,7 +287,7 @@ abstract class BaseTween<T> {
   }
 
   void callCallback(int type) {
-    if (_callback != null && (_callbackTriggers & type) > 0) _callback.onEvent(type, this);
+    if (_callback != null && (_callbackTriggers & type) > 0) _callback(type, this);
   }
 
   bool isReverse(int step) {

@@ -239,7 +239,7 @@ class Timeline extends BaseTween<Timeline> {
     }
 
     if (!isIterationStep && step < lastStep) {
-      assert (delta <= 0);
+      assert (delta <= 0); 
       num dt = isReverse(lastStep) ? -delta-1 : delta+1;
       _children.reversed.forEach( (BaseTween tween) => tween.update(dt));
       return;

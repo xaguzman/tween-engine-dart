@@ -116,8 +116,7 @@ main() {
       Function expectOnStart     = expectAsync1((tween){});
       Function expectOnEnd       = expectAsync1((tween){});
 
-      TweenCallback myCallback = new TweenCallback();
-      myCallback.onEvent = (type, tween) {
+      TweenCallbackHandler myCallback = (type, tween) {
         switch(type) {
           case TweenCallback.BEGIN:
             expectOnBegin(tween);
@@ -159,8 +158,8 @@ main() {
       Function expectOnStart     = expectAsync1((tween){});
       Function expectOnEnd       = expectAsync1((tween){});
 
-      TweenCallback myCallback = new TweenCallback();
-      myCallback.onEvent = (type, tween) {
+      
+      TweenCallbackHandler myCallback = (type, tween) {
         switch(type) {
           case TweenCallback.BEGIN:
             expectOnBegin(tween);

@@ -256,11 +256,11 @@ class Tween extends BaseTween<Tween> {
    *
    * see [TweenCallback]
    * 
-   * [callback] The callback that will be triggered on each iteration start.
+   * [callback] the function that will be triggered on each iteration start.
    * 
    * Returns The generated Tween.
    */
-  static Tween callBack(TweenCallback callback) {
+  static Tween callBack(TweenCallbackHandler callback) {
     Tween tween = _pool.get()
         .._setup(null, -1, 0)
         ..setCallback(callback)
