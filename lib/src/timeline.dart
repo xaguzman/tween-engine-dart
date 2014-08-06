@@ -237,10 +237,10 @@ class Timeline extends BaseTween<Timeline> {
       _children.forEach( (BaseTween tween) => tween.update(dt));
       return;
     }
-
+ 
     if (!isIterationStep && step < lastStep) {
       assert (delta <= 0); 
-      num dt = isReverse(lastStep) ? -delta-1 : delta+1;
+      num dt = isReverse(lastStep) ? delta + 1: -delta-1;
       _children.reversed.forEach( (BaseTween tween) => tween.update(dt));
       return;
     }
@@ -250,32 +250,26 @@ class Timeline extends BaseTween<Timeline> {
     if (step > lastStep) {
       if (isReverse(step)) {
         forceEndValues();
-        //for (int i=0, n=children.size(); i<n; i++) children.get(i).update(delta);
         _children.reversed.forEach( (BaseTween tween) => tween.update(delta));
       } else {
         forceStartValues();
-        //for (int i=0, n=children.size(); i<n; i++) children.get(i).update(delta);
         _children.forEach( (BaseTween tween) => tween.update(delta));
       }
 
     }else if (step < lastStep) {
       if (isReverse(step)) {
         forceStartValues();
-        //for (int i=children.size()-1; i>=0; i--) children.get(i).update(delta);
         _children.reversed.forEach( (BaseTween tween) => tween.update(delta));
       } else {
         forceEndValues();
-        //for (int i=children.size()-1; i>=0; i--) children.get(i).update(delta);
         _children.reversed.forEach( (BaseTween tween) => tween.update(delta));
       }
 
     }else {
       num dt = isReverse(step) ? -delta : delta;
       if (delta >= 0) 
-        //for (int i=0, n=children.size(); i<n; i++) children.get(i).update(dt);
         _children.forEach( (BaseTween tween) => tween.update(dt));
       else 
-        //for (int i=children.size()-1; i>=0; i--) children.get(i).update(dt);
         _children.reversed.forEach( (BaseTween tween) => tween.update(dt));
     }
   }
