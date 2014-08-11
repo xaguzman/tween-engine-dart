@@ -43,7 +43,7 @@ part of tweenengine;
  *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
  *    Xavier Guzman (dart port)
  */
-class Timeline extends BaseTween<Timeline> {
+class Timeline extends BaseTween {
   // -------------------------------------------------------------------------
   // Static -- pool
   // -------------------------------------------------------------------------

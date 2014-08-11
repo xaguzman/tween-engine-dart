@@ -26,11 +26,11 @@ class SimpleTween extends Screen{
 //    Tween.to(pos, VectorAccessor.XY, 1)
 //      ..delay = 0.3
 //      ..targetValues = [x, y]
-//      ..setCallback((int type, BaseTween source) {
+//      ..callback = (int type, BaseTween source) {
 //        Tween.to(pos, VectorAccessor.XY, 0.1)
 //            ..targetValues = [x+1, y+1]
 //            ..start(_tweenManager);
-//      })
+//      }
 //      ..start(_tweenManager);
   } 
   

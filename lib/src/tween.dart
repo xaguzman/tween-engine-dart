@@ -65,7 +65,7 @@ part of tweenengine;
  *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
  *    Xavier Guzman (dart port)
  */
-class Tween extends BaseTween<Tween> {
+class Tween extends BaseTween {
   // -------------------------------------------------------------------------
   // Static -- misc
   // -------------------------------------------------------------------------
@@ -168,7 +168,7 @@ class Tween extends BaseTween<Tween> {
    */
   static Tween to(Object target, int tweenType, num duration) {
     Tween tween = _pool.get()
-        ..easing = Quad.INOUT
+        ..easing = TweenEquations.easeInOutQuad
         .._setup(target, tweenType, duration)
         ..path = TweenPaths.catmullRom;
     return tween;
@@ -203,7 +203,7 @@ class Tween extends BaseTween<Tween> {
   static Tween from(Object target, int tweenType, num duration) {
     Tween tween = _pool.get()
       .._setup(target, tweenType, duration)
-      ..easing = Quad.INOUT
+      ..easing = TweenEquations.easeInOutQuad
       ..path = TweenPaths.catmullRom
       .._isFrom = true;
     return tween;
@@ -263,8 +263,8 @@ class Tween extends BaseTween<Tween> {
   static Tween callBack(TweenCallbackHandler callback) {
     Tween tween = _pool.get()
         .._setup(null, -1, 0)
-        ..setCallback(callback)
-        ..setCallbackTriggers(TweenCallback.START);
+        ..callback = callback
+        ..callbackTriggers = TweenCallback.START;
     return tween;
   }
 

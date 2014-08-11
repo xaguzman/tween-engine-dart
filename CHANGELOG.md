@@ -1,6 +1,10 @@
 #### V 0.10.2
 
 * Fixed a bug where creating a new Tween from within a callback would break the TweenManager
+* Methods setCallback, setCallbackTriggers and setUserData replaced by their respective setters
+* repeatYoyo() will be deprecated in next version, instead, repeat() now takes a bool argument saying wether it is a yoyo repetition or not.
+* Removed generic argument from BaseTween class
+
 
 #### V 0.10.1
 

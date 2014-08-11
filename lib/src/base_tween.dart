@@ -15,7 +15,7 @@ part of tweenengine;
  *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
  *    Xavier Guzman (dart port)
  */
-abstract class BaseTween<T> {
+abstract class BaseTween{
   // General
   int _step;
   int _repeatCnt;
@@ -83,13 +83,6 @@ abstract class BaseTween<T> {
     }
   }
 
-  /**
-   * Adds a delay to the tween or timeline.
-   *
-   * [delay] A num representing the duration.
-   */
-  void set delay(num delay) {  _delay += delay; }
-
   ///Kills the tween or timeline. If you are using a [TweenManager], this object will be removed automatically.
   void kill() {
       _isKilled = true;
@@ -116,16 +109,18 @@ abstract class BaseTween<T> {
   /**
    * Repeats the tween or timeline [count] times.
    * 
-   * [count] The number of repetitions. For infinite repetition, use [Tween.INFINITY], or a negative number.
-   * [delay] A delay between each iteration.
+   * [count] the number of repetitions. For infinite repetition, use [Tween.INFINITY], or a negative number.
+   * [delay] a delay between each iteration.
+   * [isYoyo] wether the repetions should be played in yoyo mode or not
    */
-  void repeat(int count, num delay) {
+  void repeat(int count, num delay, [bool isYoyo = false]) {
     if (_isStarted) throw new Exception("You can't change the repetitions of a tween or timeline once it is started");
     _repeatCnt = count;
     _repeatDelay = delay >= 0 ? delay : 0;
-    _isYoyo = false;
+    _isYoyo = isYoyo;
   }
 
+  @Deprecated('this method will be removed as of version 0.10.3, use repeat() instead')
   /**
    * Repeats the tween or timeline [count] times.
    * Every two iterations, it will be played backwards.
@@ -134,45 +129,9 @@ abstract class BaseTween<T> {
    * [delay] A delay before each repetition.
    */
   void repeatYoyo(int count, num delay) {
-          if (_isStarted) throw new Exception("You can't change the repetitions of a tween or timeline once it is started");
-          _repeatCnt = count;
-          _repeatDelay = delay >= 0 ? delay : 0;
-          _isYoyo = true;
+    repeat(count, delay, true);
   }
-
-  /**
-   * Sets the [TweenCallbackHandler]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). 
-   * If you want to change this behavior and add more triggers, use the [setCallbackTriggers] method.
-   */
-  void setCallback(TweenCallbackHandler callback) {
-    _callback = callback;
-  }
-  
-  /**
-   * Changes the triggers of the callback. The available triggers are:
-   *
-   * * [TweenCallback.BEGIN]: right after the delay (if any)
-   * * [TweenCallback.START]: at each iteration beginning
-   * * [TweenCallback.END]: at each iteration ending, before the repeat delay
-   * * [TweenCallback.COMPLETE]: at last END event
-   * * [TweenCallback.BACK_BEGIN]: at the beginning of the first backward iteration
-   * * [TweenCallback.BACK_START]: at each backward iteration beginning, after the repeat delay
-   * * [TweenCallback.BACK_END]: at each backward iteration ending
-   * * [TweenCallback.BACK_COMPLETE]: at last BACK_END event
-   * 
-   * forward :      BEGIN                                   COMPLETE
-   * forward :      START    END      START    END      START    END
-   * |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
-   * backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
-   * backward:      bCOMPLETE                                 bBEGIN
-   * 
-   *
-   * @param flags one or more triggers, separated by the '|' operator.
-   */
-  void setCallbackTriggers(int flags) {
-    _callbackTriggers = flags;
-  }
-
+ 
   /**
    * Attaches an object to this tween or timeline. It can be useful in order
    * to retrieve some data from a TweenCallback.
@@ -185,19 +144,21 @@ abstract class BaseTween<T> {
   
 
   // -------------------------------------------------------------------------
-  // Getters
+  // Getters & Setters
   // -------------------------------------------------------------------------
 
-  ///Gets the delay of the tween or timeline. Nothing will happen before
+  ///the delay of the tween or timeline. Nothing will happen before
   num get delay => _delay;
+  void set delay(num delay) {  _delay = delay; }
 
-  ///Gets the duration of a single iteration.
+  ///the duration of a single iteration.
   num get duration => _duration;
+  void set duration(num duration){ _duration = duration;}
 
-  ///Gets the number of iterations that will be played.
+  ///the number of iterations that will be played.
   int get repeatCount => _repeatCnt;
 
-  ///Gets the delay occuring between two iterations.
+  ///the delay occuring between two iterations.
   num get repeatDelay => _repeatDelay;
 
   /**
@@ -209,8 +170,9 @@ abstract class BaseTween<T> {
    */
   num get fullDuration => _repeatCnt < 0 ? -1 : _delay + _duration + (_repeatDelay + _duration) * _repeatCnt;
 
-  ///Gets the attached data, or null if none.
+  ///Attached data to the tween, it can be useful in order to retrieve some data from a [TweenCallbackHandler].
   Object get userData => _userData;
+  void set userData(Object data){ _userData = data; }
 
   /**
    * Gets the id of the current step. Values are as follows:
@@ -250,7 +212,40 @@ abstract class BaseTween<T> {
   bool get isPaused => _isPaused;
   
   bool get isKilled => _isKilled;
-
+  
+  /**
+   * Sets the [TweenCallbackHandler]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). 
+   * If you want to change this behavior and add more triggers, use the [setCallbackTriggers] method.
+   */
+  void set callback(TweenCallbackHandler callback) {
+    _callback = callback;
+  }
+  
+  /**
+   * Changes the triggers of the callback. The available triggers are:
+   *
+   * * [TweenCallback.BEGIN]: right after the delay (if any)
+   * * [TweenCallback.START]: at each iteration beginning
+   * * [TweenCallback.END]: at each iteration ending, before the repeat delay
+   * * [TweenCallback.COMPLETE]: at last END event
+   * * [TweenCallback.BACK_BEGIN]: at the beginning of the first backward iteration
+   * * [TweenCallback.BACK_START]: at each backward iteration beginning, after the repeat delay
+   * * [TweenCallback.BACK_END]: at each backward iteration ending
+   * * [TweenCallback.BACK_COMPLETE]: at last BACK_END event
+   * 
+   * forward :      BEGIN                                   COMPLETE
+   * forward :      START    END      START    END      START    END
+   * |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
+   * backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
+   * backward:      bCOMPLETE                                 bBEGIN
+   * 
+   *
+   * @param flags one or more triggers, separated by the '|' operator.
+   */
+  void set callbackTriggers(int flags) {
+    _callbackTriggers = flags;
+  }
+  
   // -------------------------------------------------------------------------
   // Abstract API
   // -------------------------------------------------------------------------
