@@ -174,12 +174,12 @@ Current options are:
 ```dart
 myTween.delay = 0.5;
 myTween.repeat(2, 0.5);
-myTween.repeatYoyo(2, 0.5);
+myTween.repeatYoyo(2, 0.5); 
 myTween.pause();
 myTween.resume();
-myTween.setCallback(callback);
-myTween.setCallbackTriggers(flags);
-myTween.setUserData(obj);
+myTween.callback = callback;
+myTween.callbackTriggers = flags;
+myTween.userData = obj;
 ```
 
 You can of course chain everything (with dart's method cascading):
@@ -234,7 +234,7 @@ You can also quickly create timers:
 
 ```dart
 Tween.callBack(myCallback)
-  ..delay(3000)
+  ..delay = 3000
   ..start(myManager);
 ```
 
