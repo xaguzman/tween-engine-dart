@@ -96,9 +96,11 @@ class TweenManager {
 
     if (!_isPaused) {
       if (delta >= 0) {
-        _objects.forEach( (BaseTween obj) => obj.update(delta) );
+        for ( int i =0; i < _objects.length; i++)
+          _objects[i].update(delta);
       } else {
-        _objects.reversed.forEach( (BaseTween obj) => obj.update(delta) );
+        for ( int i = _objects.length - 1; i >= 0; i--)
+          _objects[i].update(delta);
       }
     }
   }

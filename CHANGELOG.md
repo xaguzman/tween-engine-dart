@@ -1,3 +1,7 @@
+#### V 0.10.2
+
+* Fixed a bug where creating a new Tween from within a callback would break the TweenManager
+
 #### V 0.10.1
 
 Bugs Fixed:

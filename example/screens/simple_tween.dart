@@ -22,6 +22,16 @@ class SimpleTween extends Screen{
       ..delay = 0.3
       ..targetValues = [x, y]
     ..start(_tweenManager);
+    
+//    Tween.to(pos, VectorAccessor.XY, 1)
+//      ..delay = 0.3
+//      ..targetValues = [x, y]
+//      ..setCallback((int type, BaseTween source) {
+//        Tween.to(pos, VectorAccessor.XY, 0.1)
+//            ..targetValues = [x+1, y+1]
+//            ..start(_tweenManager);
+//      })
+//      ..start(_tweenManager);
   } 
   
   void onKeyDown(KeyboardEvent e){
