@@ -87,7 +87,7 @@ class Tween extends BaseTween {
   }
 
   ///Gets the version number of the library.
-  static String get version => "0.10.2";
+  static String get version => "0.10.3";
 
   // -------------------------------------------------------------------------
   // Static -- pool
