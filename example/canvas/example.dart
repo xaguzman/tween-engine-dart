@@ -1,4 +1,4 @@
-library tweenengine.example;
+library tweenengine.canvasexample;
 
 import 'dart:html';
 import 'package:tweenengine/tweenengine.dart';

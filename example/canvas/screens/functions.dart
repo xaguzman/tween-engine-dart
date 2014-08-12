@@ -1,4 +1,4 @@
-part of tweenengine.example;
+part of tweenengine.canvasexample;
 
 class Functions extends Screen{
   List<Vector2> vectors;

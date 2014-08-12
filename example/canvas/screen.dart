@@ -1,4 +1,4 @@
-part of tweenengine.example;
+part of tweenengine.canvasexample;
 
 abstract class Screen {
   final TweenManager _tweenManager = new TweenManager();

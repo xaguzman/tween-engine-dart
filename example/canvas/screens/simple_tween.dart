@@ -1,4 +1,4 @@
-part of tweenengine.example;
+part of tweenengine.canvasexample;
 
 class SimpleTween extends Screen{
   Vector2 pos;

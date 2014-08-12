@@ -1,4 +1,4 @@
-part of tweenengine.example;
+part of tweenengine.canvasexample;
 
 class Vector2{
   num x , y;

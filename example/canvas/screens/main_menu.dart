@@ -1,4 +1,4 @@
-part of tweenengine.example;
+part of tweenengine.canvasexample;
 
 class MainMenu extends Screen{
   List<List<Screen>> screens;
