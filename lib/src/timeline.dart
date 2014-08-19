@@ -15,7 +15,7 @@ part of tweenengine;
  * This animation will be repeated 5 times, with a 500ms delay between each
  * iteration:
  * 
- *     Timeline.createSequence()
+ *     new Timeline.sequence()
  *       ..push(Tween.set(myObject, OPACITY).target(0))
  *       ..push(Tween.set(myObject, SCALE).target(0, 0))
  *       ..beginParallel()
@@ -69,14 +69,14 @@ class Timeline extends BaseTween {
   // -------------------------------------------------------------------------
 
   /// Creates a new timeline with a 'sequence' behavior. Its children will be delayed so that they are triggered one after the other.
-  static Timeline createSequence() {
+  factory Timeline.sequence() {
     Timeline tl = _pool.get();
     tl._setup(TimelineMode.SEQUENCE);
     return tl;
   }
 
   ///Creates a new timeline with a 'parallel' behavior. Its children will be triggered all at once.
-  static Timeline createParallel() {
+  factory Timeline.parallel() {
     Timeline tl = _pool.get();
     tl._setup(TimelineMode.PARALLEL);
     return tl;
@@ -150,7 +150,7 @@ class Timeline extends BaseTween {
    */
   void pushPause(num time) {
     if (_isBuilt) throw new Exception("You can't push anything to a timeline once it is started");
-    _current._children.add(Tween.mark()..delay = time);
+    _current._children.add(new Tween.mark()..delay = time);
   }
 
   ///Starts a nested timeline with a 'sequence' behavior. Don't forget to call [end] to close this nested timeline.

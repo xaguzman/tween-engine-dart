@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'package:tweenengine/tweenengine.dart';
+import '../../lib/tweenengine.dart';
 
 TweenManager _manager = new TweenManager();
 num lastUpdate = 0;
@@ -12,7 +12,7 @@ void main(){
   var target = bar.style; 
   
   //Animate fully from 0 to current value (60%)
-  Tween.from(target, 1, 3)
+  new Tween.from(target, 1, 3)
     ..delay = 2
     ..targetValues = 0
     ..easing = TweenEquations.easeOutExpo
@@ -32,7 +32,7 @@ void update(num delta){
 class StyleAccessor implements TweenAccessor<CssStyleDeclaration>{
   static const int Width = 1;
   
-  int getValues(CssStyleDeclaration target, int tweenType, List<num> returnValues){
+  int getValues(CssStyleDeclaration target, Tween tween, int tweenType, List<num> returnValues){
     if ( tweenType != Width) return 0;
     
     //strip the % from the style
@@ -42,7 +42,7 @@ class StyleAccessor implements TweenAccessor<CssStyleDeclaration>{
     return 1;
   }
   
-  void setValues(CssStyleDeclaration target, int tweenType, List<num> newValues){
+  void setValues(CssStyleDeclaration target, Tween tween, int tweenType, List<num> newValues){
     if (tweenType != Width) return;
     
     target.width = newValues[0].toString() + "%";

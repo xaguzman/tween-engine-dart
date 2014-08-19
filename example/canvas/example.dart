@@ -1,7 +1,9 @@
 library tweenengine.canvasexample;
 
 import 'dart:html';
-import 'package:tweenengine/tweenengine.dart';
+import '../../lib/tweenengine.dart';
+import 'dart:math';
+//import 'package:tweenengine/tweenengine.dart';
 
 part 'screen.dart';
 part 'accesors.dart';

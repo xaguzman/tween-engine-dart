@@ -10,7 +10,7 @@ part of tweenengine;
  * The Universal Tween Engine is called "universal" because it is able to apply
  * interpolations on every attribute from every possible object. Therefore,
  * every object in your application can be animated with cool effects: it does
- * not matter if your application is a game, a desktop interface or even a
+ * not matter if your application is a game, a web interface or even a
  * console program! If it makes sense to animate something, then it can be
  * animated through this engine.
  *
@@ -87,7 +87,7 @@ class Tween extends BaseTween {
   }
 
   ///Gets the version number of the library.
-  static String get version => "0.10.3";
+  static String get version => "0.11.0";
 
   // -------------------------------------------------------------------------
   // Static -- pool
@@ -145,14 +145,14 @@ class Tween extends BaseTween {
    * after the delay (if any).
    *
    * **You need to set the target values of the interpolation by using 
-   * of the targetValues setter**. The interpolation will run from the
+   * the [targetValues] or [targetRelative] setter**. The interpolation will run from the
    * starting values to these target values.
    *
    * The common use of Tweens is "fire-and-forget": you do not need to care
    * for tweens once you added them to a TweenManager, they will be updated
    * automatically, and cleaned once finished. Common call:
    *
-   *     Tween.to(myObject, POSITION, 1.0f)
+   *     new Tween.to(myObject, POSITION, 1.0f)
    *       ..targetValues = [50, 70]
    *       ..easing = Quad.INOUT
    *       ..start(myManager);
@@ -166,7 +166,8 @@ class Tween extends BaseTween {
    * 
    * Returns The generated Tween.
    */
-  static Tween to(Object target, int tweenType, num duration) {
+  
+  factory Tween.to(Object target, int tweenType, num duration){
     Tween tween = _pool.get()
         ..easing = TweenEquations.easeInOutQuad
         .._setup(target, tweenType, duration)
@@ -179,14 +180,14 @@ class Tween extends BaseTween {
    * retrieved automatically after the delay (if any).
    *
    * **You need to set the starting values of the interpolation by using
-   * of the [targetValues] setter**. The interpolation will run from the
+   * the [targetValues] or [targetRelative] setter**. The interpolation will run from the
    * starting values to these target values.
    *
    * The common use of Tweens is "fire-and-forget": you do not need to care
    * for tweens once you added them to a TweenManager, they will be updated
    * automatically, and cleaned once finished. Common call:
    *
-   *     Tween.from(myObject, POSITION, 1.0)
+   *     new Tween.from(myObject, POSITION, 1.0)
    *      ..targetValues = [0, 0]
    *      ..easing = Quad.INOUT
    *      .start(myManager);
@@ -200,7 +201,7 @@ class Tween extends BaseTween {
    * 
    * Returns The generated Tween.
    */
-  static Tween from(Object target, int tweenType, num duration) {
+  factory Tween.from(Object target, int tweenType, num duration) {
     Tween tween = _pool.get()
       .._setup(target, tweenType, duration)
       ..easing = TweenEquations.easeInOutQuad
@@ -213,15 +214,15 @@ class Tween extends BaseTween {
    * Factory creating a new instantaneous interpolation (thus this is not
    * really an interpolation).
    *
-   * **You need to set the target values of the interpolation by using one
-   * of the [targetValues] setter**. The interpolation will set the target
+   * **You need to set the target values of the interpolation by using
+   * the [targetValues] or [targetRelative] setter**. The interpolation will set the target
    * attribute to these values after the delay (if any).
    *
    * The common use of Tweens is "fire-and-forget": you do not need to care
    * for tweens once you added them to a TweenManager, they will be updated
    * automatically, and cleaned once finished. Common call:
    *
-   *     Tween.set(myObject, POSITION)
+   *     new Tween.set(myObject, POSITION)
    *      ..target = [50, 70]
    *      ..delay = 1
    *      ..start(myManager);
@@ -234,7 +235,7 @@ class Tween extends BaseTween {
    * 
    * Returns The generated Tween.
    */
-  static Tween set(Object target, int tweenType) {
+  factory Tween.set(Object target, int tweenType) {
     Tween tween = _pool.get()
         .._setup(target, tweenType, 0)
         ..easing = TweenEquations.easeInQuad;
@@ -249,7 +250,7 @@ class Tween extends BaseTween {
    * for tweens once you added them to a TweenManager, they will be updated
    * automatically, and cleaned once finished. Common call:
    *
-   *     Tween.call(myCallback)
+   *     new Tween.call(myCallback)
    *      ..delay = 1
    *      ..repeat(10, 1000)
    *      ..start(myManager);
@@ -260,7 +261,7 @@ class Tween extends BaseTween {
    * 
    * Returns The generated Tween.
    */
-  static Tween callBack(TweenCallbackHandler callback) {
+  factory Tween.call(TweenCallbackHandler callback) {
     Tween tween = _pool.get()
         .._setup(null, -1, 0)
         ..callback = callback
@@ -276,7 +277,7 @@ class Tween extends BaseTween {
    *
    * Returns The generated Tween.
    */
-  static Tween mark() {
+  factory Tween.mark() {
     Tween tween = _pool.get()
         .._setup(null, -1, 0);    
     return tween;
@@ -354,7 +355,7 @@ class Tween extends BaseTween {
     if (_target is TweenAccessor) return _target.runtimeType;
     if (_target is Tweenable) return _target.runtimeType;
 
-    //TODO: find out about this
+    //TODO: accesing parent Type's is not suported yet in dart without reflection, implement it once it does
 //                Type parentClass = _target.runtimeType.getSuperclass();
 //                while (parentClass != null && !_registeredAccessors.containsKey(parentClass))
 //                        parentClass = parentClass.getSuperclass();
@@ -425,7 +426,10 @@ class Tween extends BaseTween {
    *
    * To sum-up:
    * * start values: values at start time, after delay
-   * * end values: [targetValues]
+   * * end values: [num_OR_numList]
+   * 
+   * [num_OR_numList] The target values of the interpolation. Can be either a num, or a List<num> if 
+   * multiple target values are needed
    */
   List<num> get targetValues => _targetValues;
   void set targetValues(num_OR_numList) {
@@ -442,10 +446,10 @@ class Tween extends BaseTween {
    * at start time (after the delay, if any)**.
    *
    * To sum-up:<br/>
-   * - start values: values at start time, after delay<br/>
+   * - start values: values at start time, after delay
    * - end values: params + values at start time, after delay
    *
-   * targetValues The relative target values of the interpolation. Can be either a num, or a List<num> if 
+   * [num_OR_numList] The relative target values of the interpolation. Can be either a num, or a List<num> if 
    * multiple target values are needed
    */
   void set targetRelative(num_OR_numList) {
@@ -490,11 +494,11 @@ class Tween extends BaseTween {
     _accessor = _registeredAccessors[_targetClass];
     if (_accessor == null && _target is TweenAccessor) _accessor = _target;
     if (_accessor != null) { 
-      _combinedAttrsCnt = _accessor.getValues(_target, _type, _accessorBuffer) ;
+      _combinedAttrsCnt = _accessor.getValues(_target, this, _type, _accessorBuffer) ;
       if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
     }
     else if (_target is Tweenable) {
-      _combinedAttrsCnt = (_target as Tweenable).getTweenableValues(_type, _accessorBuffer) ;
+      _combinedAttrsCnt = (_target as Tweenable).getTweenableValues(this, _type, _accessorBuffer) ;
       if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
     }
     else throw new Exception("No TweenAccessor was found for the target, and it is not Tweenable either.");
@@ -606,9 +610,9 @@ class Tween extends BaseTween {
 
   int _getTweenedValues(intoBuffer) {
     if (_accessor != null) {
-      return _accessor.getValues(_target, _type, intoBuffer);
+      return _accessor.getValues(_target, this, _type, intoBuffer);
     } else if (_target is Tweenable) { // _target is Tweenable
-      return (_target as Tweenable).getTweenableValues(_type, intoBuffer);
+      return (_target as Tweenable).getTweenableValues(this, _type, intoBuffer);
     }
     
     return 0;
@@ -616,9 +620,9 @@ class Tween extends BaseTween {
 
   void _setTweenedValues(values) {
     if (_accessor != null) {
-      _accessor.setValues(_target, _type, values);
+      _accessor.setValues(_target, this, _type, values);
     } else if (_target is Tweenable) {
-      (_target as Tweenable).setTweenableValues(_type, values);
+      (_target as Tweenable).setTweenableValues(this, _type, values);
     }
   }
 

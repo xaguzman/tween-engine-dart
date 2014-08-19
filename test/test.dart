@@ -10,7 +10,7 @@ import 'package:tweenengine/tweenengine.dart';
 class MyAccessor implements TweenAccessor<MyClass> {
   static const XY = 1;
 
-  int getValues(MyClass target, int tweenType, List<num> returnValues) {
+  int getValues(MyClass target, Tween tween, int tweenType, List<num> returnValues) {
     if (tweenType == MyAccessor.XY) {
       returnValues[0] = target.x;
       returnValues[1] = target.y;
@@ -19,7 +19,7 @@ class MyAccessor implements TweenAccessor<MyClass> {
     return 0;
   }
 
-  void setValues(MyClass target, int tweenType, List<num> newValues) {
+  void setValues(MyClass target, Tween tween, int tweenType, List<num> newValues) {
     if (tweenType == MyAccessor.XY) {
       target.x = newValues[0];
       target.y = newValues[1];
@@ -41,7 +41,7 @@ class MyTweenable implements Tweenable {
   num answer = 42;
   num circle = 6.2831853;
 
-  int getTweenableValues(int tweenType, List<num> returnValues) {
+  int getTweenableValues(Tween tween, int tweenType, List<num> returnValues) {
     if (tweenType == ANSWER) {
       returnValues[0] = answer;
     } else if (tweenType == CIRCLE) {
@@ -50,7 +50,7 @@ class MyTweenable implements Tweenable {
     return 1;
   }
 
-  void setTweenableValues(int tweenType, List<num> newValues) {
+  void setTweenableValues(Tween tween, int tweenType, List<num> newValues) {
     if (tweenType == ANSWER) {
       answer = newValues[0];
     } else if (tweenType == CIRCLE) {
@@ -135,7 +135,7 @@ main() {
         }
       };
 
-      Tween.to(myClass, MyAccessor.XY, 0.1)
+      new Tween.to(myClass, MyAccessor.XY, 0.1)
         ..targetValues = [20, 30]
         ..easing = Elastic.INOUT
         ..callback = myCallback
@@ -183,7 +183,7 @@ main() {
       expect(life.answer, equals(42));
 
       // Tween the answer
-      Tween.to(life, MyTweenable.ANSWER, 0.1)
+      new Tween.to(life, MyTweenable.ANSWER, 0.1)
         ..targetValues = [69]
         ..easing = Linear.INOUT
         ..callback = myCallback

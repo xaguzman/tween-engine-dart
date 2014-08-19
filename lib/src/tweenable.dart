@@ -28,7 +28,7 @@ abstract class Tweenable {
    * 
    * Returns the count of modified slots from the returnValues array.
    */
-  int getTweenableValues(int tweenType, List<num> returnValues);
+  int getTweenableValues(Tween tween, int tweenType, List<num> returnValues);
   
   /**
    * This method is called by the Tween Engine each time a running tween
@@ -37,5 +37,5 @@ abstract class Tweenable {
    * [tweenType] An integer representing the tween type.
    * [newValues] The new values determined by the Tween Engine.
    */
-  void setTweenableValues(int tweenType, List<num> newValues);
+  void setTweenableValues(Tween tween, int tweenType, List<num> newValues);
 }

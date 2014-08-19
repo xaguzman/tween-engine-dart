@@ -12,12 +12,12 @@ class Repetitions extends Screen{
     
     this.info = "Difference between 'repeat' and 'repeat yoyo'. Press escape to go back ";
         
-    Timeline.createSequence()
-      ..push(Tween.set(pos1, VectorAccessor.XY)..targetValues = [100, 90])
-      ..push(Tween.set(pos2, VectorAccessor.XY)..targetValues = [100, 170])
+    new Timeline.sequence()
+      ..push(new Tween.set(pos1, VectorAccessor.XY)..targetValues = [100, 90])
+      ..push(new Tween.set(pos2, VectorAccessor.XY)..targetValues = [100, 170])
       ..beginParallel()
-        ..push(Tween.to(pos1, VectorAccessor.XY, 1)..targetRelative = [300, 0]..repeat(1, 0.3))
-        ..push(Tween.to(pos2, VectorAccessor.XY, 1)..targetRelative = [300, 0]..repeatYoyo(1, 0.3))
+        ..push(new Tween.to(pos1, VectorAccessor.XY, 1)..targetRelative = [300, 0]..repeat(1, 0.3))
+        ..push(new Tween.to(pos2, VectorAccessor.XY, 1)..targetRelative = [300, 0]..repeatYoyo(1, 0.3))
       ..end()
       ..repeat(Tween.INFINITY, 0.5)
       ..start(_tweenManager);

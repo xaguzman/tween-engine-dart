@@ -56,21 +56,21 @@ class Functions extends Screen{
   void reset(num duration) {
     _tweenManager.killAll();
 
-    Timeline.createParallel()
-      ..push(Tween.set(vectors[0], VectorAccessor.XY)..targetValues = [160, 90])
-      ..push(Tween.set(vectors[1], VectorAccessor.XY)..targetValues = [160, 130])
-      ..push(Tween.set(vectors[2], VectorAccessor.XY)..targetValues = [160, 170])
-      ..push(Tween.set(vectors[3], VectorAccessor.XY)..targetValues = [160, 210])
+    new Timeline.parallel()
+      ..push(new Tween.set(vectors[0], VectorAccessor.XY)..targetValues = [160, 90])
+      ..push(new Tween.set(vectors[1], VectorAccessor.XY)..targetValues = [160, 130])
+      ..push(new Tween.set(vectors[2], VectorAccessor.XY)..targetValues = [160, 170])
+      ..push(new Tween.set(vectors[3], VectorAccessor.XY)..targetValues = [160, 210])
       ..start(_tweenManager);
   }
   
   startFunctions(num delay){    
-    var timeline = Timeline.createParallel()
+    var timeline = new Timeline.parallel()
         ..repeat(Tween.INFINITY, 1.0)
         ..delay = delay;
     
     for (int i = 0; i < equations[state].length; i++){
-      timeline.push(Tween.to(vectors[i], VectorAccessor.XY, 1.0)
+      timeline.push(new Tween.to(vectors[i], VectorAccessor.XY, 1.0)
           ..targetRelative = [250, 0]
           ..easing = equations[state][i]);
     }
