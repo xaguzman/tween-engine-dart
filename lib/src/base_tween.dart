@@ -26,7 +26,7 @@ abstract class BaseTween{
   num _delay;
   num _duration;
   num _repeatDelay;
-  num _currentTime;
+  num _currentTime;  //elapsed time, relative to current iteration
   num _deltaTime;
   bool _isStarted; // true when the object is started
   bool _isInitialized; // true after the delay
@@ -185,8 +185,11 @@ abstract class BaseTween{
    */
   int get step => _step;
 
-  ///Gets the local time.
+  ///The local time
   num get currentTime=> _currentTime;
+  
+  ///The local time, normalized (0 <= [currentTime] <= 1)
+  num get normalTime => _currentTime == null ? 0 : Math.min(_currentTime / _duration, 1);
 
   ///Returns true if the tween or timeline has been started.
   bool get isStarted => _isStarted;
