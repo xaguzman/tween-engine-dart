@@ -1,5 +1,5 @@
 import 'dart:html';
-import 'dart:isolate';
+//import 'dart:isolate';
 
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_enhanced_config.dart';
@@ -142,7 +142,50 @@ main() {
         ..callbackTriggers = TweenCallback.ANY
         ..start(myManager);
     });
-
+    
+    
+    test('Killing Timeline from within a child tween', (){
+      var myObj = new MyClass();
+      num killedByTween = -1;
+      Timeline rootTimeline;
+      
+      
+      Function timelineElapsedLessThan1 = expectAsync0(  ( ){
+        //this  function should only  be called by first tween
+        expect(killedByTween, equals(1));
+        expect(rootTimeline.currentTime, lessThan(1));
+      });
+      
+      TweenCallbackHandler killTimeline = (int type, BaseTween tween){
+        killedByTween = tween.userData as num;
+        rootTimeline.kill();
+        timelineElapsedLessThan1();
+      };
+            
+      rootTimeline = new Timeline.sequence()
+        ..beginParallel()
+          ..push(
+            new Tween.to(myObj, 1, 0.9)
+              ..targetRelative = [5,5]
+              ..userData = 1
+              ..callback = killTimeline
+              ..callbackTriggers = TweenCallback.COMPLETE)
+          ..push(
+              new Tween.to(myObj, 1, 1.3)
+                ..targetRelative=[5,5]
+                ..userData = 2
+                ..callback = killTimeline
+                ..callbackTriggers = TweenCallback.COMPLETE)
+        ..end()
+        ..push( 
+            new Tween.to(myObj, 1, 1)
+              ..targetRelative=[5,5]
+              ..userData = 3
+              ..callback = killTimeline
+              ..callbackTriggers = TweenCallback.COMPLETE)
+//        ..callback = checkValid
+        ..start(myManager);
+     });
   });
 
   group('Using Tweenable', () {
