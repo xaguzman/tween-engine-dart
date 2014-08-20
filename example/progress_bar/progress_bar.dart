@@ -1,5 +1,5 @@
 import 'dart:html';
-import '../../lib/tweenengine.dart';
+import 'package:tweenengine/tweenengine.dart';
 
 TweenManager _manager = new TweenManager();
 num lastUpdate = 0;

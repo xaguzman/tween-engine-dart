@@ -1,5 +1,5 @@
 
-import '../../lib/tweenengine.dart';
+import 'package:tweenengine/tweenengine.dart';
 import 'dart:html' as html;
 import 'dart:svg';
 
