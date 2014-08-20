@@ -15,6 +15,7 @@ Thumbs.db
 .buildlog
 packages
 pubspec.lock
+build/*
 out
 test/*.js
 test/*.js.map
