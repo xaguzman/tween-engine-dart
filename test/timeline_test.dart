@@ -329,7 +329,7 @@ main() {
                 ..callback = myCallback
                 ..callbackTriggers = TweenCallback.ANY
                 ..userData = 'time'
-                ..repeat(1, 0)
+                ..repeatYoyo(1, 0)
                 ..start(myManager);
             });
             
@@ -381,7 +381,7 @@ main() {
           ..callback = myCallback
           ..callbackTriggers = TweenCallback.ANY
           ..userData = 'time'
-          ..repeat(1, 0, true)
+          ..repeatYoyo(1, 0)
           ..start(myManager);
       });
   });

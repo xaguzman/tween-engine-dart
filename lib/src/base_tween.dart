@@ -113,14 +113,10 @@ abstract class BaseTween{
    * [delay] a delay between each iteration.
    * [isYoyo] wether the repetions should be played in yoyo mode or not
    */
-  void repeat(int count, num delay, [bool isYoyo = false]) {
-    if (_isStarted) throw new Exception("You can't change the repetitions of a tween or timeline once it is started");
-    _repeatCnt = count;
-    _repeatDelay = delay >= 0 ? delay : 0;
-    _isYoyo = isYoyo;
+  void repeat(int count, num delay) {
+    _setupRepeat(count, delay, false);
   }
 
-  @Deprecated('Use repeat() instead')
   /**
    * Repeats the tween or timeline [count] times.
    * Every two iterations, it will be played backwards.
@@ -129,7 +125,15 @@ abstract class BaseTween{
    * [delay] A delay before each repetition.
    */
   void repeatYoyo(int count, num delay) {
-    repeat(count, delay, true);
+    _setupRepeat(count, delay, true );
+  }
+  
+  void _setupRepeat(int count, num delay, bool isYoyo){
+    if (_isStarted) throw new Exception("You can't change the repetitions of a tween or timeline once it is started");
+    
+    _repeatCnt = count;
+    _repeatDelay = delay >= 0 ? delay : 0;
+    _isYoyo = isYoyo;
   }
 
   // -------------------------------------------------------------------------

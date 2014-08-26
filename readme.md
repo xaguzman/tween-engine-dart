@@ -41,7 +41,7 @@ register it to the engine, and animate anything you want!
 class MyAccessor implements TweenAccessor<MyClass>{
   static const Type1 = 1;
   
-  int getValues(MyClass target, int tweenType, List<num> returnValues){
+  int getValues(MyClass target, Tween tween, int tweenType, List<num> returnValues){
     if ( tweenType == MyAccessor.Type1 ){
       returnValues[0] = target.x;
       returnValues[1] = target.y;
@@ -50,7 +50,7 @@ class MyAccessor implements TweenAccessor<MyClass>{
     return 0;
   }
 
-  void setValues(MyClass target, int tweenType, List<num> newValues){
+  void setValues(MyClass target, Tween tween, int tweenType, List<num> newValues){
     if ( tweenType == MyAccessor.Type1 ){
       target.x = newValues[0];
       target.y = newValues[1];
@@ -86,7 +86,7 @@ class MyTweenable implements Tweenable {
    * when you run a `tweenType` tween.
    * Returns the number of values set in [returnValues].
    */
-  int getTweenableValues(int tweenType, List<num> returnValues) {
+  int getTweenableValues(int tweenType, Tween tween, List<num> returnValues) {
     if (tweenType == ANSWER) {
       returnValues[0] = answer;
     } else if (tweenType == CIRCLE) {
@@ -99,7 +99,7 @@ class MyTweenable implements Tweenable {
    * Updates this object's properties with values from [newValues],
    * in the [tweenType] fashion of `getTweenableValues`.
    */
-  void setTweenableValues(int tweenType, List<num> newValues) {
+  void setTweenableValues(int tweenType, Tween tween, List<num> newValues) {
     if (tweenType == ANSWER) {
       answer = newValues[0];
     } else if (tweenType == CIRCLE) {
@@ -185,7 +185,7 @@ myTween.userData = obj;
 You can of course chain everything (with dart's method cascading):
 
 ```dart
-Tween.to(...)
+new Tween.to(...)
  ..delay = 1
  ..repeat(2, 0.5)
  ..start(myManager);
@@ -201,7 +201,7 @@ myManager.update(delta * speed);
 Create some powerful animation sequences!
 
 ```dart
-Timeline.createSequence()
+new Timeline.sequence()
     // First, set all objects to their initial positions
     ..push(Tween.set(...))
     ..push(Tween.set(...))
@@ -233,7 +233,7 @@ Timeline.createSequence()
 You can also quickly create timers:
 
 ```dart
-Tween.callBack(myCallback)
+new Tween.call(myCallback)
   ..delay = 3000
   ..start(myManager);
 ```

@@ -52,7 +52,7 @@ void main() {
       ..push( new Tween.to(rectangle, RectAccessor.RXRY, 0.5)..targetValues = [kf2.rx.baseVal.value, kf2.ry.baseVal.value] )
       ..push( new Tween.to(rectangle, RectAccessor.WH, 0.5)..targetValues = [kf2.width.baseVal.value, kf2.height.baseVal.value] )
     ..end()
-    ..repeat(Tween.INFINITY, 0, true)
+    ..repeatYoyo(Tween.INFINITY, 0)
     ..start(_tweenManager);
     
   html.window.animationFrame.then(update);
