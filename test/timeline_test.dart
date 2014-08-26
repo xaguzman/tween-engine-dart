@@ -75,7 +75,7 @@ main() {
   
   // TEST
   group('Normalized time', () {
-      test('Normal sequence', () {
+      test('for normal sequence', () {
         var myClass = new MyClass();
        
         Function expectOnBegin = expectAsync1((BaseTween tween){
@@ -126,7 +126,7 @@ main() {
           ..start(myManager);
       });
       
-      test('Normal parallel', () {
+      test('for normal parallel', () {
         var myClass = new MyClass();
        
         Function expectOnBegin = expectAsync1((BaseTween tween){
@@ -177,7 +177,7 @@ main() {
           ..start(myManager);
       });
       
-      test('Repeat sequence', () {
+      test('for repeat sequence', () {
         var myClass = new MyClass();
        
         Function expectOnBegin = expectAsync1((BaseTween tween){
@@ -229,7 +229,7 @@ main() {
           ..start(myManager);
       });
       
-      test('Repeat parallel', () {
+      test('for repeat parallel', () {
         var myClass = new MyClass();
        
         Function expectOnBegin = expectAsync1((BaseTween tween){
@@ -281,7 +281,7 @@ main() {
           ..start(myManager);
       });
       
-      test('Repeat yoyo sequence', () {
+      test('for repeat yoyo sequence', () {
               var myClass = new MyClass();
              
               Function expectOnBegin = expectAsync1((BaseTween tween){
@@ -333,61 +333,61 @@ main() {
                 ..start(myManager);
             });
             
-            test('Repeat yoyo parallel', () {
-              var myClass = new MyClass();
-             
-              Function expectOnBegin = expectAsync1((BaseTween tween){
-                expect(tween.normalTime, equals(0)); 
-              });
-              
-              Function expectOnStart = expectAsync1((BaseTween tween){
-                expect(tween.normalTime, lessThan(1)); 
-              }, count:2);
-              
-              Function expectOnEnd = expectAsync1((BaseTween tween){
-                expect(tween.normalTime, greaterThan(0));
-              }, count: 2);
-              
-              Function expectOnComplete = expectAsync1((BaseTween tween){
-                expect(tween.normalTime, equals(1));
-              });
-              
-              TweenCallbackHandler myCallback = (type, tween) {
-                switch(type) {
-                  case TweenCallback.BEGIN:
-                    expectOnBegin(tween);
-                    break;
-                  case TweenCallback.COMPLETE:
-                    expectOnComplete(tween);
-                    break;
-                  case TweenCallback.START:
-                    expectOnStart(tween);
-                    break;
-                  case TweenCallback.END:
-                    expectOnEnd(tween);
-                    break;
-                  default:
-                    print('DEFAULT CALLBACK CAUGHT ; type = ' + type.toString());
-                }
-              };
-              
-              new Timeline.parallel()
-                ..push(
-                    new Tween.to(myClass, 1, 0.1)
-                      ..targetValues = [20, 20])
-                ..push(
-                    new Tween.to(myClass, 1, 0.13)
-                      ..targetValues = [40, 40])
-                ..callback = myCallback
-                ..callbackTriggers = TweenCallback.ANY
-                ..userData = 'time'
-                ..repeat(1, 0, true)
-                ..start(myManager);
-            });
+      test('for repeat yoyo parallel', () {
+        var myClass = new MyClass();
+       
+        Function expectOnBegin = expectAsync1((BaseTween tween){
+          expect(tween.normalTime, equals(0)); 
+        });
+        
+        Function expectOnStart = expectAsync1((BaseTween tween){
+          expect(tween.normalTime, lessThan(1)); 
+        }, count:2);
+        
+        Function expectOnEnd = expectAsync1((BaseTween tween){
+          expect(tween.normalTime, greaterThan(0));
+        }, count: 2);
+        
+        Function expectOnComplete = expectAsync1((BaseTween tween){
+          expect(tween.normalTime, equals(1));
+        });
+        
+        TweenCallbackHandler myCallback = (type, tween) {
+          switch(type) {
+            case TweenCallback.BEGIN:
+              expectOnBegin(tween);
+              break;
+            case TweenCallback.COMPLETE:
+              expectOnComplete(tween);
+              break;
+            case TweenCallback.START:
+              expectOnStart(tween);
+              break;
+            case TweenCallback.END:
+              expectOnEnd(tween);
+              break;
+            default:
+              print('DEFAULT CALLBACK CAUGHT ; type = ' + type.toString());
+          }
+        };
+        
+        new Timeline.parallel()
+          ..push(
+              new Tween.to(myClass, 1, 0.1)
+                ..targetValues = [20, 20])
+          ..push(
+              new Tween.to(myClass, 1, 0.13)
+                ..targetValues = [40, 40])
+          ..callback = myCallback
+          ..callbackTriggers = TweenCallback.ANY
+          ..userData = 'time'
+          ..repeat(1, 0, true)
+          ..start(myManager);
+      });
   });
   
   group('Other', () {
-    test('Killing Timeline from within a child tween', (){
+    test('-killing timeline from within a child tween', (){
       var myObj = new MyClass();
       num killedByTween = -1;
       Timeline rootTimeline;

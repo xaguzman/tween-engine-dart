@@ -1,8 +1,8 @@
 part of tweenengine;
 
 /**
- * A Timeline can be used to create complex animations made of sequences and
- * parallel sets of Tweens.
+ * A Timeline is a container for many tweens, which can be played either sequentially, or in parallel.
+ * A timeline can contain other timelines as well.
  *
  * The following example will create an animation sequence composed of 5 parts:
  *
@@ -16,21 +16,21 @@ part of tweenengine;
  * iteration:
  * 
  *     new Timeline.sequence()
- *       ..push(Tween.set(myObject, OPACITY).target(0))
- *       ..push(Tween.set(myObject, SCALE).target(0, 0))
+ *       ..push(new Tween.set(myObject, OPACITY).target(0))
+ *       ..push(new Tween.set(myObject, SCALE).target(0, 0))
  *       ..beginParallel()
- *         ..push(Tween.to(myObject, OPACITY, 0.5)
+ *         ..push(new Tween.to(myObject, OPACITY, 0.5)
  *           ..targetValues = 1
  *           ..easing = Quad.INOUT)
- *         ..push(Tween.to(myObject, SCALE, 0.5)
+ *         ..push(new Tween.to(myObject, SCALE, 0.5)
  *           ..targetValues = [1, 1]
  *           ..easing = Quad.INOUT)
  *      ..end()
  *      ..pushPause(1.0)
- *      ..push(Tween.to(myObject, POSITION_X, 0.5)
+ *      ..push(new Tween.to(myObject, POSITION_X, 0.5)
  *        ..targetValues = 100
  *        ..easing = Quad.INOUT)
- *      ..push(Tween.to(myObject, ROTATION, 0.5)
+ *      ..push(new Tween.to(myObject, ROTATION, 0.5)
  *        ..targetValues = 360
  *        ..easing = Quad.INOUT)
  *      ..repeat(5, 0.5)

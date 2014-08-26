@@ -5,17 +5,17 @@ part of tweenengine;
  * Based on Nathan Sweet pool implementation
  */
 class Pool<T> {
-  List<T> _objects;
+  Queue<T> _objects;
   PoolCallback<T> _callback;
 
   InstanceCreator<T> create;
 
   Pool(PoolCallback<T> this._callback) {
-    this._objects = new List();
+    this._objects = new Queue();
   }
 
   T get() {
-    T obj = _objects.isEmpty ? create() : _objects.removeAt(_objects.length - 1);
+    T obj = _objects.isEmpty ? create() : _objects.removeFirst();
     if (_callback != null) _callback.onUnPool(obj);
     return obj;
   }

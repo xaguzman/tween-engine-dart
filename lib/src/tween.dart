@@ -7,36 +7,14 @@ part of tweenengine;
  * order to smooth the transitions or to achieve cool effects like springs or
  * bounces.
  *
- * The Universal Tween Engine is called "universal" because it is able to apply
- * interpolations on every attribute from every possible object. Therefore,
- * every object in your application can be animated with cool effects: it does
- * not matter if your application is a game, a web interface or even a
- * console program! If it makes sense to animate something, then it can be
- * animated through this engine.
- *
- * This class contains many static factory methods to create and instantiate
- * new interpolations easily. The common way to create a Tween is by using one
+ * This class contains many factory methods to create and instantiate
+ * new interpolations easily(all tweens are pooled). The common way to create a Tween is by using one
  * of these factories:
  *
- * * Tween.to(...)
- * * Tween.from(...)
- * * Tween.set(...)
- * * Tween.callBack(...)
- *
- * ## Example - firing a Tween
- *
- * The following example will move the target horizontal position from its
- * current value to x=200 and y=300, during 500ms, but only after a delay of
- * 1000ms. The animation will also be repeated 2 times (the starting position
- * is registered at the end of the delay, so the animation will automatically
- * restart from this registered position).
- *
- *     Tween.to(myObject, POSITION_XY, 0.5f)
- *       ..targetValues = [200, 300]
- *       ..easing = Quad.INOUT
- *       ..delay = 1
- *       ..repeat(2, 0.2)
- *       ..start(myManager);
+ * * new Tween.to(...)
+ * * new Tween.from(...)
+ * * new Tween.set(...)
+ * * new Tween.callBack(...)
  *
  * Tween life-cycles can be automatically managed for you, thanks to the
  * [TweenManager] class. If you choose to manage your tween when you start
@@ -48,19 +26,19 @@ part of tweenengine;
  * values. If your tweens are managed, only update the manager; else you need
  * to call [:update():] on your tweens periodically.
  *
- * ## Example - setting up the engine
- *
  * The engine cannot directly change your objects attributes, since it doesn't
- * know them. Therefore, you need to tell him how to get and set the different
+ * know them. Therefore, you need to let it know how to get and set the different
  * attributes of your objects: **you need to implement the [TweenAccessor] 
- * interface for each object class you will animate**. Once
+ * interface for each object class you will animate**. If you have direct control of the classes
+ * you want to animate, you can instead implement the [Tweenable] interface. Once
  * done, don't forget to register these implementations, using the static method
- * [registerAccessor], when you start your application.
+ * [registerAccessor] (only for TweenAccessors), when you start your application.
  *
- * see [TweenAccessor]
- * see [TweenManager]
- * see [TweenEquation]
- * see [Timeline]
+ * see also [TweenAccessor]
+ * see also [Tweenable]
+ * see also [TweenManager]
+ * see also [Timeline]
+ * 
  * author 
  *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
  *    Xavier Guzman (dart port)

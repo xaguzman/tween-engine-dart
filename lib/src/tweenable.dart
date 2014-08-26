@@ -5,7 +5,7 @@ part of tweenengine;
  * The [Tweenable] interface enables the object to be passed as target to the Tween Engine.
  * When you tween an object, you also provide a [tweenType], which will be passed to these methods.
  * The [tweenType] is our way of telling the engine which properties it should tween.
- * It's a very simple reflection implementation, if you want.
+ * It's a very simple solution to avoid reflection, if you will.
  *
  * Dart, unlike javascript and to provide better minification,
  * has no string accessors such as `myObject['myProperty']`.

@@ -120,7 +120,7 @@ abstract class BaseTween{
     _isYoyo = isYoyo;
   }
 
-  @Deprecated('this method will be removed as of version 0.10.3, use repeat() instead')
+  @Deprecated('Use repeat() instead')
   /**
    * Repeats the tween or timeline [count] times.
    * Every two iterations, it will be played backwards.
@@ -131,17 +131,6 @@ abstract class BaseTween{
   void repeatYoyo(int count, num delay) {
     repeat(count, delay, true);
   }
- 
-  /**
-   * Attaches an object to this tween or timeline. It can be useful in order
-   * to retrieve some data from a TweenCallback.
-   *
-   * [data] Any kind of object.
-   */
-  void setUserData(Object data) {
-    _userData = data;
-  }
-  
 
   // -------------------------------------------------------------------------
   // Getters & Setters
@@ -170,7 +159,7 @@ abstract class BaseTween{
    */
   num get fullDuration => _repeatCnt < 0 ? -1 : _delay + _duration + (_repeatDelay + _duration) * _repeatCnt;
 
-  ///Attached data to the tween, it can be useful in order to retrieve some data from a [TweenCallbackHandler].
+  ///Attached data to the tween, it can be useful in order to retrieve some data on a [TweenCallbackHandler].
   Object get userData => _userData;
   void set userData(Object data){ _userData = data; }
 
@@ -211,7 +200,7 @@ abstract class BaseTween{
   ///Returns true if the iterations are played as yoyo. Yoyo means that every two iterations, the animation will be played backwards.
   bool get isYoyo => _isYoyo;
 
-  ///Returns true if the tween or timeline is currently paused.
+  ///Wether this tween or timeline is currently paused.
   bool get isPaused => _isPaused;
   
   bool get isKilled => _isKilled;
@@ -243,7 +232,7 @@ abstract class BaseTween{
    * backward:      bCOMPLETE                                 bBEGIN
    * 
    *
-   * @param flags one or more triggers, separated by the '|' operator.
+   * [flags] one or more triggers, separated by the '|' operator.
    */
   void set callbackTriggers(int flags) {
     _callbackTriggers = flags;
@@ -305,14 +294,14 @@ abstract class BaseTween{
   // -------------------------------------------------------------------------
 
   /**
-   * Updates the tween or timeline state. <b>You may want to use a
-   * TweenManager to update objects for you.</b>
+   * Updates the tween or timeline state. **You may want to use a
+   * TweenManager to update objects for you.**
    *
    * Slow motion, fast motion and backward play can be easily achieved by
    * tweaking this delta time. Multiply it by -1 to play the animation
    * backward, or by 0.5 to play it twice slower than its normal speed.
    *
-   * @param delta A delta time between now and the last call.
+   * [delta] The time between now and the last call, in seconds.
    */
   void update(num delta) {
     if (!_isStarted || _isPaused || _isKilled) return;
@@ -450,6 +439,6 @@ abstract class BaseTween{
   }
 
   void testCompletion() {
-          _isFinished = repeatCount >= 0 && (step > repeatCount*2 || step < 0);
+    _isFinished = repeatCount >= 0 && (step > repeatCount*2 || step < 0);
   }
 }
