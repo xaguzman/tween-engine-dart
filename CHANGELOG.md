@@ -9,7 +9,7 @@
   * new Tween.set()
   * new Tween.call()
   * new Tween.mark()
-* Tween Accesor and tweenable interfaces have both changed, not they both receive the tween as a paremeter in their getValues() and setValues() methods.
+* TweenAccesor and Tweenable interfaces have both changed, now they both receive the tween as a paremeter in their getValues() and setValues() methods.
 * BaseTween.normalTime added, provides the normalized elapsed time of the tween ( 0 <= normalTime <= 1)
 
 #### V 0.10.2
