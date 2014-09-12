@@ -103,7 +103,7 @@ main() {
   window.animationFrame.then(update);
   
   // TEST
-
+  group('Tween accessor', () {
     test('it basically works', () {
 
       var myClass = new MyClass();
@@ -143,9 +143,10 @@ main() {
         ..callbackTriggers = TweenCallback.ANY
         ..start(myManager);
     });
+  });
 
   
-
+  group('Tweenable', () {
     test('it basically works', () {
 
       var life = new MyTweenable();
@@ -189,5 +190,7 @@ main() {
         ..callbackTriggers = TweenCallback.ANY
         ..start(myManager);
     });
+  
+  });
     
 }

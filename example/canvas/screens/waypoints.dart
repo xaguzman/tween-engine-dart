@@ -25,8 +25,7 @@ class Waypoints extends Screen{
       ..targetValues = [350, 250]
       ..easing = Quad.INOUT
       ..path = TweenPaths.catmullRom
-//      ..repeatYoyo(Tween.INFINITY, 0.2)
-      ..repeat(Tween.INFINITY, 0.2, true)
+      ..repeatYoyo(Tween.INFINITY, 0.2)
       ..delay = 0.5
       ..start(_tweenManager);
   }

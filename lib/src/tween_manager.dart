@@ -3,7 +3,7 @@ part of tweenengine;
 /**
  * A TweenManager updates all your tweens and timelines at once.
  * Its main interest is that it handles the tween/timeline life-cycles for you,
- * as well as the pooling constraints (if object pooling is enabled).
+ * as well as the pooling constraints.
  *
  * Just give it a bunch of tweens or timelines and call [update] periodically,
  * you don't need to care for anything else! Relax and enjoy your animations.

@@ -1,7 +1,8 @@
 library tweenengine;
 
 import 'dart:typed_data';
-import 'dart:math' as Math; 
+import 'dart:math' as Math;
+import 'dart:collection';
 
 part 'src/base_tween.dart';
 part 'src/tween.dart';

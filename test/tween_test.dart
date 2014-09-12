@@ -223,7 +223,7 @@ main() {
         ..targetValues = [20,20]
         ..callback = myCallback
         ..callbackTriggers = TweenCallback.ANY
-        ..repeat(1, 0, true)
+        ..repeatYoyo(1, 0)
         ..userData = 'time'
         ..start(myManager);
     });

@@ -1,3 +1,17 @@
+#### V 0.11.0
+
+* Timeline.createSequence() and Timeline.createParallel() are now replaced for factory named constructors:
+  * new Timeline.sequence()
+  * new Timeline.parallel()=
+* Tween.to, Tween.from, Tween.set, Tween.call and Tween.mark are now replaced for factory named constructors:
+  * new Tween.to()
+  * new Tweee.from()
+  * new Tween.set()
+  * new Tween.call()
+  * new Tween.mark()
+* TweenAccesor and Tweenable interfaces have both changed, now they both receive the tween as a paremeter in their getValues() and setValues() methods.
+* BaseTween.normalTime added, provides the normalized elapsed time of the tween ( 0 <= normalTime <= 1)
+
 #### V 0.10.2
 
 * Fixed a bug where creating a new Tween from within a callback would break the TweenManager
