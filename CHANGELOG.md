@@ -1,5 +1,9 @@
 #### V 0.11.0
 
+* Fixed [issue #12](https://github.com/xaguzman/tween-engine-dart/issues/12) typo in tween.containsTarget which would make it missfunction
+
+#### V 0.11.0
+
 * Timeline.createSequence() and Timeline.createParallel() are now replaced for factory named constructors:
   * new Timeline.sequence()
   * new Timeline.parallel()=
