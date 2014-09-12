@@ -599,7 +599,7 @@ class Tween extends BaseTween {
   }
 
   bool containsTarget(Object target, [int tweenType = null]) {
-    if (tweenType = null)
+    if (tweenType == null)
       return _target == target;
     return _target == target && _type == tweenType;
   }
