@@ -1,10 +1,6 @@
-import 'dart:html';
-import 'dart:math';
-//import 'dart:isolate';
 
-import 'package:unittest/unittest.dart';
-import 'package:unittest/html_enhanced_config.dart';
-
+import 'dart:async';
+import 'package:test/test.dart';
 import 'package:tweenengine/tweenengine.dart';
 
 /// Fixture [TweenAccessor] for tests
@@ -68,54 +64,44 @@ class MyTweenable implements Tweenable {
 //   - myClass with null properties
 //   - myClass with non-numeric properties
 
-
-
 main() {
 
-  // SETUP TEST SUITE
+  TweenManager myManager;
+  Stopwatch watch;
+  Timer timer;
+  Tween.registerAccessor(MyClass, new MyAccessor());
 
-  useHtmlEnhancedConfiguration();
-  unittestConfiguration.timeout = new Duration(seconds: 3);
+  setUp( () {
+    myManager = new TweenManager();
+    watch = new Stopwatch();
 
-  // SETUP TWEEN ENGINE
+    var ticker = (timer){
+      var deltaInSeconds = watch.elapsedMilliseconds / 1000;
 
-  TweenManager myManager = new TweenManager();
+      myManager.update(deltaInSeconds);
+      watch.reset();
+    };
 
-  num lastUpdate;
-  update(num timestampInMs){
+    var duration = new Duration(milliseconds: 1000 ~/ 60);
+    watch.start();
+    timer = new Timer.periodic(duration, ticker );
+  });
 
-    num deltaInSeconds;
-    // Edge-case when a tween starts with the very first update
-    if (lastUpdate == null) {
-      deltaInSeconds = 0;
-    } else {
-      deltaInSeconds = (timestampInMs - lastUpdate) / 1000;
-    }
-    
-    deltaInSeconds = min(deltaInSeconds, 1 / 30); 
+  tearDown( (){
+    timer.cancel();
+    watch.stop();
+  });
 
-    lastUpdate = timestampInMs;
-
-    myManager.update(deltaInSeconds);
-    window.animationFrame.then(update);
-  }
-
-  window.animationFrame.then(update);
-  
   // TEST
   group('Tween accessor', () {
-    test('it basically works', () {
-
+    test('Simple Tween', () {
       var myClass = new MyClass();
 
-      // Register the accessor
-      Tween.registerAccessor(MyClass, new MyAccessor());
-
       // The following are expected to be called exactly once
-      Function expectOnBegin     = expectAsync1((tween){});
-      Function expectOnComplete  = expectAsync1((tween){});
-      Function expectOnStart     = expectAsync1((tween){});
-      Function expectOnEnd       = expectAsync1((tween){});
+      Function expectOnBegin     = expectAsync((tween) {} );
+      Function expectOnComplete  = expectAsync((tween) {});
+      Function expectOnStart     = expectAsync((tween) {});
+      Function expectOnEnd       = expectAsync((tween) {});
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch(type) {
@@ -124,6 +110,8 @@ main() {
             break;
           case TweenCallback.COMPLETE:
             expectOnComplete(tween);
+            expect(myClass.x, equals(20));
+            expect(myClass.y, equals(30));
             break;
           case TweenCallback.START:
             expectOnStart(tween);
@@ -136,7 +124,7 @@ main() {
         }
       };
 
-      new Tween.to(myClass, MyAccessor.XY, 0.1)
+      new Tween.to(myClass, MyAccessor.XY, 0.5)
         ..targetValues = [20, 30]
         ..easing = Elastic.INOUT
         ..callback = myCallback
@@ -147,18 +135,14 @@ main() {
 
   
   group('Tweenable', () {
-    test('it basically works', () {
-
+    test('Simple Tween', () {
       var life = new MyTweenable();
 
-      // The following are expected to be called exactly once
-      // Note that `expectAsync1` will soon be deprecated.
-      Function expectOnBegin     = expectAsync1((tween){});
-      Function expectOnComplete  = expectAsync1((tween){});
-      Function expectOnStart     = expectAsync1((tween){});
-      Function expectOnEnd       = expectAsync1((tween){});
+      Function expectOnBegin     = expectAsync((tween) {} );
+      Function expectOnComplete  = expectAsync((tween) {} );
+      Function expectOnStart     = expectAsync((tween) {} );
+      Function expectOnEnd       = expectAsync((tween) {});
 
-      
       TweenCallbackHandler myCallback = (type, tween) {
         switch(type) {
           case TweenCallback.BEGIN:
@@ -183,7 +167,7 @@ main() {
       expect(life.answer, equals(42));
 
       // Tween the answer
-      new Tween.to(life, MyTweenable.ANSWER, 0.1)
+      new Tween.to(life, MyTweenable.ANSWER, 0.5)
         ..targetValues = [69]
         ..easing = Linear.INOUT
         ..callback = myCallback

@@ -1,10 +1,5 @@
-import 'dart:html';
-import 'dart:math';
-//import 'dart:isolate';
-
-import 'package:unittest/unittest.dart';
-import 'package:unittest/html_enhanced_config.dart';
-
+import 'dart:async';
+import 'package:test/test.dart';
 import 'package:tweenengine/tweenengine.dart';
 
 /// Fixture [TweenAccessor] for tests
@@ -42,55 +37,50 @@ class MyClass {
 }
 
 main() {
-
-  // SETUP TEST SUITE
-
-  useHtmlEnhancedConfiguration();
-  unittestConfiguration.timeout = new Duration(seconds: 3);
-
-  // SETUP TWEEN ENGINE
-  TweenManager myManager = new TweenManager();
+  TweenManager myManager;
+  Stopwatch watch;
+  Timer timer;
   Tween.registerAccessor(MyClass, new MyAccessor());
 
-  num lastUpdate;
-  update(num timestampInMs){
+  setUp( () {
+    myManager = new TweenManager();
+    watch = new Stopwatch();
 
-    num deltaInSeconds;
-    // Edge-case when a tween starts with the very first update
-    if (lastUpdate == null) {
-      deltaInSeconds = 0;
-    } else {
-      deltaInSeconds = (timestampInMs - lastUpdate) / 1000;
-    }
-    
-    deltaInSeconds = min(deltaInSeconds, 1 / 30); 
+    var ticker = (timer){
+      var deltaInSeconds = watch.elapsedMilliseconds / 1000;
 
-    lastUpdate = timestampInMs;
+      myManager.update(deltaInSeconds);
+      watch.reset();
+    };
 
-    myManager.update(deltaInSeconds);
-    window.animationFrame.then(update);
-  }
+    var duration = new Duration(milliseconds: 1000 ~/ 60);
+    watch.start();
+    timer = new Timer.periodic(duration, ticker );
+  });
 
-  window.animationFrame.then(update);
-  
+  tearDown( (){
+    timer.cancel();
+    watch.stop();
+  });
+
   // TEST
   group('Normalized time', () {
-      test('for normal sequence', () {
+     test('for normal sequence', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync1((BaseTween tween){
+        Function expectOnBegin = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync1((BaseTween tween){
+        Function expectOnStart = expectAsync((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         });
         
-        Function expectOnEnd = expectAsync1((BaseTween tween){
+        Function expectOnEnd = expectAsync((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         });
         
-        Function expectOnComplete = expectAsync1((BaseTween tween){
+        Function expectOnComplete = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
         
@@ -129,19 +119,19 @@ main() {
       test('for normal parallel', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync1((BaseTween tween){
+        Function expectOnBegin = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync1((BaseTween tween){
+        Function expectOnStart = expectAsync((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         });
         
-        Function expectOnEnd = expectAsync1((BaseTween tween){
+        Function expectOnEnd = expectAsync((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         });
         
-        Function expectOnComplete = expectAsync1((BaseTween tween){
+        Function expectOnComplete = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });       
         
@@ -180,19 +170,19 @@ main() {
       test('for repeat sequence', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync1((BaseTween tween){
+        Function expectOnBegin = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync1((BaseTween tween){
+        Function expectOnStart = expectAsync((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         }, count:2);
         
-        Function expectOnEnd = expectAsync1((BaseTween tween){
+        Function expectOnEnd = expectAsync((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         }, count: 2);
         
-        Function expectOnComplete = expectAsync1((BaseTween tween){
+        Function expectOnComplete = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
 
@@ -232,19 +222,19 @@ main() {
       test('for repeat parallel', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync1((BaseTween tween){
+        Function expectOnBegin = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync1((BaseTween tween){
+        Function expectOnStart = expectAsync((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         }, count:2);
         
-        Function expectOnEnd = expectAsync1((BaseTween tween){
+        Function expectOnEnd = expectAsync((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         }, count: 2);
         
-        Function expectOnComplete = expectAsync1((BaseTween tween){
+        Function expectOnComplete = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
         
@@ -284,19 +274,19 @@ main() {
       test('for repeat yoyo sequence', () {
               var myClass = new MyClass();
              
-              Function expectOnBegin = expectAsync1((BaseTween tween){
+              Function expectOnBegin = expectAsync((BaseTween tween){
                 expect(tween.normalTime, equals(0)); 
               });
               
-              Function expectOnStart = expectAsync1((BaseTween tween){
+              Function expectOnStart = expectAsync((BaseTween tween){
                 expect(tween.normalTime, lessThan(1)); 
               }, count:2);
               
-              Function expectOnEnd = expectAsync1((BaseTween tween){
+              Function expectOnEnd = expectAsync((BaseTween tween){
                 expect(tween.normalTime, greaterThan(0));
               }, count: 2);
               
-              Function expectOnComplete = expectAsync1((BaseTween tween){
+              Function expectOnComplete = expectAsync((BaseTween tween){
                 expect(tween.normalTime, equals(1));
               });
 
@@ -336,19 +326,19 @@ main() {
       test('for repeat yoyo parallel', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync1((BaseTween tween){
+        Function expectOnBegin = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync1((BaseTween tween){
+        Function expectOnStart = expectAsync((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         }, count:2);
         
-        Function expectOnEnd = expectAsync1((BaseTween tween){
+        Function expectOnEnd = expectAsync((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         }, count: 2);
         
-        Function expectOnComplete = expectAsync1((BaseTween tween){
+        Function expectOnComplete = expectAsync((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
         
@@ -393,7 +383,7 @@ main() {
       Timeline rootTimeline;
       
       
-      Function timelineElapsedLessThan1 = expectAsync0(  ( ){
+      Function timelineElapsedLessThan1 = expectAsync(  ( ){
         //this  function should only  be called by first tween
         expect(killedByTween, equals(1));
         expect(rootTimeline.currentTime, lessThan(1));
