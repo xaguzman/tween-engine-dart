@@ -48,8 +48,8 @@ typedef void CallbackAction<T>(T obj);
 typedef T InstanceCreator<T>();
 
 class PoolCallback<T> {
-  CallbackAction onPool;
-  CallbackAction onUnPool;
+  CallbackAction<T> onPool;
+  CallbackAction<T> onUnPool;
   
   PoolCallback([this.onPool, this.onUnPool]);
 }

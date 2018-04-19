@@ -68,19 +68,19 @@ main() {
      test('for normal sequence', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync((BaseTween tween){
+        Function expectOnBegin = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync((BaseTween tween){
+        Function expectOnStart = expectAsync1((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         });
         
-        Function expectOnEnd = expectAsync((BaseTween tween){
+        Function expectOnEnd = expectAsync1((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         });
         
-        Function expectOnComplete = expectAsync((BaseTween tween){
+        Function expectOnComplete = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
         
@@ -119,19 +119,19 @@ main() {
       test('for normal parallel', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync((BaseTween tween){
+        Function expectOnBegin = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync((BaseTween tween){
+        Function expectOnStart = expectAsync1((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         });
         
-        Function expectOnEnd = expectAsync((BaseTween tween){
+        Function expectOnEnd = expectAsync1((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         });
         
-        Function expectOnComplete = expectAsync((BaseTween tween){
+        Function expectOnComplete = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });       
         
@@ -170,19 +170,19 @@ main() {
       test('for repeat sequence', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync((BaseTween tween){
+        Function expectOnBegin = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync((BaseTween tween){
+        Function expectOnStart = expectAsync1((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         }, count:2);
         
-        Function expectOnEnd = expectAsync((BaseTween tween){
+        Function expectOnEnd = expectAsync1((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         }, count: 2);
         
-        Function expectOnComplete = expectAsync((BaseTween tween){
+        Function expectOnComplete = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
 
@@ -222,19 +222,19 @@ main() {
       test('for repeat parallel', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync((BaseTween tween){
+        Function expectOnBegin = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync((BaseTween tween){
+        Function expectOnStart = expectAsync1((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         }, count:2);
         
-        Function expectOnEnd = expectAsync((BaseTween tween){
+        Function expectOnEnd = expectAsync1((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         }, count: 2);
         
-        Function expectOnComplete = expectAsync((BaseTween tween){
+        Function expectOnComplete = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
         
@@ -274,19 +274,19 @@ main() {
       test('for repeat yoyo sequence', () {
               var myClass = new MyClass();
              
-              Function expectOnBegin = expectAsync((BaseTween tween){
+              Function expectOnBegin = expectAsync1((BaseTween tween){
                 expect(tween.normalTime, equals(0)); 
               });
               
-              Function expectOnStart = expectAsync((BaseTween tween){
+              Function expectOnStart = expectAsync1((BaseTween tween){
                 expect(tween.normalTime, lessThan(1)); 
               }, count:2);
               
-              Function expectOnEnd = expectAsync((BaseTween tween){
+              Function expectOnEnd = expectAsync1((BaseTween tween){
                 expect(tween.normalTime, greaterThan(0));
               }, count: 2);
               
-              Function expectOnComplete = expectAsync((BaseTween tween){
+              Function expectOnComplete = expectAsync1((BaseTween tween){
                 expect(tween.normalTime, equals(1));
               });
 
@@ -326,19 +326,19 @@ main() {
       test('for repeat yoyo parallel', () {
         var myClass = new MyClass();
        
-        Function expectOnBegin = expectAsync((BaseTween tween){
+        Function expectOnBegin = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         });
         
-        Function expectOnStart = expectAsync((BaseTween tween){
+        Function expectOnStart = expectAsync1((BaseTween tween){
           expect(tween.normalTime, lessThan(1)); 
         }, count:2);
         
-        Function expectOnEnd = expectAsync((BaseTween tween){
+        Function expectOnEnd = expectAsync1((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
         }, count: 2);
         
-        Function expectOnComplete = expectAsync((BaseTween tween){
+        Function expectOnComplete = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(1));
         });
         
@@ -383,7 +383,7 @@ main() {
       Timeline rootTimeline;
       
       
-      Function timelineElapsedLessThan1 = expectAsync(  ( ){
+      Function timelineElapsedLessThan1 = expectAsync0(  ( ){
         //this  function should only  be called by first tween
         expect(killedByTween, equals(1));
         expect(rootTimeline.currentTime, lessThan(1));

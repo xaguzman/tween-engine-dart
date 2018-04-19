@@ -14,7 +14,7 @@ void main(){
   //Animate fully from 0 to current value (60%)
   new Tween.from(target, 1, 3)
     ..delay = 2
-    ..targetValues = 0
+    ..targetValues = [0]
     ..easing = TweenEquations.easeOutExpo
     ..start(_manager);
   

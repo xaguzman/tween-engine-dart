@@ -69,12 +69,12 @@ main() {
       var myClass = new MyClass();
       
       // start / begin
-      Function expectOnBegin = expectAsync((BaseTween tween){
+      Function expectOnBegin = expectAsync1((BaseTween tween){
         expect(tween.normalTime, equals(0)); 
       }, count: 2);
       
       // end / complete
-      Function expectOnComplete = expectAsync((BaseTween tween){
+      Function expectOnComplete = expectAsync1((BaseTween tween){
         expect(tween.normalTime, equals(1));
       }, count: 2);
       
@@ -98,12 +98,12 @@ main() {
         var myClass = new MyClass();
         
         // start / begin
-        Function expectOnBegin = expectAsync((BaseTween tween){
+        Function expectOnBegin = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(0)); 
         }, count: 2);
         
         // end / complete
-        Function expectOnComplete = expectAsync((BaseTween tween){
+        Function expectOnComplete = expectAsync1((BaseTween tween){
           expect(tween.normalTime, equals(1));
         }, count: 2);
         
@@ -126,19 +126,19 @@ main() {
     test('repeat', () {
       var myClass = new MyClass();
       
-      Function expectOnBegin = expectAsync((BaseTween tween){
+      Function expectOnBegin = expectAsync1((BaseTween tween){
         expect(tween.normalTime, equals(0)); 
       });
       
-      Function expectOnStart = expectAsync((BaseTween tween){
+      Function expectOnStart = expectAsync1((BaseTween tween){
         expect(tween.normalTime, lessThan(1)); 
       }, count : 2);
       
-      Function expectOnEnd = expectAsync((BaseTween tween){
+      Function expectOnEnd = expectAsync1((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
       }, count: 2);
       
-      Function expectOnComplete = expectAsync((BaseTween tween){
+      Function expectOnComplete = expectAsync1((BaseTween tween){
         expect(tween.normalTime, equals(1));
       });
       
@@ -174,19 +174,19 @@ main() {
     test('repeat yoyo', () {
       var myClass = new MyClass();
       
-      Function expectOnBegin = expectAsync((BaseTween tween){
+      Function expectOnBegin = expectAsync1((BaseTween tween){
         expect(tween.normalTime, equals(0)); 
       });
       
-      Function expectOnStart = expectAsync((BaseTween tween){
+      Function expectOnStart = expectAsync1((BaseTween tween){
         expect(tween.normalTime, lessThan(1)); 
       }, count : 2);
       
-      Function expectOnEnd = expectAsync((BaseTween tween){
+      Function expectOnEnd = expectAsync1((BaseTween tween){
           expect(tween.normalTime, greaterThan(0));
       }, count: 2);
       
-      Function expectOnComplete = expectAsync((BaseTween tween){
+      Function expectOnComplete = expectAsync1((BaseTween tween){
         expect(tween.normalTime, equals(1));
       });
       

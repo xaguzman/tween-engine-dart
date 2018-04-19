@@ -98,10 +98,10 @@ main() {
       var myClass = new MyClass();
 
       // The following are expected to be called exactly once
-      Function expectOnBegin     = expectAsync((tween) {} );
-      Function expectOnComplete  = expectAsync((tween) {});
-      Function expectOnStart     = expectAsync((tween) {});
-      Function expectOnEnd       = expectAsync((tween) {});
+      Function expectOnBegin     = expectAsync1((tween) {} );
+      Function expectOnComplete  = expectAsync1((tween) {});
+      Function expectOnStart     = expectAsync1((tween) {});
+      Function expectOnEnd       = expectAsync1((tween) {});
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch(type) {
@@ -138,10 +138,10 @@ main() {
     test('Simple Tween', () {
       var life = new MyTweenable();
 
-      Function expectOnBegin     = expectAsync((tween) {} );
-      Function expectOnComplete  = expectAsync((tween) {} );
-      Function expectOnStart     = expectAsync((tween) {} );
-      Function expectOnEnd       = expectAsync((tween) {});
+      Function expectOnBegin     = expectAsync1((tween) {} );
+      Function expectOnComplete  = expectAsync1((tween) {} );
+      Function expectOnStart     = expectAsync1((tween) {} );
+      Function expectOnEnd       = expectAsync1((tween) {});
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch(type) {

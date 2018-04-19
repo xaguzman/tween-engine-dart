@@ -410,13 +410,9 @@ class Tween extends BaseTween {
    * multiple target values are needed
    */
   List<num> get targetValues => _targetValues;
-  void set targetValues(num_OR_numList) {
-    if(num_OR_numList is num)
-      _targetValues[0] = num_OR_numList;
-    else if (num_OR_numList is List<num>){
-      if (_targetValues.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
-      _targetValues.setAll(0, num_OR_numList);
-    }
+  void set targetValues(List<num> values) {
+    if (_targetValues.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
+    _targetValues.setAll(0, values);
   }
   
   /**
@@ -427,17 +423,13 @@ class Tween extends BaseTween {
    * - start values: values at start time, after delay
    * - end values: params + values at start time, after delay
    *
-   * [num_OR_numList] The relative target values of the interpolation. Can be either a num, or a List<num> if 
+   * [values] The relative target values of the interpolation. Can be either a num, or a List<num> if
    * multiple target values are needed
    */
-  void set targetRelative(num_OR_numList) {
-    if(num_OR_numList is num)
-      _targetValues[0] = isInitialized ? num_OR_numList + _startValues[0] : num_OR_numList;
-    else if (num_OR_numList is List<num>){
-      if (num_OR_numList.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
-      for (int i=0; i< num_OR_numList.length; i++) {
-        _targetValues[i] = isInitialized ? num_OR_numList[i] + _startValues[i] : num_OR_numList[i];
-      }
+  void set targetRelative(List<num> values) {
+    if (values.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
+    for (int i=0; i< values.length; i++) {
+      _targetValues[i] = isInitialized ? values[i] + _startValues[i] : values[i];
     }
     _isRelative = true;
   }
