@@ -119,18 +119,18 @@ class Timeline extends BaseTween {
   // -------------------------------------------------------------------------
 
   ///Adds a Tween or nests a Timeline to the current timeline
-  void push(tween_OR_timeline) {
-    if (tween_OR_timeline is! Tween && tween_OR_timeline is! Timeline)
+  void push(BaseTween tweenOrTimeline) {
+    if (tweenOrTimeline is! Tween && tweenOrTimeline is! Timeline)
       throw Exception("Only a tween or timeline can be pushed into a timeline");
 
     if (_isBuilt)
       throw Exception(
           "You can't push anything to a timeline once it is started");
 
-    if (tween_OR_timeline is Tween)
-      _pushTween(tween_OR_timeline);
+    if (tweenOrTimeline is Tween)
+      _pushTween(tweenOrTimeline);
     else
-      _pushTimeline(tween_OR_timeline);
+      _pushTimeline(tweenOrTimeline);
   }
 
   ///Adds a Tween to the current timeline.
