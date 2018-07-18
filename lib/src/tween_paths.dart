@@ -22,11 +22,8 @@ typedef num PathComputingFunction(num t, List<num> points, int pointsCnt);
  *    Xavier Guzman (dart port)
  */
 abstract class TweenPath {
-
-  
   PathComputingFunction compute;
 }
-
 
 /**
  * Collection of built-in paths.
@@ -36,6 +33,6 @@ abstract class TweenPath {
  *    Xavier Guzman (dart port)
  */
 abstract class TweenPaths {
-  static final LinearPath linear = new LinearPath();
-  static final CatmullRom catmullRom = new CatmullRom();
+  static final LinearPath linear = LinearPath();
+  static final CatmullRom catmullRom = CatmullRom();
 }

@@ -1,6 +1,5 @@
 part of tweenengine;
 
-
 /**
  * The [Tweenable] interface enables the object to be passed as target to the Tween Engine.
  * When you tween an object, you also provide a [tweenType], which will be passed to these methods.
@@ -29,7 +28,7 @@ abstract class Tweenable {
    * Returns the count of modified slots from the returnValues array.
    */
   int getTweenableValues(Tween tween, int tweenType, List<num> returnValues);
-  
+
   /**
    * This method is called by the Tween Engine each time a running tween
    * associated with this object has been updated.

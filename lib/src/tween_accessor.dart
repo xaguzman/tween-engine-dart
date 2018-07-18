@@ -1,6 +1,5 @@
 part of tweenengine;
 
-
 /**
  * The TweenAccessor interface lets you interpolate any attribute from any
  * object. Just implement it as you want and register it to the engine by
@@ -68,7 +67,7 @@ abstract class TweenAccessor<T> {
    * Returns the count of modified slots from the returnValues array.
    */
   int getValues(T target, Tween tween, int tweenType, List<num> returnValues);
-  
+
   /**
    * This method is called by the Tween Engine each time a running tween
    * associated with the current target object has been updated.

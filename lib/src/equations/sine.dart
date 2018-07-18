@@ -10,17 +10,17 @@ part of tweenengine;
 class Sine extends TweenEquation {
   //private static final float PI = 3.14159265f;
 
-  static final Sine IN = new Sine._()
+  static final Sine IN = Sine._()
     ..name = "Sine.IN"
-  ..compute = (num t) => -Math.cos(t * (Math.PI/2)) + 1;
+    ..compute = (num t) => -Math.cos(t * (Math.PI / 2)) + 1;
 
-  static final Sine OUT = new Sine._()
+  static final Sine OUT = Sine._()
     ..name = "Sine.OUT"
-    ..compute = (num t) => Math.sin(t * (Math.PI/2));
+    ..compute = (num t) => Math.sin(t * (Math.PI / 2));
 
-  static final Sine INOUT = new Sine._()
+  static final Sine INOUT = Sine._()
     ..name = "Sine.INOUT"
-    ..compute = (num t) => -0.5 * (Math.cos(Math.PI*t) - 1);
+    ..compute = (num t) => -0.5 * (Math.cos(Math.PI * t) - 1);
 
   Sine._();
 }

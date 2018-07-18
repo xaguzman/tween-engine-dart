@@ -8,22 +8,20 @@ part of tweenengine;
  *    Xavier Guzman (dart port)
  */
 class Quart extends TweenEquation {
-  
-  static num _computeINOUT(num t){
-    if ((t*=2) < 1) return 0.5*t*t*t*t;
-    return -0.5 * ((t-=2)*t*t*t - 2);
+  static num _computeINOUT(num t) {
+    if ((t *= 2) < 1) return 0.5 * t * t * t * t;
+    return -0.5 * ((t -= 2) * t * t * t - 2);
   }
-  
-  static final Quart IN = new Quart()
+
+  static final Quart IN = Quart()
     ..name = "Quart.IN"
     ..compute = (num t) => t * t * t * t;
-    
-  static final Quart OUT = new Quart()
+
+  static final Quart OUT = Quart()
     ..name = "Quart.OUT"
-    ..compute = (num t) => -((t-=1)*t*t*t - 1);
-    
-  static final Quart INOUT = new Quart()
+    ..compute = (num t) => -((t -= 1) * t * t * t - 1);
+
+  static final Quart INOUT = Quart()
     ..name = "Quart.INOUT"
     ..compute = _computeINOUT;
-
 }

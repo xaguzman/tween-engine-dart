@@ -31,4 +31,3 @@ part 'src/equations/sine.dart';
 //paths
 part 'src/paths/catmull_rom.dart';
 part 'src/paths/linear.dart';
-

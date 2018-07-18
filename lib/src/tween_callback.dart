@@ -27,20 +27,19 @@ part of tweenengine;
  *    Xavier Guzman (dart port)
  */
 class TweenCallback {
-    
-    TweenCallback._();
-  
-    static const int BEGIN = 0x01;
-    static const int START = 0x02;
-    static const int END = 0x04;
-    static const int COMPLETE = 0x08;
-    static const int BACK_BEGIN = 0x10;
-    static const int BACK_START = 0x20;
-    static const int BACK_END = 0x40;
-    static const int BACK_COMPLETE = 0x80;
-    static const int ANY_FORWARD = 0x0F;
-    static const int ANY_BACKWARD = 0xF0;
-    static const int ANY = 0xFF;
+  TweenCallback._();
+
+  static const int BEGIN = 0x01;
+  static const int START = 0x02;
+  static const int END = 0x04;
+  static const int COMPLETE = 0x08;
+  static const int BACK_BEGIN = 0x10;
+  static const int BACK_START = 0x20;
+  static const int BACK_END = 0x40;
+  static const int BACK_COMPLETE = 0x80;
+  static const int ANY_FORWARD = 0x0F;
+  static const int ANY_BACKWARD = 0xF0;
+  static const int ANY = 0xFF;
 }
 
 ///a handler which can take actions when any event occurs on a tween

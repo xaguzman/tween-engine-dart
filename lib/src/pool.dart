@@ -11,7 +11,7 @@ class Pool<T> {
   InstanceCreator<T> create;
 
   Pool(PoolCallback<T> this._callback) {
-    this._objects = new Queue();
+    this._objects = Queue();
   }
 
   T get() {
@@ -38,7 +38,6 @@ class Pool<T> {
   void ensureCapacity(int minCapacity) {
     //_objects.ensureCapacity(minCapacity);
   }
-  
 }
 
 //Defines the actions to take when an object is pooled / unpooled
@@ -50,6 +49,6 @@ typedef T InstanceCreator<T>();
 class PoolCallback<T> {
   CallbackAction<T> onPool;
   CallbackAction<T> onUnPool;
-  
+
   PoolCallback([this.onPool, this.onUnPool]);
 }

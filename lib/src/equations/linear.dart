@@ -8,10 +8,9 @@ part of tweenengine;
  *    Xavier Guzman (dart port)
  */
 class Linear extends TweenEquation {
-  
-  static final Linear INOUT = new Linear._()
+  static final Linear INOUT = Linear._()
     ..name = "Linear.INOUT"
     ..compute = (num t) => t;
-  
+
   Linear._();
 }

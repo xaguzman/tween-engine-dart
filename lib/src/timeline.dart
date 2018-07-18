@@ -48,20 +48,23 @@ class Timeline extends BaseTween {
   // Static -- pool
   // -------------------------------------------------------------------------
 
-  static final PoolCallback<Timeline> _poolCallback = new PoolCallback<Timeline>()
-      ..onPool = (Timeline obj) { obj.reset(); }
-      ..onUnPool = (Timeline obj) { obj.reset(); };
-  
+  static final PoolCallback<Timeline> _poolCallback = PoolCallback<Timeline>()
+    ..onPool = (Timeline obj) {
+      obj.reset();
+    }
+    ..onUnPool = (Timeline obj) {
+      obj.reset();
+    };
 
-  static final Pool<Timeline> _pool = new Pool<Timeline>(_poolCallback)
-      ..create = () => new Timeline._();
+  static final Pool<Timeline> _pool = Pool<Timeline>(_poolCallback)
+    ..create = () => Timeline._();
 
   ///Used for debug purpose. Gets the current number of empty timelines that are waiting in the Timeline pool.
   static int get poolSize => _pool.size();
 
   ///Increases the minimum capacity of the pool. Capacity defaults to 10.
   static void ensurePoolCapacity(int minCapacity) {
-      _pool.ensureCapacity(minCapacity);
+    _pool.ensureCapacity(minCapacity);
   }
 
   // -------------------------------------------------------------------------
@@ -85,7 +88,7 @@ class Timeline extends BaseTween {
   // -------------------------------------------------------------------------
   // Attributes
   // -------------------------------------------------------------------------
-  final List<BaseTween> _children = new List<BaseTween>();
+  final List<BaseTween> _children = List<BaseTween>();
   Timeline _current;
   Timeline _parent;
   int _mode;
@@ -117,20 +120,21 @@ class Timeline extends BaseTween {
   // API
   // -------------------------------------------------------------------------
 
-  
   ///Adds a Tween or nests a Timeline to the current timeline
-  void push(tween_OR_timeline){
+  void push(tween_OR_timeline) {
     if (tween_OR_timeline is! Tween && tween_OR_timeline is! Timeline)
-      throw new Exception("Only a tween or timeline can be pushed into a timeline");
-    
-    if (_isBuilt) throw new Exception("You can't push anything to a timeline once it is started");
-    
+      throw Exception("Only a tween or timeline can be pushed into a timeline");
+
+    if (_isBuilt)
+      throw Exception(
+          "You can't push anything to a timeline once it is started");
+
     if (tween_OR_timeline is Tween)
       _pushTween(tween_OR_timeline);
     else
       _pushTimeline(tween_OR_timeline);
   }
-  
+
   ///Adds a Tween to the current timeline.
   void _pushTween(Tween tween) {
     _current._children.add(tween);
@@ -138,7 +142,9 @@ class Timeline extends BaseTween {
 
   /// Nests a Timeline in the current one.
   void _pushTimeline(Timeline timeline) {
-    if (timeline._current != timeline) throw new Exception("You forgot to call a few 'end()' statements in your pushed timeline");
+    if (timeline._current != timeline)
+      throw Exception(
+          "You forgot to call a few 'end()' statements in your pushed timeline");
     timeline._parent = _current;
     _current._children.add(timeline);
   }
@@ -149,13 +155,17 @@ class Timeline extends BaseTween {
    * [time] A positive or negative duration.
    */
   void pushPause(num time) {
-    if (_isBuilt) throw new Exception("You can't push anything to a timeline once it is started");
-    _current._children.add(new Tween.mark()..delay = time);
+    if (_isBuilt)
+      throw Exception(
+          "You can't push anything to a timeline once it is started");
+    _current._children.add(Tween.mark()..delay = time);
   }
 
   ///Starts a nested timeline with a 'sequence' behavior. Don't forget to call [end] to close this nested timeline.
   void beginSequence() {
-    if (_isBuilt) throw new Exception("You can't push anything to a timeline once it is started");
+    if (_isBuilt)
+      throw Exception(
+          "You can't push anything to a timeline once it is started");
     Timeline tl = _pool.get();
     tl._parent = _current;
     tl._mode = TimelineMode.SEQUENCE;
@@ -165,7 +175,9 @@ class Timeline extends BaseTween {
 
   ///Starts a nested timeline with a 'parallel' behavior. Don't forget to call {@link end()} to close this nested timeline.
   void beginParallel() {
-    if (_isBuilt) throw new Exception("You can't push anything to a timeline once it is started");
+    if (_isBuilt)
+      throw Exception(
+          "You can't push anything to a timeline once it is started");
     Timeline tl = _pool.get();
     tl._parent = _current;
     tl._mode = TimelineMode.PARALLEL;
@@ -175,15 +187,19 @@ class Timeline extends BaseTween {
 
   ///Closes the last nested timeline.
   void end() {
-      if (_isBuilt) throw new Exception("You can't push anything to a timeline once it is started");
-      if (_current == this) throw new Exception("Nothing to end...");
-      _current = _current._parent;
+    if (_isBuilt)
+      throw Exception(
+          "You can't push anything to a timeline once it is started");
+    if (_current == this) throw Exception("Nothing to end...");
+    _current = _current._parent;
   }
 
   ///Gets a list of the timeline children. If the timeline is started, the list will be immutable.
   List<BaseTween> getChildren() {
-    if (_isBuilt) return new List<BaseTween>.from(_current._children, growable: false);
-    else return _current._children;
+    if (_isBuilt)
+      return List<BaseTween>.from(_current._children, growable: false);
+    else
+      return _current._children;
   }
 
   // -------------------------------------------------------------------------
@@ -195,10 +211,12 @@ class Timeline extends BaseTween {
 
     _duration = 0;
 
-    for (int i=0; i < _children.length; i++) {
+    for (int i = 0; i < _children.length; i++) {
       BaseTween obj = _children[i];
 
-      if (obj.repeatCount < 0) throw new Exception("You can't push an object with infinite repetitions in a timeline");
+      if (obj.repeatCount < 0)
+        throw Exception(
+            "You can't push an object with infinite repetitions in a timeline");
       obj.build();
 
       switch (_mode) {
@@ -219,58 +237,56 @@ class Timeline extends BaseTween {
 
   void start([TweenManager manager]) {
     super.start(manager);
-    if (manager == null){
-      _children.forEach( (BaseTween tween) => tween.start());
+    if (manager == null) {
+      _children.forEach((BaseTween tween) => tween.start());
     }
   }
 
   void free() {
-    _children.forEach( (BaseTween tween) => tween.free() );
+    _children.forEach((BaseTween tween) => tween.free());
     _children.clear();
     _pool.free(this);
   }
 
   void updateOverride(int step, int lastStep, bool isIterationStep, num delta) {
     if (!isIterationStep && step > lastStep) {
-      assert (delta >= 0 );
-      num dt = isReverse(lastStep) ? -delta-1 : delta+1;
-      _children.forEach( (BaseTween tween) => tween.update(dt));
-      return;
-    }
- 
-    if (!isIterationStep && step < lastStep) {
-      assert (delta <= 0); 
-      num dt = isReverse(lastStep) ? delta + 1: -delta-1;
-      _children.reversed.forEach( (BaseTween tween) => tween.update(dt));
+      assert(delta >= 0);
+      num dt = isReverse(lastStep) ? -delta - 1 : delta + 1;
+      _children.forEach((BaseTween tween) => tween.update(dt));
       return;
     }
 
-    assert (isIterationStep);
+    if (!isIterationStep && step < lastStep) {
+      assert(delta <= 0);
+      num dt = isReverse(lastStep) ? delta + 1 : -delta - 1;
+      _children.reversed.forEach((BaseTween tween) => tween.update(dt));
+      return;
+    }
+
+    assert(isIterationStep);
 
     if (step > lastStep) {
       if (isReverse(step)) {
         forceEndValues();
-        _children.reversed.forEach( (BaseTween tween) => tween.update(delta));
+        _children.reversed.forEach((BaseTween tween) => tween.update(delta));
       } else {
         forceStartValues();
-        _children.forEach( (BaseTween tween) => tween.update(delta));
+        _children.forEach((BaseTween tween) => tween.update(delta));
       }
-
-    }else if (step < lastStep) {
+    } else if (step < lastStep) {
       if (isReverse(step)) {
         forceStartValues();
-        _children.reversed.forEach( (BaseTween tween) => tween.update(delta));
+        _children.reversed.forEach((BaseTween tween) => tween.update(delta));
       } else {
         forceEndValues();
-        _children.reversed.forEach( (BaseTween tween) => tween.update(delta));
+        _children.reversed.forEach((BaseTween tween) => tween.update(delta));
       }
-
-    }else {
+    } else {
       num dt = isReverse(step) ? -delta : delta;
-      if (delta >= 0) 
-        _children.forEach( (BaseTween tween) => tween.update(dt));
-      else 
-        _children.reversed.forEach( (BaseTween tween) => tween.update(dt));
+      if (delta >= 0)
+        _children.forEach((BaseTween tween) => tween.update(dt));
+      else
+        _children.reversed.forEach((BaseTween tween) => tween.update(dt));
     }
   }
 
@@ -279,18 +295,19 @@ class Timeline extends BaseTween {
   // -------------------------------------------------------------------------
 
   void forceStartValues() {
-    _children.forEach( (BaseTween tween) => tween.forceToStart());
+    _children.forEach((BaseTween tween) => tween.forceToStart());
   }
 
   void forceEndValues() {
-    _children.forEach( (BaseTween tween) => tween.forceToEnd(duration));
+    _children.forEach((BaseTween tween) => tween.forceToEnd(duration));
   }
 
   bool containsTarget(Object target, [int tweenType]) {
-    return _children.any( (BaseTween tween) => tween.containsTarget(target, tweenType));
+    return _children
+        .any((BaseTween tween) => tween.containsTarget(target, tweenType));
   }
 }
 
-class TimelineMode{
+class TimelineMode {
   static const int SEQUENCE = 1, PARALLEL = 2;
 }

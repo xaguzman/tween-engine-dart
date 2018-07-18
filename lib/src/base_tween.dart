@@ -15,7 +15,7 @@ part of tweenengine;
  *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
  *    Xavier Guzman (dart port)
  */
-abstract class BaseTween{
+abstract class BaseTween {
   // General
   int _step;
   int _repeatCnt;
@@ -26,7 +26,7 @@ abstract class BaseTween{
   num _delay;
   num _duration;
   num _repeatDelay;
-  num _currentTime;  //elapsed time, relative to current iteration
+  num _currentTime; //elapsed time, relative to current iteration
   num _deltaTime;
   bool _isStarted; // true when the object is started
   bool _isInitialized; // true after the delay
@@ -63,8 +63,7 @@ abstract class BaseTween{
   // -------------------------------------------------------------------------
   // API
   // -------------------------------------------------------------------------
-  void build(){
-  }
+  void build() {}
 
   /**
    * Starts or restarts the object unmanaged. If no [manager] is passed, you will need to take care of
@@ -74,18 +73,18 @@ abstract class BaseTween{
    * so the life cycle is handled for you, then you can relax and enjoy the animation.
    */
   void start([TweenManager manager]) {
-    if (manager == null){
+    if (manager == null) {
       build();
       _currentTime = 0;
       _isStarted = true;
-    }else{
-      manager.add(this);  
+    } else {
+      manager.add(this);
     }
   }
 
   ///Kills the tween or timeline. If you are using a [TweenManager], this object will be removed automatically.
   void kill() {
-      _isKilled = true;
+    _isKilled = true;
   }
 
   /**
@@ -93,8 +92,7 @@ abstract class BaseTween{
    * later reuse. Note that if you use a [TweenManager], this method
    * is automatically called once the animation is finished.
   */
-  void free() {
-  }
+  void free() {}
 
   ///Pauses the tween or timeline. Further update calls won't have any effect.
   void pause() {
@@ -125,12 +123,14 @@ abstract class BaseTween{
    * [delay] A delay before each repetition.
    */
   void repeatYoyo(int count, num delay) {
-    _setupRepeat(count, delay, true );
+    _setupRepeat(count, delay, true);
   }
-  
-  void _setupRepeat(int count, num delay, bool isYoyo){
-    if (_isStarted) throw new Exception("You can't change the repetitions of a tween or timeline once it is started");
-    
+
+  void _setupRepeat(int count, num delay, bool isYoyo) {
+    if (_isStarted)
+      throw Exception(
+          "You can't change the repetitions of a tween or timeline once it is started");
+
     _repeatCnt = count;
     _repeatDelay = delay >= 0 ? delay : 0;
     _isYoyo = isYoyo;
@@ -142,11 +142,15 @@ abstract class BaseTween{
 
   ///the delay of the tween or timeline. Nothing will happen before
   num get delay => _delay;
-  void set delay(num delay) {  _delay = delay; }
+  void set delay(num delay) {
+    _delay = delay;
+  }
 
   ///the duration of a single iteration.
   num get duration => _duration;
-  void set duration(num duration){ _duration = duration;}
+  void set duration(num duration) {
+    _duration = duration;
+  }
 
   ///the number of iterations that will be played.
   int get repeatCount => _repeatCnt;
@@ -161,11 +165,15 @@ abstract class BaseTween{
    * 
    *    fullDuration = delay + duration + (repeatDelay + duration) * repeatCnt
    */
-  num get fullDuration => _repeatCnt < 0 ? -1 : _delay + _duration + (_repeatDelay + _duration) * _repeatCnt;
+  num get fullDuration => _repeatCnt < 0
+      ? -1
+      : _delay + _duration + (_repeatDelay + _duration) * _repeatCnt;
 
   ///Attached data to the tween, it can be useful in order to retrieve some data on a [TweenCallbackHandler].
   Object get userData => _userData;
-  void set userData(Object data){ _userData = data; }
+  void set userData(Object data) {
+    _userData = data;
+  }
 
   /**
    * Gets the id of the current step. Values are as follows:
@@ -179,10 +187,11 @@ abstract class BaseTween{
   int get step => _step;
 
   ///The local time
-  num get currentTime=> _currentTime;
-  
+  num get currentTime => _currentTime;
+
   ///The local time, normalized (0 <= [currentTime] <= 1)
-  num get normalTime => _currentTime == null ? 0 : Math.min(_currentTime / _duration, 1);
+  num get normalTime =>
+      _currentTime == null ? 0 : Math.min(_currentTime / _duration, 1);
 
   ///Returns true if the tween or timeline has been started.
   bool get isStarted => _isStarted;
@@ -206,9 +215,9 @@ abstract class BaseTween{
 
   ///Wether this tween or timeline is currently paused.
   bool get isPaused => _isPaused;
-  
+
   bool get isKilled => _isKilled;
-  
+
   /**
    * Sets the [TweenCallbackHandler]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). 
    * If you want to change this behavior and add more triggers, use the [setCallbackTriggers] method.
@@ -216,7 +225,7 @@ abstract class BaseTween{
   void set callback(TweenCallbackHandler callback) {
     _callback = callback;
   }
-  
+
   /**
    * Changes the triggers of the callback. The available triggers are:
    *
@@ -241,7 +250,7 @@ abstract class BaseTween{
   void set callbackTriggers(int flags) {
     _callbackTriggers = flags;
   }
-  
+
   // -------------------------------------------------------------------------
   // Abstract API
   // -------------------------------------------------------------------------
@@ -255,42 +264,46 @@ abstract class BaseTween{
   // API
   // -------------------------------------------------------------------------
 
-  void initializeOverride() {
-  }
+  void initializeOverride() {}
 
-  void updateOverride(int step, int lastStep, bool isIterationStep, num delta) {
-  }
+  void updateOverride(
+      int step, int lastStep, bool isIterationStep, num delta) {}
 
   void forceToStart() {
     _currentTime = -delay;
     _step = -1;
     _isIterationStep = false;
-    if (isReverse(0)) forceEndValues();
-    else forceStartValues();
+    if (isReverse(0))
+      forceEndValues();
+    else
+      forceStartValues();
   }
 
   void forceToEnd(num time) {
     _currentTime = time - fullDuration;
-    _step = _repeatCnt*2 + 1;
+    _step = _repeatCnt * 2 + 1;
     _isIterationStep = false;
-    if (isReverse(_repeatCnt*2)) forceStartValues();
-    else forceEndValues();
+    if (isReverse(_repeatCnt * 2))
+      forceStartValues();
+    else
+      forceEndValues();
   }
 
   void callCallback(int type) {
-    if (_callback != null && (_callbackTriggers & type) > 0) _callback(type, this);
+    if (_callback != null && (_callbackTriggers & type) > 0)
+      _callback(type, this);
   }
 
   bool isReverse(int step) {
-    return isYoyo && (step%4).abs() == 2;
+    return isYoyo && (step % 4).abs() == 2;
   }
 
   bool isValid(int step) {
-    return (step >= 0 && step <= _repeatCnt*2) || _repeatCnt < 0;
+    return (step >= 0 && step <= _repeatCnt * 2) || _repeatCnt < 0;
   }
 
   void killTarget(Object target, [int tweenType]) {
-      if (containsTarget(target, tweenType)) kill();
+    if (containsTarget(target, tweenType)) kill();
   }
 
   // -------------------------------------------------------------------------
@@ -332,7 +345,7 @@ abstract class BaseTween{
       _isInitialized = true;
       _isIterationStep = true;
       _step = 0;
-      _deltaTime -= delay-currentTime;
+      _deltaTime -= delay - currentTime;
       _currentTime = 0;
       callCallback(TweenCallback.BEGIN);
       callCallback(TweenCallback.START);
@@ -340,8 +353,11 @@ abstract class BaseTween{
   }
 
   void testRelaunch() {
-    if (!_isIterationStep && _repeatCnt >= 0 && step < 0 && currentTime + _deltaTime >= 0) {
-      assert( step == -1 );
+    if (!_isIterationStep &&
+        _repeatCnt >= 0 &&
+        step < 0 &&
+        currentTime + _deltaTime >= 0) {
+      assert(step == -1);
       _isIterationStep = true;
       _step = 0;
       num delta = 0 - currentTime;
@@ -349,17 +365,20 @@ abstract class BaseTween{
       _currentTime = 0;
       callCallback(TweenCallback.BEGIN);
       callCallback(TweenCallback.START);
-      updateOverride(step, step-1, _isIterationStep, delta);
-    }else if (!_isIterationStep && _repeatCnt >= 0 && _step > _repeatCnt*2 && currentTime + _deltaTime < 0) {
-      assert (step == repeatCount * 2 + 1 );
+      updateOverride(step, step - 1, _isIterationStep, delta);
+    } else if (!_isIterationStep &&
+        _repeatCnt >= 0 &&
+        _step > _repeatCnt * 2 &&
+        currentTime + _deltaTime < 0) {
+      assert(step == repeatCount * 2 + 1);
       _isIterationStep = true;
       _step = repeatCount * 2;
-      num delta = 0-currentTime;
+      num delta = 0 - currentTime;
       _deltaTime -= delta;
       _currentTime = duration;
       callCallback(TweenCallback.BACK_BEGIN);
       callCallback(TweenCallback.BACK_START);
-      updateOverride(step, step+1, _isIterationStep, delta);
+      updateOverride(step, step + 1, _isIterationStep, delta);
     }
   }
 
@@ -373,67 +392,62 @@ abstract class BaseTween{
         _deltaTime -= delta;
         _currentTime = duration;
 
-        if (isReverse(step)) 
-          forceStartValues(); 
-        else 
+        if (isReverse(step))
+          forceStartValues();
+        else
           forceEndValues();
         callCallback(TweenCallback.BACK_START);
-        updateOverride(step, step+1, _isIterationStep, delta);
-
-      }else if (!_isIterationStep && currentTime + _deltaTime >= repeatDelay) {
+        updateOverride(step, step + 1, _isIterationStep, delta);
+      } else if (!_isIterationStep && currentTime + _deltaTime >= repeatDelay) {
         _isIterationStep = true;
         _step += 1;
 
-        num delta = repeatDelay-currentTime;
+        num delta = repeatDelay - currentTime;
         _deltaTime -= delta;
         _currentTime = 0;
 
-        if (isReverse(step)) 
-          forceEndValues(); 
-        else 
+        if (isReverse(step))
+          forceEndValues();
+        else
           forceStartValues();
         callCallback(TweenCallback.START);
-        updateOverride(step, step-1, _isIterationStep, delta);
-
-      }else if (_isIterationStep && currentTime + _deltaTime < 0) {
+        updateOverride(step, step - 1, _isIterationStep, delta);
+      } else if (_isIterationStep && currentTime + _deltaTime < 0) {
         _isIterationStep = false;
         _step -= 1;
 
-        num delta = 0-currentTime;
+        num delta = 0 - currentTime;
         _deltaTime -= delta;
         _currentTime = 0;
 
-        updateOverride(step, step+1, _isIterationStep, delta);
+        updateOverride(step, step + 1, _isIterationStep, delta);
         callCallback(TweenCallback.BACK_END);
 
-        if (step < 0 && repeatCount >= 0) 
+        if (step < 0 && repeatCount >= 0)
           callCallback(TweenCallback.BACK_COMPLETE);
-        else 
+        else
           _currentTime = repeatDelay;
-
-      }else if (_isIterationStep && currentTime + _deltaTime > duration) {
+      } else if (_isIterationStep && currentTime + _deltaTime > duration) {
         _isIterationStep = false;
         _step += 1;
 
-        num delta = duration-currentTime;
+        num delta = duration - currentTime;
         _deltaTime -= delta;
         _currentTime = duration;
 
-        updateOverride(step, step-1, _isIterationStep, delta);
+        updateOverride(step, step - 1, _isIterationStep, delta);
         callCallback(TweenCallback.END);
 
-        if (step > repeatCount*2 && repeatCount >= 0) 
+        if (step > repeatCount * 2 && repeatCount >= 0)
           callCallback(TweenCallback.COMPLETE);
         _currentTime = 0;
-
-      }else if (_isIterationStep) {
+      } else if (_isIterationStep) {
         num delta = _deltaTime;
         _deltaTime -= delta;
         _currentTime += delta;
         updateOverride(step, step, _isIterationStep, delta);
         break;
-
-      }else {
+      } else {
         num delta = _deltaTime;
         _deltaTime -= delta;
         _currentTime += delta;
@@ -443,6 +457,6 @@ abstract class BaseTween{
   }
 
   void testCompletion() {
-    _isFinished = repeatCount >= 0 && (step > repeatCount*2 || step < 0);
+    _isFinished = repeatCount >= 0 && (step > repeatCount * 2 || step < 0);
   }
 }

@@ -55,13 +55,13 @@ class Tween extends BaseTween {
   static int _waypointsLimit = 0;
 
   ///Changes the [limit] for combined attributes. Defaults to 3 to reduce memory footprint.
-  static void set combinedAttributesLimit(int limit){ 
-    Tween._combinedAttrsLimit = limit; 
+  static void set combinedAttributesLimit(int limit) {
+    Tween._combinedAttrsLimit = limit;
   }
 
   ///Changes the [limit] of allowed waypoints for each tween. Defaults to 0 to reduce memory footprint.
-  static void set waypointsLimit(int limit){ 
-    Tween._waypointsLimit = limit; 
+  static void set waypointsLimit(int limit) {
+    Tween._waypointsLimit = limit;
   }
 
   ///Gets the version number of the library.
@@ -71,14 +71,16 @@ class Tween extends BaseTween {
   // Static -- pool
   // -------------------------------------------------------------------------
 
-  static final PoolCallback<Tween> _poolCallback = new PoolCallback<Tween>()
-      ..onPool = (Tween obj) { obj.reset(); }
-      ..onUnPool = (Tween obj) { obj.reset(); };
-      
+  static final PoolCallback<Tween> _poolCallback = PoolCallback<Tween>()
+    ..onPool = (Tween obj) {
+      obj.reset();
+    }
+    ..onUnPool = (Tween obj) {
+      obj.reset();
+    };
 
-  static final Pool<Tween> _pool = new Pool<Tween>(_poolCallback)
-      ..create = () => new Tween._();
- 
+  static final Pool<Tween> _pool = Pool<Tween>(_poolCallback)
+    ..create = () => Tween._();
 
   /// Used for debug purpose. Gets the current number of objects that are waiting in the Tween pool.
   int getPoolSize() => _pool.size();
@@ -90,7 +92,8 @@ class Tween extends BaseTween {
   // Static -- tween accessors
   // -------------------------------------------------------------------------
 
-  static final Map<Type, TweenAccessor> _registeredAccessors = new Map<Type, TweenAccessor>();
+  static final Map<Type, TweenAccessor> _registeredAccessors =
+      Map<Type, TweenAccessor>();
 
   /**
    * Registers an accessor with the class of an object. This accessor will be
@@ -144,12 +147,12 @@ class Tween extends BaseTween {
    * 
    * Returns The generated Tween.
    */
-  
-  factory Tween.to(Object target, int tweenType, num duration){
+
+  factory Tween.to(Object target, int tweenType, num duration) {
     Tween tween = _pool.get()
-        ..easing = TweenEquations.easeInOutQuad
-        .._setup(target, tweenType, duration)
-        ..path = TweenPaths.catmullRom;
+      ..easing = TweenEquations.easeInOutQuad
+      .._setup(target, tweenType, duration)
+      ..path = TweenPaths.catmullRom;
     return tween;
   }
 
@@ -215,8 +218,8 @@ class Tween extends BaseTween {
    */
   factory Tween.set(Object target, int tweenType) {
     Tween tween = _pool.get()
-        .._setup(target, tweenType, 0)
-        ..easing = TweenEquations.easeInQuad;
+      .._setup(target, tweenType, 0)
+      ..easing = TweenEquations.easeInQuad;
     return tween;
   }
 
@@ -241,9 +244,9 @@ class Tween extends BaseTween {
    */
   factory Tween.call(TweenCallbackHandler callback) {
     Tween tween = _pool.get()
-        .._setup(null, -1, 0)
-        ..callback = callback
-        ..callbackTriggers = TweenCallback.START;
+      .._setup(null, -1, 0)
+      ..callback = callback
+      ..callbackTriggers = TweenCallback.START;
     return tween;
   }
 
@@ -256,8 +259,7 @@ class Tween extends BaseTween {
    * Returns The generated Tween.
    */
   factory Tween.mark() {
-    Tween tween = _pool.get()
-        .._setup(null, -1, 0);    
+    Tween tween = _pool.get().._setup(null, -1, 0);
     return tween;
   }
 
@@ -280,13 +282,14 @@ class Tween extends BaseTween {
   int _waypointsCnt;
 
   // Values
-  final List<num> _startValues = new List<num>(_combinedAttrsLimit);
-  final List<num> _targetValues = new List<num>(_combinedAttrsLimit);
-  final List<num> _waypoints = new List<num>(_waypointsLimit * _combinedAttrsLimit);
+  final List<num> _startValues = List<num>(_combinedAttrsLimit);
+  final List<num> _targetValues = List<num>(_combinedAttrsLimit);
+  final List<num> _waypoints = List<num>(_waypointsLimit * _combinedAttrsLimit);
 
   // Buffers
-  List<num> _accessorBuffer = new List<num>(_combinedAttrsLimit);
-  List<num> _pathBuffer = new List<num>((2+ _waypointsLimit)*_combinedAttrsLimit);
+  List<num> _accessorBuffer = List<num>(_combinedAttrsLimit);
+  List<num> _pathBuffer =
+      List<num>((2 + _waypointsLimit) * _combinedAttrsLimit);
 
   // -------------------------------------------------------------------------
   // Setup
@@ -311,16 +314,16 @@ class Tween extends BaseTween {
     _combinedAttrsCnt = _waypointsCnt = 0;
 
     if (_accessorBuffer.length != _combinedAttrsLimit) {
-            _accessorBuffer = new Float32List(_combinedAttrsLimit);
+      _accessorBuffer = Float32List(_combinedAttrsLimit);
     }
 
-    if (_pathBuffer.length != (2+ _waypointsLimit) * _combinedAttrsLimit) {
-            _pathBuffer = new Float32List((2+ _waypointsLimit) * _combinedAttrsLimit);
+    if (_pathBuffer.length != (2 + _waypointsLimit) * _combinedAttrsLimit) {
+      _pathBuffer = Float32List((2 + _waypointsLimit) * _combinedAttrsLimit);
     }
   }
 
   void _setup(Object target, int tweenType, num duration) {
-    if (duration < 0) throw new Exception("Duration can't be negative");
+    if (duration < 0) throw Exception("Duration can't be negative");
 
     _target = target;
     _targetClass = target != null ? _findTargetClass() : null;
@@ -329,7 +332,8 @@ class Tween extends BaseTween {
   }
 
   Type _findTargetClass() {
-    if (_registeredAccessors.containsKey(_target.runtimeType)) return _target.runtimeType;
+    if (_registeredAccessors.containsKey(_target.runtimeType))
+      return _target.runtimeType;
     if (_target is TweenAccessor) return _target.runtimeType;
     if (_target is Tweenable) return _target.runtimeType;
 
@@ -346,7 +350,6 @@ class Tween extends BaseTween {
   // API
   // -------------------------------------------------------------------------
 
-  
   /**
    * Forces the tween to use the TweenAccessor registered with the given target class. Useful if you want to use a specific accessor associated
    * to an interface, for instance.
@@ -354,7 +357,9 @@ class Tween extends BaseTween {
    * [targetClass] A type registered with an accessor.
    */
   void cast(Type targetClass) {
-    if (isStarted) throw new Exception("You can't cast the target of a tween once it is started");
+    if (isStarted)
+      throw Exception(
+          "You can't cast the target of a tween once it is started");
     _targetClass = targetClass;
   }
 
@@ -367,13 +372,13 @@ class Tween extends BaseTween {
    * [num_OR_numList] The targets of this waypoint. Can be either a num, or a List<num> 
    */
   void addWaypoint(num_OR_numList) {
-    if(num_OR_numList is num){
+    if (num_OR_numList is num) {
       if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
       _waypoints[_waypointsCnt] = num_OR_numList;
       _waypointsCnt += 1;
-    }else if (num_OR_numList is List<num>){
+    } else if (num_OR_numList is List<num>) {
       if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
-      _waypoints.setAll( _waypointsCnt * num_OR_numList.length, num_OR_numList);
+      _waypoints.setAll(_waypointsCnt * num_OR_numList.length, num_OR_numList);
       _waypointsCnt += 1;
     }
   }
@@ -411,10 +416,11 @@ class Tween extends BaseTween {
    */
   List<num> get targetValues => _targetValues;
   void set targetValues(List<num> values) {
-    if (_targetValues.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
+    if (_targetValues.length > _combinedAttrsLimit)
+      _throwCombinedAttrsLimitReached();
     _targetValues.setAll(0, values);
   }
-  
+
   /**
    * Sets the target values of the interpolation, relatively to the **values
    * at start time (after the delay, if any)**.
@@ -428,13 +434,13 @@ class Tween extends BaseTween {
    */
   void set targetRelative(List<num> values) {
     if (values.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
-    for (int i=0; i< values.length; i++) {
-      _targetValues[i] = isInitialized ? values[i] + _startValues[i] : values[i];
+    for (int i = 0; i < values.length; i++) {
+      _targetValues[i] =
+          isInitialized ? values[i] + _startValues[i] : values[i];
     }
     _isRelative = true;
   }
-  
-  
+
   /**
    * The algorithm that will be used to navigate through the waypoints,
    * from the start values to the end values. Default is a catmull-rom spline,
@@ -446,10 +452,10 @@ class Tween extends BaseTween {
   }
 
   ///the number of combined animations.
-  int get combinedAttributesCount=> _combinedAttrsCnt;
+  int get combinedAttributesCount => _combinedAttrsCnt;
 
   ///the TweenAccessor used with the target.
-  TweenAccessor get accessor=> _accessor;
+  TweenAccessor get accessor => _accessor;
 
   ///the class that was used to find the associated TweenAccessor.
   Type get targetClass => _targetClass;
@@ -459,21 +465,24 @@ class Tween extends BaseTween {
   // -------------------------------------------------------------------------
 
   void build() {
-    if (_target == null) return ;
+    if (_target == null) return;
 
     _accessor = _registeredAccessors[_targetClass];
     if (_accessor == null && _target is TweenAccessor) _accessor = _target;
-    if (_accessor != null) { 
-      _combinedAttrsCnt = _accessor.getValues(_target, this, _type, _accessorBuffer) ;
+    if (_accessor != null) {
+      _combinedAttrsCnt =
+          _accessor.getValues(_target, this, _type, _accessorBuffer);
       if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
-    }
-    else if (_target is Tweenable) {
-      _combinedAttrsCnt = (_target as Tweenable).getTweenableValues(this, _type, _accessorBuffer) ;
+    } else if (_target is Tweenable) {
+      _combinedAttrsCnt = (_target as Tweenable)
+          .getTweenableValues(this, _type, _accessorBuffer);
       if (_combinedAttrsCnt == null) _combinedAttrsCnt = 0;
-    }
-    else throw new Exception("No TweenAccessor was found for the target, and it is not Tweenable either.");
+    } else
+      throw Exception(
+          "No TweenAccessor was found for the target, and it is not Tweenable either.");
 
-    if (_combinedAttrsCnt > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
+    if (_combinedAttrsCnt > _combinedAttrsLimit)
+      _throwCombinedAttrsLimitReached();
   }
 
   void free() {
@@ -485,11 +494,12 @@ class Tween extends BaseTween {
 
     _getTweenedValues(_startValues);
 
-    for (int i=0; i<_combinedAttrsCnt; i++) {
+    for (int i = 0; i < _combinedAttrsCnt; i++) {
       _targetValues[i] += _isRelative ? _startValues[i] : 0;
 
-      for (int ii=0; ii<_waypointsCnt; ii++) {
-        _waypoints[ii*_combinedAttrsCnt+i] += _isRelative ? _startValues[i] : 0;
+      for (int ii = 0; ii < _waypointsCnt; ii++) {
+        _waypoints[ii * _combinedAttrsCnt + i] +=
+            _isRelative ? _startValues[i] : 0;
       }
 
       if (_isFrom) {
@@ -515,9 +525,9 @@ class Tween extends BaseTween {
     }
 
     // Validation
-    assert (isIterationStep);
-    assert (currentTime >= 0);
-    assert (currentTime <= duration);
+    assert(isIterationStep);
+    assert(currentTime >= 0);
+    assert(currentTime <= duration);
 
     // Case duration equals zero
     if (duration < 0.00000000001 && delta > -0.00000000001) {
@@ -532,19 +542,19 @@ class Tween extends BaseTween {
 
     // Normal behavior
     num time = isReverse(step) ? duration - currentTime : currentTime;
-    num t = _equation.compute(time/duration);
+    num t = _equation.compute(time / duration);
 
     if (_waypointsCnt == 0 || _path == null) {
-      for (int i=0; i<_combinedAttrsCnt; i++) {
-        _accessorBuffer[i] = _startValues[i] + t * (_targetValues[i] - _startValues[i]);
+      for (int i = 0; i < _combinedAttrsCnt; i++) {
+        _accessorBuffer[i] =
+            _startValues[i] + t * (_targetValues[i] - _startValues[i]);
       }
-
     } else {
-      for (int i=0; i<_combinedAttrsCnt; i++) {
+      for (int i = 0; i < _combinedAttrsCnt; i++) {
         _pathBuffer[0] = _startValues[i];
-        _pathBuffer[1+_waypointsCnt] = _targetValues[i];
-        for (int ii=0; ii<_waypointsCnt; ii++) {
-          _pathBuffer[ii+1] = _waypoints[ii*_combinedAttrsCnt+i];
+        _pathBuffer[1 + _waypointsCnt] = _targetValues[i];
+        for (int ii = 0; ii < _waypointsCnt; ii++) {
+          _pathBuffer[ii + 1] = _waypoints[ii * _combinedAttrsCnt + i];
         }
 
         _accessorBuffer[i] = _path.compute(t, _pathBuffer, _waypointsCnt + 2);
@@ -569,8 +579,7 @@ class Tween extends BaseTween {
   }
 
   bool containsTarget(Object target, [int tweenType = null]) {
-    if (tweenType == null)
-      return _target == target;
+    if (tweenType == null) return _target == target;
     return _target == target && _type == tweenType;
   }
 
@@ -581,10 +590,11 @@ class Tween extends BaseTween {
   int _getTweenedValues(intoBuffer) {
     if (_accessor != null) {
       return _accessor.getValues(_target, this, _type, intoBuffer);
-    } else if (_target is Tweenable) { // _target is Tweenable
+    } else if (_target is Tweenable) {
+      // _target is Tweenable
       return (_target as Tweenable).getTweenableValues(this, _type, intoBuffer);
     }
-    
+
     return 0;
   }
 
@@ -597,18 +607,18 @@ class Tween extends BaseTween {
   }
 
   void _throwCombinedAttrsLimitReached() {
-          String msg = """You cannot combine more than $_combinedAttrsLimit 
+    String msg = """You cannot combine more than $_combinedAttrsLimit 
                   attributes in a tween. You can raise this limit with 
                   Tween.setCombinedAttributesLimit(), which should be called once
                   in application initialization code.""";
-          throw new Exception(msg);
+    throw Exception(msg);
   }
 
   void _throwWaypointsLimitReached() {
-          String msg = """You cannot add more than $_waypointsLimit 
+    String msg = """You cannot add more than $_waypointsLimit 
                   waypoints to a tween. You can raise this limit with
                   Tween.setWaypointsLimit(), which should be called once in
                   application initialization code.""";
-          throw new Exception(msg);
+    throw Exception(msg);
   }
 }

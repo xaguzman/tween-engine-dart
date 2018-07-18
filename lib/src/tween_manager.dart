@@ -26,7 +26,7 @@ class TweenManager {
    * will be played again, even if they were finished.
    */
   static void setAutoRemove(BaseTween object, bool value) {
-          object._isAutoRemoveEnabled = value;
+    object._isAutoRemoveEnabled = value;
   }
 
   /**
@@ -43,7 +43,7 @@ class TweenManager {
   // API
   // -------------------------------------------------------------------------
 
-  final List<BaseTween> _objects = new List<BaseTween>();
+  final List<BaseTween> _objects = List<BaseTween>();
   bool _isPaused = false;
 
   ///Adds a tween or timeline to the manager and starts or restarts it.
@@ -53,11 +53,12 @@ class TweenManager {
   }
 
   ///Returns true if the manager contains any valid interpolation associated to the given target object and to the given tween type.
-  bool containsTarget(Object target, int tweenType) => _objects.any( (BaseTween obj) => obj.containsTarget(target));
+  bool containsTarget(Object target, int tweenType) =>
+      _objects.any((BaseTween obj) => obj.containsTarget(target));
 
   ///Kills every managed tweens and timelines.
   void killAll() {
-    _objects.forEach( (BaseTween obj) => obj.kill() );
+    _objects.forEach((BaseTween obj) => obj.kill());
   }
 
   /**
@@ -65,14 +66,18 @@ class TweenManager {
    * a tween associated to the given target and tween type.
    */
   void killTarget(Object target, [int tweenType]) {
-    _objects.forEach( (BaseTween obj) => obj.killTarget(target, tweenType) );
+    _objects.forEach((BaseTween obj) => obj.killTarget(target, tweenType));
   }
 
   ///Pauses the manager. Further update calls won't have any effect.
-  void pause() { _isPaused = true; }
+  void pause() {
+    _isPaused = true;
+  }
 
   /// Resumes the manager, if paused.
-  void resume() { _isPaused = false; }
+  void resume() {
+    _isPaused = false;
+  }
 
   /**
    * Updates all tweens with a [delta] time and handles the tweens life-cycles
@@ -96,10 +101,9 @@ class TweenManager {
 
     if (!_isPaused) {
       if (delta >= 0) {
-        for ( int i =0; i < _objects.length; i++)
-          _objects[i].update(delta);
+        for (int i = 0; i < _objects.length; i++) _objects[i].update(delta);
       } else {
-        for ( int i = _objects.length - 1; i >= 0; i--)
+        for (int i = _objects.length - 1; i >= 0; i--)
           _objects[i].update(delta);
       }
     }
@@ -132,7 +136,8 @@ class TweenManager {
    * 
    * **Provided for debug purpose only.**
    */
-  List<BaseTween> get objects => new List<BaseTween>.from(_objects, growable: false);
+  List<BaseTween> get objects =>
+      List<BaseTween>.from(_objects, growable: false);
 
   // -------------------------------------------------------------------------
   // Helpers
@@ -140,18 +145,19 @@ class TweenManager {
 
   static int _getTweensCount(List<BaseTween> objs) {
     int cnt = 0;
-    objs.forEach( (BaseTween obj) {
-      if (obj is Tween) cnt += 1;
-      else cnt += _getTweensCount((obj as Timeline).getChildren());
+    objs.forEach((BaseTween obj) {
+      if (obj is Tween)
+        cnt += 1;
+      else
+        cnt += _getTweensCount((obj as Timeline).getChildren());
     });
     return cnt;
   }
 
   static int _getTimelinesCount(List<BaseTween> objs) {
     int cnt = 0;
-    objs.forEach( (BaseTween obj) {
-      if (obj is Timeline) 
-        cnt += 1 + _getTimelinesCount(obj.getChildren());
+    objs.forEach((BaseTween obj) {
+      if (obj is Timeline) cnt += 1 + _getTimelinesCount(obj.getChildren());
     });
     return cnt;
   }
