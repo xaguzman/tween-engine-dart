@@ -41,7 +41,7 @@ class ExampleApp {
     });
   }
 
-  start() {
+  void start() {
     Tween.registerAccessor(Vector2, VectorAccessor());
     Tween.registerAccessor(Color, ColorAccessor());
     Tween.combinedAttributesLimit = 4;
