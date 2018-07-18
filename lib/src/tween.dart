@@ -541,7 +541,7 @@ class Tween extends BaseTween {
     _setTweenedValues(_targetValues);
   }
 
-  bool containsTarget(Object target, [int tweenType = null]) {
+  bool containsTarget(Object target, [int tweenType]) {
     if (tweenType == null) return _target == target;
     return _target == target && _type == tweenType;
   }
