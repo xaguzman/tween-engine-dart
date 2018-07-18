@@ -142,13 +142,13 @@ abstract class BaseTween {
 
   ///the delay of the tween or timeline. Nothing will happen before
   num get delay => _delay;
-  void set delay(num delay) {
+  set delay(num delay) {
     _delay = delay;
   }
 
   ///the duration of a single iteration.
   num get duration => _duration;
-  void set duration(num duration) {
+  set duration(num duration) {
     _duration = duration;
   }
 
@@ -171,7 +171,7 @@ abstract class BaseTween {
 
   ///Attached data to the tween, it can be useful in order to retrieve some data on a [TweenCallbackHandler].
   Object get userData => _userData;
-  void set userData(Object data) {
+  set userData(Object data) {
     _userData = data;
   }
 
@@ -222,7 +222,7 @@ abstract class BaseTween {
    * Sets the [TweenCallbackHandler]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). 
    * If you want to change this behavior and add more triggers, use the [setCallbackTriggers] method.
    */
-  void set callback(TweenCallbackHandler callback) {
+  set callback(TweenCallbackHandler callback) {
     _callback = callback;
   }
 
@@ -247,7 +247,7 @@ abstract class BaseTween {
    *
    * [flags] one or more triggers, separated by the '|' operator.
    */
-  void set callbackTriggers(int flags) {
+  set callbackTriggers(int flags) {
     _callbackTriggers = flags;
   }
 

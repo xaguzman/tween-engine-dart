@@ -55,12 +55,12 @@ class Tween extends BaseTween {
   static int _waypointsLimit = 0;
 
   ///Changes the [limit] for combined attributes. Defaults to 3 to reduce memory footprint.
-  static void set combinedAttributesLimit(int limit) {
+  static set combinedAttributesLimit(int limit) {
     Tween._combinedAttrsLimit = limit;
   }
 
   ///Changes the [limit] of allowed waypoints for each tween. Defaults to 0 to reduce memory footprint.
-  static void set waypointsLimit(int limit) {
+  static set waypointsLimit(int limit) {
     Tween._waypointsLimit = limit;
   }
 
@@ -399,7 +399,7 @@ class Tween extends BaseTween {
    * Default equation is Quad.INOUT.
    */
   TweenEquation get easing => _equation;
-  void set easing(TweenEquation easeEquation) {
+  set easing(TweenEquation easeEquation) {
     _equation = easeEquation;
   }
 
@@ -415,7 +415,7 @@ class Tween extends BaseTween {
    * multiple target values are needed
    */
   List<num> get targetValues => _targetValues;
-  void set targetValues(List<num> values) {
+  set targetValues(List<num> values) {
     if (_targetValues.length > _combinedAttrsLimit)
       _throwCombinedAttrsLimitReached();
     _targetValues.setAll(0, values);
@@ -432,7 +432,7 @@ class Tween extends BaseTween {
    * [values] The relative target values of the interpolation. Can be either a num, or a List<num> if
    * multiple target values are needed
    */
-  void set targetRelative(List<num> values) {
+  set targetRelative(List<num> values) {
     if (values.length > _combinedAttrsLimit) _throwCombinedAttrsLimitReached();
     for (int i = 0; i < values.length; i++) {
       _targetValues[i] =
@@ -447,7 +447,7 @@ class Tween extends BaseTween {
    * but you can find other paths in the [TweenPaths] class.
    */
   TweenPath get path => _path;
-  void set path(TweenPath path) {
+  set path(TweenPath path) {
     _path = path;
   }
 
