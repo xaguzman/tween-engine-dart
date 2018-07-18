@@ -272,8 +272,16 @@ class Tween extends BaseTween {
   Type _targetClass;
   TweenAccessor<Object> _accessor;
   int _type;
-  TweenEquation _equation;
-  TweenPath _path;
+
+  /// The easing [equation][TweenEquation] of the tween. Existing equations can be accessed via
+  /// [TweenEquations] static instances, but you can of course implement your owns, see [TweenEquation].
+  /// Default equation is Quad.INOUT.
+  TweenEquation easing;
+
+  /// The algorithm that will be used to navigate through the waypoints,
+  /// from the start values to the end values. Default is a catmull-rom spline,
+  /// but you can find other paths in the [TweenPaths] class.
+  TweenPath path;
 
   // General
   bool _isFrom;
@@ -307,8 +315,8 @@ class Tween extends BaseTween {
     _targetClass = null;
     _accessor = null;
     _type = -1;
-    _equation = null;
-    _path = null;
+    easing = null;
+    path = null;
 
     _isFrom = _isRelative = false;
     _combinedAttrsCnt = _waypointsCnt = 0;
@@ -328,7 +336,7 @@ class Tween extends BaseTween {
     _target = target;
     _targetClass = target != null ? _findTargetClass() : null;
     _type = tweenType;
-    _duration = duration;
+    duration = duration;
   }
 
   Type _findTargetClass() {
@@ -369,7 +377,7 @@ class Tween extends BaseTween {
    * use a smooth catmull-rom spline to navigate between the waypoints, but
    * you can change this behavior by setting the [path].
    *
-   * [num_OR_numList] The targets of this waypoint. Can be either a num, or a List<num> 
+   * [num_OR_numList] The targets of this waypoint. Can be either a num, or a List<num>
    */
   void addWaypoint(num_OR_numList) {
     if (num_OR_numList is num) {
@@ -394,24 +402,14 @@ class Tween extends BaseTween {
   int get tweenType => _type;
 
   /**
-   * The easing [equation][TweenEquation] of the tween. Existing equations can be accessed via 
-   * [TweenEquations] static instances, but you can of course implement your owns, see [TweenEquation]. 
-   * Default equation is Quad.INOUT.
-   */
-  TweenEquation get easing => _equation;
-  set easing(TweenEquation easeEquation) {
-    _equation = easeEquation;
-  }
-
-  /**
-   * Target value(s) of the interpolation. The interpolation will run from the 
+   * Target value(s) of the interpolation. The interpolation will run from the
    * **value(s) at start time (after the delay, if any)** to these target value(s).
    *
    * To sum-up:
    * * start values: values at start time, after delay
    * * end values: [num_OR_numList]
-   * 
-   * [num_OR_numList] The target values of the interpolation. Can be either a num, or a List<num> if 
+   *
+   * [num_OR_numList] The target values of the interpolation. Can be either a num, or a List<num> if
    * multiple target values are needed
    */
   List<num> get targetValues => _targetValues;
@@ -439,16 +437,6 @@ class Tween extends BaseTween {
           isInitialized ? values[i] + _startValues[i] : values[i];
     }
     _isRelative = true;
-  }
-
-  /**
-   * The algorithm that will be used to navigate through the waypoints,
-   * from the start values to the end values. Default is a catmull-rom spline,
-   * but you can find other paths in the [TweenPaths] class.
-   */
-  TweenPath get path => _path;
-  set path(TweenPath path) {
-    _path = path;
   }
 
   ///the number of combined animations.
@@ -511,7 +499,7 @@ class Tween extends BaseTween {
   }
 
   void updateOverride(int step, int lastStep, bool isIterationStep, num delta) {
-    if (_target == null || _equation == null) return;
+    if (_target == null || easing == null) return;
 
     // Case iteration end has been reached
     if (!isIterationStep && step > lastStep) {
@@ -542,9 +530,9 @@ class Tween extends BaseTween {
 
     // Normal behavior
     num time = isReverse(step) ? duration - currentTime : currentTime;
-    num t = _equation.compute(time / duration);
+    num t = easing.compute(time / duration);
 
-    if (_waypointsCnt == 0 || _path == null) {
+    if (_waypointsCnt == 0 || path == null) {
       for (int i = 0; i < _combinedAttrsCnt; i++) {
         _accessorBuffer[i] =
             _startValues[i] + t * (_targetValues[i] - _startValues[i]);
@@ -557,7 +545,7 @@ class Tween extends BaseTween {
           _pathBuffer[ii + 1] = _waypoints[ii * _combinedAttrsCnt + i];
         }
 
-        _accessorBuffer[i] = _path.compute(t, _pathBuffer, _waypointsCnt + 2);
+        _accessorBuffer[i] = path.compute(t, _pathBuffer, _waypointsCnt + 2);
       }
     }
 

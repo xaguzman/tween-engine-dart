@@ -74,14 +74,14 @@ class Timeline extends BaseTween {
   /// Creates a new timeline with a 'sequence' behavior. Its children will be delayed so that they are triggered one after the other.
   factory Timeline.sequence() {
     Timeline tl = _pool.get();
-    tl._setup(TimelineMode.sequence);
+    tl._setup(TimelineMode.SEQUENCE);
     return tl;
   }
 
   ///Creates a new timeline with a 'parallel' behavior. Its children will be triggered all at once.
   factory Timeline.parallel() {
     Timeline tl = _pool.get();
-    tl._setup(TimelineMode.parallel);
+    tl._setup(TimelineMode.PARALLEL);
     return tl;
   }
 
@@ -168,7 +168,7 @@ class Timeline extends BaseTween {
           "You can't push anything to a timeline once it is started");
     Timeline tl = _pool.get();
     tl._parent = _current;
-    tl._mode = TimelineMode.sequence;
+    tl._mode = TimelineMode.SEQUENCE;
     _current._children.add(tl);
     _current = tl;
   }
@@ -180,7 +180,7 @@ class Timeline extends BaseTween {
           "You can't push anything to a timeline once it is started");
     Timeline tl = _pool.get();
     tl._parent = _current;
-    tl._mode = TimelineMode.parallel;
+    tl._mode = TimelineMode.PARALLEL;
     _current._children.add(tl);
     _current = tl;
   }
@@ -209,7 +209,7 @@ class Timeline extends BaseTween {
   void build() {
     if (_isBuilt) return;
 
-    _duration = 0;
+    duration = 0;
 
     for (int i = 0; i < _children.length; i++) {
       BaseTween obj = _children[i];
@@ -220,14 +220,14 @@ class Timeline extends BaseTween {
       obj.build();
 
       switch (_mode) {
-        case TimelineMode.sequence:
+        case TimelineMode.SEQUENCE:
           num tDelay = duration;
-          _duration += obj.fullDuration;
+          duration += obj.fullDuration;
           obj.delay += tDelay;
           break;
 
-        case TimelineMode.parallel:
-          _duration = Math.max(duration, obj.fullDuration);
+        case TimelineMode.PARALLEL:
+          duration = Math.max(duration, obj.fullDuration);
           break;
       }
     }
@@ -309,5 +309,5 @@ class Timeline extends BaseTween {
 }
 
 class TimelineMode {
-  static const int sequence = 1, parallel = 2;
+  static const int SEQUENCE = 1, PARALLEL = 2;
 }

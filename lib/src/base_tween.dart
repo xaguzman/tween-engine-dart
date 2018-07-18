@@ -23,8 +23,10 @@ abstract class BaseTween {
   bool _isYoyo;
 
   // Timings
-  num _delay;
-  num _duration;
+  /// the delay of the tween or timeline. Nothing will happen before
+  num delay;
+  /// the duration of a single iteration.
+  num duration;
   num _repeatDelay;
   num _currentTime; //elapsed time, relative to current iteration
   num _deltaTime;
@@ -37,7 +39,8 @@ abstract class BaseTween {
   // Misc
   TweenCallbackHandler _callback;
   int _callbackTriggers;
-  Object _userData;
+  /// Attached data to the tween, it can be useful in order to retrieve some data on a [TweenCallbackHandler].
+  Object userData;
 
   // Package access
   bool _isAutoRemoveEnabled;
@@ -50,12 +53,12 @@ abstract class BaseTween {
     _repeatCnt = 0;
     _isIterationStep = _isYoyo = false;
 
-    _delay = _duration = _repeatDelay = _currentTime = _deltaTime = 0;
+    delay = duration = _repeatDelay = _currentTime = _deltaTime = 0;
     _isStarted = _isInitialized = _isFinished = _isKilled = _isPaused = false;
 
     _callback = null;
     _callbackTriggers = TweenCallback.complete;
-    _userData = null;
+    userData = null;
 
     _isAutoRemoveEnabled = _isAutoStartEnabled = true;
   }
@@ -140,18 +143,6 @@ abstract class BaseTween {
   // Getters & Setters
   // -------------------------------------------------------------------------
 
-  ///the delay of the tween or timeline. Nothing will happen before
-  num get delay => _delay;
-  set delay(num delay) {
-    _delay = delay;
-  }
-
-  ///the duration of a single iteration.
-  num get duration => _duration;
-  set duration(num duration) {
-    _duration = duration;
-  }
-
   ///the number of iterations that will be played.
   int get repeatCount => _repeatCnt;
 
@@ -167,13 +158,7 @@ abstract class BaseTween {
    */
   num get fullDuration => _repeatCnt < 0
       ? -1
-      : _delay + _duration + (_repeatDelay + _duration) * _repeatCnt;
-
-  ///Attached data to the tween, it can be useful in order to retrieve some data on a [TweenCallbackHandler].
-  Object get userData => _userData;
-  set userData(Object data) {
-    _userData = data;
-  }
+      : delay + duration + (_repeatDelay + duration) * _repeatCnt;
 
   /**
    * Gets the id of the current step. Values are as follows:
@@ -191,7 +176,7 @@ abstract class BaseTween {
 
   ///The local time, normalized (0 <= [currentTime] <= 1)
   num get normalTime =>
-      _currentTime == null ? 0 : Math.min(_currentTime / _duration, 1);
+      _currentTime == null ? 0 : Math.min(_currentTime / duration, 1);
 
   ///Returns true if the tween or timeline has been started.
   bool get isStarted => _isStarted;
