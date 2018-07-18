@@ -13,7 +13,7 @@ class Color {
 }
 
 class VectorAccessor implements TweenAccessor<Vector2> {
-  static const int XY = 1;
+  static const int xy = 1;
 
   int getValues(
       Vector2 target, Tween tween, int tweenType, List<num> returnValues) {
@@ -32,19 +32,19 @@ class VectorAccessor implements TweenAccessor<Vector2> {
 }
 
 class ColorAccessor implements TweenAccessor<Color> {
-  static const RGB = 1;
-  static const RGBA = 2;
+  static const rgb = 1;
+  static const rgba = 2;
 
   int getValues(
       Color target, Tween tween, int tweenType, List<num> returnValues) {
     switch (tweenType) {
-      case RGBA:
+      case rgba:
         returnValues[0] = target.r;
         returnValues[1] = target.g;
         returnValues[2] = target.b;
         returnValues[3] = target.a;
         return 4;
-      case RGB:
+      case rgb:
         returnValues[0] = target.r;
         returnValues[1] = target.g;
         returnValues[2] = target.b;
@@ -57,14 +57,14 @@ class ColorAccessor implements TweenAccessor<Color> {
   void setValues(
       Color target, Tween tween, int tweenType, List<num> newValues) {
     switch (tweenType) {
-      case RGBA:
+      case rgba:
         target
           ..r = newValues[0]
           ..g = newValues[1]
           ..b = newValues[2]
           ..a = newValues[3];
         break;
-      case RGB:
+      case rgb:
         target
           ..r = newValues[0]
           ..g = newValues[1]

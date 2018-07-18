@@ -4,11 +4,11 @@ import 'package:tweenengine/tweenengine.dart';
 
 /// Fixture [TweenAccessor] for tests
 class MyAccessor implements TweenAccessor<MyClass> {
-  static const XY = 1;
+  static const xy = 1;
 
   int getValues(
       MyClass target, Tween tween, int tweenType, List<num> returnValues) {
-    if (tweenType == MyAccessor.XY) {
+    if (tweenType == MyAccessor.xy) {
       returnValues[0] = target.x;
       returnValues[1] = target.y;
       return 2;
@@ -25,7 +25,7 @@ class MyAccessor implements TweenAccessor<MyClass> {
       }
     }
 
-    if (tweenType == MyAccessor.XY) {
+    if (tweenType == MyAccessor.xy) {
       target.x = newValues[0];
       target.y = newValues[1];
     }
@@ -88,16 +88,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -109,7 +109,7 @@ main() {
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [20, 20])
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [40, 40])
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..start(myManager);
     });
@@ -135,16 +135,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -156,7 +156,7 @@ main() {
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [20, 20])
         ..push(Tween.to(myClass, 1, 0.12)..targetValues = [40, 40])
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..start(myManager);
     });
@@ -182,16 +182,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -203,7 +203,7 @@ main() {
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [20, 20])
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [40, 40])
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..repeat(1, 0)
         ..start(myManager);
@@ -230,16 +230,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -251,7 +251,7 @@ main() {
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [20, 20])
         ..push(Tween.to(myClass, 1, 0.13)..targetValues = [40, 40])
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..repeat(1, 0)
         ..start(myManager);
@@ -278,16 +278,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -299,7 +299,7 @@ main() {
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [20, 20])
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [40, 40])
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..repeatYoyo(1, 0)
         ..start(myManager);
@@ -326,16 +326,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -347,7 +347,7 @@ main() {
         ..push(Tween.to(myClass, 1, 0.1)..targetValues = [20, 20])
         ..push(Tween.to(myClass, 1, 0.13)..targetValues = [40, 40])
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..repeatYoyo(1, 0)
         ..start(myManager);
@@ -378,18 +378,18 @@ main() {
           ..targetRelative = [5, 5]
           ..userData = 1
           ..callback = killTimeline
-          ..callbackTriggers = TweenCallback.COMPLETE)
+          ..callbackTriggers = TweenCallback.complete)
         ..push(Tween.to(myObj, 1, 1.3)
           ..targetRelative = [5, 5]
           ..userData = 2
           ..callback = killTimeline
-          ..callbackTriggers = TweenCallback.COMPLETE)
+          ..callbackTriggers = TweenCallback.complete)
         ..end()
         ..push(Tween.to(myObj, 1, 1)
           ..targetRelative = [5, 5]
           ..userData = 3
           ..callback = killTimeline
-          ..callbackTriggers = TweenCallback.COMPLETE)
+          ..callbackTriggers = TweenCallback.complete)
         ..start(myManager);
     });
   });

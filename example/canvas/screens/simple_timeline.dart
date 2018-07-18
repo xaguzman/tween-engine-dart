@@ -16,25 +16,25 @@ class SimpleTimeline extends Screen {
         either one after the other, or all at once. Press escape to go back""";
 
     Timeline.sequence()
-      ..push(Tween.set(pos, VectorAccessor.XY)..targetValues = [100, 100])
-      ..push(Tween.set(size, VectorAccessor.XY)..targetValues = [30, 30])
+      ..push(Tween.set(pos, VectorAccessor.xy)..targetValues = [100, 100])
+      ..push(Tween.set(size, VectorAccessor.xy)..targetValues = [30, 30])
       ..push(
-          Tween.set(color, ColorAccessor.RGBA)..targetValues = [255, 255, 0, 1])
+          Tween.set(color, ColorAccessor.rgba)..targetValues = [255, 255, 0, 1])
       ..beginParallel()
-      ..push(Tween.to(pos, VectorAccessor.XY, 1)..targetRelative = [200, 80])
-      ..push(Tween.to(size, VectorAccessor.XY, 1)..targetRelative = [50, 0])
+      ..push(Tween.to(pos, VectorAccessor.xy, 1)..targetRelative = [200, 80])
+      ..push(Tween.to(size, VectorAccessor.xy, 1)..targetRelative = [50, 0])
       ..push(
-          Tween.to(color, ColorAccessor.RGB, 1)..targetRelative = [-255, 0, 0])
+          Tween.to(color, ColorAccessor.rgb, 1)..targetRelative = [-255, 0, 0])
       ..end()
       ..beginParallel()
-      ..push(Tween.to(pos, VectorAccessor.XY, 1)..targetRelative = [-100, 80])
-      ..push(Tween.to(size, VectorAccessor.XY, 1)..targetRelative = [-50, 20])
+      ..push(Tween.to(pos, VectorAccessor.xy, 1)..targetRelative = [-100, 80])
+      ..push(Tween.to(size, VectorAccessor.xy, 1)..targetRelative = [-50, 20])
       ..push(
-          Tween.to(color, ColorAccessor.RGB, 1)..targetRelative = [0, -255, 0])
+          Tween.to(color, ColorAccessor.rgb, 1)..targetRelative = [0, -255, 0])
       ..end()
-      ..push(Tween.to(color, ColorAccessor.RGBA, 1)
+      ..push(Tween.to(color, ColorAccessor.rgba, 1)
         ..targetValues = [255, 255, 255, 0])
-      ..repeat(Tween.INFINITY, 0.5)
+      ..repeat(Tween.infinity, 0.5)
       ..start(_tweenManager);
   }
 

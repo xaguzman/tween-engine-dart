@@ -18,7 +18,7 @@ class SimpleTween extends Screen {
     num x = e.client.x - boundingRect.left;
     num y = e.client.y - boundingRect.top;
 
-    Tween.to(pos, VectorAccessor.XY, 1)
+    Tween.to(pos, VectorAccessor.xy, 1)
       ..delay = 0.3
       ..targetValues = [x, y]
       ..start(_tweenManager);

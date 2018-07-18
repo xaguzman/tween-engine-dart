@@ -43,7 +43,7 @@ class Elastic extends TweenEquation {
 
     return -(a *
         Math.pow(2, 10 * (t -= 1)) *
-        Math.sin((t - s) * (2 * Math.PI) / p));
+        Math.sin((t - s) * (2 * Math.pi) / p));
   }
 
   static num _computeOUT(num t) {
@@ -59,7 +59,7 @@ class Elastic extends TweenEquation {
     s = p / 4;
 //    }else
 //      s = p/(2*Math.PI) * Math.asin(1/a);
-    return a * Math.pow(2, -10 * t) * Math.sin((t - s) * (2 * Math.PI) / p) + 1;
+    return a * Math.pow(2, -10 * t) * Math.sin((t - s) * (2 * Math.pi) / p) + 1;
   }
 
   static num _computeINOUT(num t) {
@@ -80,10 +80,10 @@ class Elastic extends TweenEquation {
       return -0.5 *
           (a *
               Math.pow(2, 10 * (t -= 1)) *
-              Math.sin((t - s) * (2 * Math.PI) / p));
+              Math.sin((t - s) * (2 * Math.pi) / p));
     return a *
             Math.pow(2, -10 * (t -= 1)) *
-            Math.sin((t - s) * (2 * Math.PI) / p) *
+            Math.sin((t - s) * (2 * Math.pi) / p) *
             0.5 +
         1;
   }

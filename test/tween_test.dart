@@ -4,11 +4,11 @@ import 'package:tweenengine/tweenengine.dart';
 
 /// Fixture [TweenAccessor] for tests
 class MyAccessor implements TweenAccessor<MyClass> {
-  static const XY = 1;
+  static const xy = 1;
 
   int getValues(
       MyClass target, Tween tween, int tweenType, List<num> returnValues) {
-    if (tweenType == MyAccessor.XY) {
+    if (tweenType == MyAccessor.xy) {
       returnValues[0] = target.x;
       returnValues[1] = target.y;
       return 2;
@@ -25,7 +25,7 @@ class MyAccessor implements TweenAccessor<MyClass> {
       }
     }
 
-    if (tweenType == MyAccessor.XY) {
+    if (tweenType == MyAccessor.xy) {
       target.x = newValues[0];
       target.y = newValues[1];
     }
@@ -80,16 +80,16 @@ main() {
       }, count: 2);
 
       TweenCallbackHandler callback = (int type, BaseTween tween) {
-        if (type == TweenCallback.BEGIN || type == TweenCallback.START)
+        if (type == TweenCallback.begin || type == TweenCallback.start)
           expectOnBegin(tween);
-        else if (type == TweenCallback.COMPLETE || type == TweenCallback.END)
+        else if (type == TweenCallback.complete || type == TweenCallback.end)
           expectOnComplete(tween);
       };
 
       Tween.to(myClass, 1, 0.25)
         ..targetValues = [20, 20]
         ..callback = callback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..start(myManager);
     });
@@ -108,16 +108,16 @@ main() {
       }, count: 2);
 
       TweenCallbackHandler callback = (int type, BaseTween tween) {
-        if (type == TweenCallback.BEGIN || type == TweenCallback.START)
+        if (type == TweenCallback.begin || type == TweenCallback.start)
           expectOnBegin(tween);
-        else if (type == TweenCallback.COMPLETE || type == TweenCallback.END)
+        else if (type == TweenCallback.complete || type == TweenCallback.end)
           expectOnComplete(tween);
       };
 
       Tween.from(myClass, 1, 0.25)
         ..targetValues = [20, 20]
         ..callback = callback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..userData = 'time'
         ..start(myManager);
     });
@@ -143,16 +143,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -163,7 +163,7 @@ main() {
       Tween.to(myClass, 1, 0.25)
         ..targetValues = [20, 20]
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..repeat(1, 0)
         ..userData = 'time'
         ..start(myManager);
@@ -190,16 +190,16 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -210,7 +210,7 @@ main() {
       Tween.to(myClass, 1, 0.25)
         ..targetValues = [20, 20]
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..repeatYoyo(1, 0)
         ..userData = 'time'
         ..start(myManager);

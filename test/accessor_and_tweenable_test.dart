@@ -4,11 +4,11 @@ import 'package:tweenengine/tweenengine.dart';
 
 /// Fixture [TweenAccessor] for tests
 class MyAccessor implements TweenAccessor<MyClass> {
-  static const XY = 1;
+  static const xy = 1;
 
   int getValues(
       MyClass target, Tween tween, int tweenType, List<num> returnValues) {
-    if (tweenType == MyAccessor.XY) {
+    if (tweenType == MyAccessor.xy) {
       returnValues[0] = target.x;
       returnValues[1] = target.y;
       return 2;
@@ -18,7 +18,7 @@ class MyAccessor implements TweenAccessor<MyClass> {
 
   void setValues(
       MyClass target, Tween tween, int tweenType, List<num> newValues) {
-    if (tweenType == MyAccessor.XY) {
+    if (tweenType == MyAccessor.xy) {
       target.x = newValues[0];
       target.y = newValues[1];
     }
@@ -33,25 +33,25 @@ class MyClass {
 
 /// Test fixture object with tweenable properties
 class MyTweenable implements Tweenable {
-  static const int ANSWER = 1;
-  static const int CIRCLE = 2;
+  static const int typeAnswer = 1;
+  static const int typeCircle = 2;
 
   num answer = 42;
   num circle = 6.2831853;
 
   int getTweenableValues(Tween tween, int tweenType, List<num> returnValues) {
-    if (tweenType == ANSWER) {
+    if (tweenType == typeAnswer) {
       returnValues[0] = answer;
-    } else if (tweenType == CIRCLE) {
+    } else if (tweenType == typeCircle) {
       returnValues[0] = circle;
     }
     return 1;
   }
 
   void setTweenableValues(Tween tween, int tweenType, List<num> newValues) {
-    if (tweenType == ANSWER) {
+    if (tweenType == typeAnswer) {
       answer = newValues[0];
-    } else if (tweenType == CIRCLE) {
+    } else if (tweenType == typeCircle) {
       circle = newValues[0];
     }
   }
@@ -104,18 +104,18 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             expect(myClass.x, equals(20));
             expect(myClass.y, equals(30));
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -123,11 +123,11 @@ main() {
         }
       };
 
-      Tween.to(myClass, MyAccessor.XY, 0.5)
+      Tween.to(myClass, MyAccessor.xy, 0.5)
         ..targetValues = [20, 30]
         ..easing = Elastic.INOUT
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..start(myManager);
     });
   });
@@ -143,17 +143,17 @@ main() {
 
       TweenCallbackHandler myCallback = (type, tween) {
         switch (type) {
-          case TweenCallback.BEGIN:
+          case TweenCallback.begin:
             expectOnBegin(tween);
             break;
-          case TweenCallback.COMPLETE:
+          case TweenCallback.complete:
             expectOnComplete(tween);
             expect(life.answer, equals(69));
             break;
-          case TweenCallback.START:
+          case TweenCallback.start:
             expectOnStart(tween);
             break;
-          case TweenCallback.END:
+          case TweenCallback.end:
             expectOnEnd(tween);
             break;
           default:
@@ -165,11 +165,11 @@ main() {
       expect(life.answer, equals(42));
 
       // Tween the answer
-      Tween.to(life, MyTweenable.ANSWER, 0.5)
+      Tween.to(life, MyTweenable.typeAnswer, 0.5)
         ..targetValues = [69]
         ..easing = Linear.INOUT
         ..callback = myCallback
-        ..callbackTriggers = TweenCallback.ANY
+        ..callbackTriggers = TweenCallback.any
         ..start(myManager);
     });
   });

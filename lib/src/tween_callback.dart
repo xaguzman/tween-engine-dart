@@ -5,20 +5,20 @@ part of tweenengine;
  * They are used in both Tweens and Timelines.
  * The moment when the callback is triggered depends on its registered triggers:
  *
- * * [TweenCallback.BEGIN]: right after the delay (if any)
- * * [TweenCallback.START]: at each iteration beginning
- * * [TweenCallback.END]: at each iteration ending, before the repeat delay
- * * [TweenCallback.COMPLETE]: at last END event
- * * [TweenCallback.BACK_BEGIN]: at the beginning of the first backward iteration
- * * [TweenCallback.BACK_START]: at each backward iteration beginning, after the repeat delay
- * * [TweenCallback.BACK_END]: at each backward iteration ending
- * * [TweenCallback.BACK_COMPLETE]: at last BACK_END event
+ * * [TweenCallback.begin]: right after the delay (if any)
+ * * [TweenCallback.start]: at each iteration beginning
+ * * [TweenCallback.end]: at each iteration ending, before the repeat delay
+ * * [TweenCallback.complete]: at last END event
+ * * [TweenCallback.backBegin]: at the beginning of the first backward iteration
+ * * [TweenCallback.backStart]: at each backward iteration beginning, after the repeat delay
+ * * [TweenCallback.backEnd]: at each backward iteration ending
+ * * [TweenCallback.backComplete]: at last BACK_END event
  * 
- * forward :      BEGIN                                   COMPLETE
- * forward :      START    END      START    END      START    END
+ * forward :      begin                                   complete
+ * forward :      start    end      start    end      start    end
  * |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
- * backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
- * backward:      bCOMPLETE                                 bBEGIN
+ * backward:      bEnd  bStart      bEnd  bStart      bEnd  bStart
+ * backward:      bComplete                                 bBegin
  *
  * see [Tween]
  * see [Timeline]
@@ -29,17 +29,17 @@ part of tweenengine;
 class TweenCallback {
   TweenCallback._();
 
-  static const int BEGIN = 0x01;
-  static const int START = 0x02;
-  static const int END = 0x04;
-  static const int COMPLETE = 0x08;
-  static const int BACK_BEGIN = 0x10;
-  static const int BACK_START = 0x20;
-  static const int BACK_END = 0x40;
-  static const int BACK_COMPLETE = 0x80;
-  static const int ANY_FORWARD = 0x0F;
-  static const int ANY_BACKWARD = 0xF0;
-  static const int ANY = 0xFF;
+  static const int begin = 0x01;
+  static const int start = 0x02;
+  static const int end = 0x04;
+  static const int complete = 0x08;
+  static const int backBegin = 0x10;
+  static const int backStart = 0x20;
+  static const int backEnd = 0x40;
+  static const int backComplete = 0x80;
+  static const int anyForward = 0x0F;
+  static const int anyBackward = 0xF0;
+  static const int any = 0xFF;
 }
 
 ///a handler which can take actions when any event occurs on a tween

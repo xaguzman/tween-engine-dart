@@ -12,15 +12,15 @@ class Sine extends TweenEquation {
 
   static final Sine IN = Sine._()
     ..name = "Sine.IN"
-    ..compute = (num t) => -Math.cos(t * (Math.PI / 2)) + 1;
+    ..compute = (num t) => -Math.cos(t * (Math.pi / 2)) + 1;
 
   static final Sine OUT = Sine._()
     ..name = "Sine.OUT"
-    ..compute = (num t) => Math.sin(t * (Math.PI / 2));
+    ..compute = (num t) => Math.sin(t * (Math.pi / 2));
 
   static final Sine INOUT = Sine._()
     ..name = "Sine.INOUT"
-    ..compute = (num t) => -0.5 * (Math.cos(Math.PI * t) - 1);
+    ..compute = (num t) => -0.5 * (Math.cos(Math.pi * t) - 1);
 
   Sine._();
 }

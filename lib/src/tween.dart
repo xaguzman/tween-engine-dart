@@ -49,7 +49,7 @@ class Tween extends BaseTween {
   // -------------------------------------------------------------------------
 
   ///Used as parameter in [repeat] and [repeatYoyo] methods.
-  static const int INFINITY = -1;
+  static const int infinity = -1;
 
   static int _combinedAttrsLimit = 3;
   static int _waypointsLimit = 0;
@@ -246,7 +246,7 @@ class Tween extends BaseTween {
     Tween tween = _pool.get()
       .._setup(null, -1, 0)
       ..callback = callback
-      ..callbackTriggers = TweenCallback.START;
+      ..callbackTriggers = TweenCallback.start;
     return tween;
   }
 

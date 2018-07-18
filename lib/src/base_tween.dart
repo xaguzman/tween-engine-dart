@@ -54,7 +54,7 @@ abstract class BaseTween {
     _isStarted = _isInitialized = _isFinished = _isKilled = _isPaused = false;
 
     _callback = null;
-    _callbackTriggers = TweenCallback.COMPLETE;
+    _callbackTriggers = TweenCallback.complete;
     _userData = null;
 
     _isAutoRemoveEnabled = _isAutoStartEnabled = true;
@@ -107,7 +107,7 @@ abstract class BaseTween {
   /**
    * Repeats the tween or timeline [count] times.
    * 
-   * [count] the number of repetitions. For infinite repetition, use [Tween.INFINITY], or a negative number.
+   * [count] the number of repetitions. For infinite repetition, use [Tween.infinity], or a negative number.
    * [delay] a delay between each iteration.
    * [isYoyo] wether the repetions should be played in yoyo mode or not
    */
@@ -119,7 +119,7 @@ abstract class BaseTween {
    * Repeats the tween or timeline [count] times.
    * Every two iterations, it will be played backwards.
    *
-   * [count] The number of repetitions. For infinite repetition,  use [Tween.INFINITY], or `-1`.
+   * [count] The number of repetitions. For infinite repetition,  use [Tween.infinity], or `-1`.
    * [delay] A delay before each repetition.
    */
   void repeatYoyo(int count, num delay) {
@@ -347,8 +347,8 @@ abstract class BaseTween {
       _step = 0;
       _deltaTime -= delay - currentTime;
       _currentTime = 0;
-      callCallback(TweenCallback.BEGIN);
-      callCallback(TweenCallback.START);
+      callCallback(TweenCallback.begin);
+      callCallback(TweenCallback.start);
     }
   }
 
@@ -363,8 +363,8 @@ abstract class BaseTween {
       num delta = 0 - currentTime;
       _deltaTime -= delta;
       _currentTime = 0;
-      callCallback(TweenCallback.BEGIN);
-      callCallback(TweenCallback.START);
+      callCallback(TweenCallback.begin);
+      callCallback(TweenCallback.start);
       updateOverride(step, step - 1, _isIterationStep, delta);
     } else if (!_isIterationStep &&
         _repeatCnt >= 0 &&
@@ -376,8 +376,8 @@ abstract class BaseTween {
       num delta = 0 - currentTime;
       _deltaTime -= delta;
       _currentTime = duration;
-      callCallback(TweenCallback.BACK_BEGIN);
-      callCallback(TweenCallback.BACK_START);
+      callCallback(TweenCallback.backBegin);
+      callCallback(TweenCallback.backStart);
       updateOverride(step, step + 1, _isIterationStep, delta);
     }
   }
@@ -396,7 +396,7 @@ abstract class BaseTween {
           forceStartValues();
         else
           forceEndValues();
-        callCallback(TweenCallback.BACK_START);
+        callCallback(TweenCallback.backStart);
         updateOverride(step, step + 1, _isIterationStep, delta);
       } else if (!_isIterationStep && currentTime + _deltaTime >= repeatDelay) {
         _isIterationStep = true;
@@ -410,7 +410,7 @@ abstract class BaseTween {
           forceEndValues();
         else
           forceStartValues();
-        callCallback(TweenCallback.START);
+        callCallback(TweenCallback.start);
         updateOverride(step, step - 1, _isIterationStep, delta);
       } else if (_isIterationStep && currentTime + _deltaTime < 0) {
         _isIterationStep = false;
@@ -421,10 +421,10 @@ abstract class BaseTween {
         _currentTime = 0;
 
         updateOverride(step, step + 1, _isIterationStep, delta);
-        callCallback(TweenCallback.BACK_END);
+        callCallback(TweenCallback.backEnd);
 
         if (step < 0 && repeatCount >= 0)
-          callCallback(TweenCallback.BACK_COMPLETE);
+          callCallback(TweenCallback.backComplete);
         else
           _currentTime = repeatDelay;
       } else if (_isIterationStep && currentTime + _deltaTime > duration) {
@@ -436,10 +436,10 @@ abstract class BaseTween {
         _currentTime = duration;
 
         updateOverride(step, step - 1, _isIterationStep, delta);
-        callCallback(TweenCallback.END);
+        callCallback(TweenCallback.end);
 
         if (step > repeatCount * 2 && repeatCount >= 0)
-          callCallback(TweenCallback.COMPLETE);
+          callCallback(TweenCallback.complete);
         _currentTime = 0;
       } else if (_isIterationStep) {
         num delta = _deltaTime;

@@ -29,11 +29,11 @@ void update(num delta) {
 }
 
 class StyleAccessor implements TweenAccessor<CssStyleDeclaration> {
-  static const int Width = 1;
+  static const int width = 1;
 
   int getValues(CssStyleDeclaration target, Tween tween, int tweenType,
       List<num> returnValues) {
-    if (tweenType != Width) return 0;
+    if (tweenType != width) return 0;
 
     //strip the % from the style
     num numericValue = num.parse(target.width.replaceAll(percent, ""));
@@ -44,7 +44,7 @@ class StyleAccessor implements TweenAccessor<CssStyleDeclaration> {
 
   void setValues(CssStyleDeclaration target, Tween tween, int tweenType,
       List<num> newValues) {
-    if (tweenType != Width) return;
+    if (tweenType != width) return;
 
     target.width = newValues[0].toString() + "%";
   }

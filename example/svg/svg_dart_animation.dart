@@ -40,22 +40,22 @@ void main() {
   _tweenManager = TweenManager();
   Timeline.sequence()
     ..beginParallel()
-    ..push(Tween.to(rectangle, RectAccessor.XY, 0)
+    ..push(Tween.to(rectangle, RectAccessor.xy, 0)
       ..targetValues = [kf1.x.baseVal.value, kf1.y.baseVal.value])
-    ..push(Tween.to(rectangle, RectAccessor.RXRY, 0)
+    ..push(Tween.to(rectangle, RectAccessor.rxry, 0)
       ..targetValues = [kf1.rx.baseVal.value, kf1.ry.baseVal.value])
-    ..push(Tween.to(rectangle, RectAccessor.WH, 0)
+    ..push(Tween.to(rectangle, RectAccessor.wh, 0)
       ..targetValues = [kf1.width.baseVal.value, kf1.height.baseVal.value])
     ..end()
     ..beginParallel()
-    ..push(Tween.to(rectangle, RectAccessor.XY, 0.5)
+    ..push(Tween.to(rectangle, RectAccessor.xy, 0.5)
       ..targetValues = [kf2.x.baseVal.value, kf2.y.baseVal.value])
-    ..push(Tween.to(rectangle, RectAccessor.RXRY, 0.5)
+    ..push(Tween.to(rectangle, RectAccessor.rxry, 0.5)
       ..targetValues = [kf2.rx.baseVal.value, kf2.ry.baseVal.value])
-    ..push(Tween.to(rectangle, RectAccessor.WH, 0.5)
+    ..push(Tween.to(rectangle, RectAccessor.wh, 0.5)
       ..targetValues = [kf2.width.baseVal.value, kf2.height.baseVal.value])
     ..end()
-    ..repeatYoyo(Tween.INFINITY, 0)
+    ..repeatYoyo(Tween.infinity, 0)
     ..start(_tweenManager);
 
   html.window.animationFrame.then(update);
@@ -69,30 +69,30 @@ void update(num delta) {
 }
 
 class RectAccessor implements TweenAccessor<RectElement> {
-  static const int XY = 1;
-  static const int RXRY = 2;
-  static const int W = 3;
-  static const int H = 4;
-  static const int WH = 5;
+  static const int xy = 1;
+  static const int rxry = 2;
+  static const int w = 3;
+  static const int h = 4;
+  static const int wh = 5;
 
   int getValues(
       RectElement target, Tween tween, int tweenType, List<num> returnValues) {
     switch (tweenType) {
-      case XY:
+      case xy:
         returnValues
             .setRange(0, 2, [target.x.baseVal.value, target.y.baseVal.value]);
         return 2;
-      case RXRY:
+      case rxry:
         returnValues
             .setRange(0, 2, [target.rx.baseVal.value, target.ry.baseVal.value]);
         return 2;
-      case W:
+      case w:
         returnValues[0] = target.width.baseVal.value;
         return 1;
-      case H:
+      case h:
         returnValues[0] = target.height.baseVal.value;
         return 1;
-      case WH:
+      case wh:
         returnValues.setRange(
             0, 2, [target.width.baseVal.value, target.height.baseVal.value]);
         return 2;
@@ -102,21 +102,21 @@ class RectAccessor implements TweenAccessor<RectElement> {
   void setValues(
       RectElement target, Tween tween, int tweenType, List<num> newValues) {
     switch (tweenType) {
-      case XY:
+      case xy:
         target.x.baseVal.value = newValues[0];
         target.y.baseVal.value = newValues[1];
         break;
-      case RXRY:
+      case rxry:
         target.rx.baseVal.value = newValues[0];
         target.ry.baseVal.value = newValues[1];
         break;
-      case W:
+      case w:
         target.width.baseVal.value = newValues[0];
         break;
-      case H:
+      case h:
         target.height.baseVal.value = newValues[0];
         break;
-      case WH:
+      case wh:
         target.width.baseVal.value = newValues[0];
         target.height.baseVal.value = newValues[1];
         break;

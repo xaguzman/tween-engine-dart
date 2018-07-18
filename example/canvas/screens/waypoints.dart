@@ -17,7 +17,7 @@ class Waypoints extends Screen {
         """Tweens can navigate through waypoints, which define a 'bezier' path (here 
                     using a Catmull-Rom spline). Press escape to go back""";
 
-    Tween.to(pos, VectorAccessor.XY, 3)
+    Tween.to(pos, VectorAccessor.xy, 3)
       ..addWaypoint([waypoints[0].x, waypoints[0].y])
       ..addWaypoint([waypoints[1].x, waypoints[1].y])
       ..addWaypoint([waypoints[2].x, waypoints[2].y])
@@ -25,7 +25,7 @@ class Waypoints extends Screen {
       ..targetValues = [350, 250]
       ..easing = Quad.INOUT
       ..path = TweenPaths.catmullRom
-      ..repeatYoyo(Tween.INFINITY, 0.2)
+      ..repeatYoyo(Tween.infinity, 0.2)
       ..delay = 0.5
       ..start(_tweenManager);
   }
@@ -48,7 +48,7 @@ class Waypoints extends Screen {
         ..fillStyle = 'White'
         ..fillText(i.toString(), obj.x, obj.y)
         ..beginPath()
-        ..arc(obj.x, obj.y, 2, 0, 2 * PI)
+        ..arc(obj.x, obj.y, 2, 0, 2 * pi)
         ..fillStyle = 'red'
         ..fill()
         ..lineWidth = 1
