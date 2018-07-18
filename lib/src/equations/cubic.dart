@@ -6,6 +6,7 @@ part of tweenengine;
 ///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
 ///    Xavier Guzman (dart port)
 class Cubic extends TweenEquation {
+  Cubic._();
   static num _computeIN(num time) => time * time * time;
 
   static num _computeOUT(num t) => (t -= 1) * t * t + 1;
@@ -26,6 +27,4 @@ class Cubic extends TweenEquation {
   static final Cubic INOUT = Cubic._()
     ..name = "Cubic.INOUT"
     ..compute = _computeINOUT;
-
-  Cubic._();
 }

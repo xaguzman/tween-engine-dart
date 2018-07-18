@@ -6,6 +6,7 @@ part of tweenengine;
 ///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
 ///    Xavier Guzman (dart port)
 class Bounce extends TweenEquation {
+  Bounce._();
   static num _computeIN(num time) => 1 - _computeOUT(1 - time);
 
   static num _computeOUT(num t) {
@@ -38,6 +39,4 @@ class Bounce extends TweenEquation {
   static final Bounce INOUT = Bounce._()
     ..name = "Bounce.INOUT"
     ..compute = _computeINOUT;
-
-  Bounce._();
 }

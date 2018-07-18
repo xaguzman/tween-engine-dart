@@ -6,6 +6,7 @@ part of tweenengine;
 ///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
 ///    Xavier Guzman (dart port)
 class Back extends TweenEquation {
+  Back._();
   static num _param_s = 1.70158;
 
   static num _computeIN(num time) {
@@ -36,6 +37,4 @@ class Back extends TweenEquation {
   static final Back INOUT = Back._()
     ..compute = _computeINOUT
     ..name = "BACK.INOUT";
-
-  Back._();
 }

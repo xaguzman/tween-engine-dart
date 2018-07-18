@@ -52,19 +52,6 @@ class Tween extends BaseTween {
   static int _combinedAttrsLimit = 3;
   static int _waypointsLimit = 0;
 
-  ///Changes the [limit] for combined attributes. Defaults to 3 to reduce memory footprint.
-  static set combinedAttributesLimit(int limit) {
-    Tween._combinedAttrsLimit = limit;
-  }
-
-  ///Changes the [limit] of allowed waypoints for each tween. Defaults to 0 to reduce memory footprint.
-  static set waypointsLimit(int limit) {
-    Tween._waypointsLimit = limit;
-  }
-
-  ///Gets the version number of the library.
-  static String get version => "0.11.1";
-
   // -------------------------------------------------------------------------
   // Static -- pool
   // -------------------------------------------------------------------------
@@ -79,36 +66,6 @@ class Tween extends BaseTween {
 
   static final Pool<Tween> _pool = Pool<Tween>(_poolCallback)
     ..create = () => Tween._();
-
-  /// Used for debug purpose. Gets the current number of objects that are waiting in the Tween pool.
-  int getPoolSize() => _pool.size();
-
-  //Increases the minimum capacity of the pool. Capacity defaults to 20.
-  //static void ensurePoolCapacity(int minCapacity) => _pool.ensureCapacity(minCapacity);
-
-  // -------------------------------------------------------------------------
-  // Static -- tween accessors
-  // -------------------------------------------------------------------------
-
-  static final Map<Type, TweenAccessor> _registeredAccessors =
-      Map<Type, TweenAccessor>();
-
-  /// Registers an accessor with the class of an object. This accessor will be
-  /// used by tweens applied to every objects implementing the registered
-  /// class, or inheriting from it.
-  ///
-  /// [someType] An object type.
-  /// [defaultAccessor] Th e accessor that will be used to tween any object of class "someClass".
-  static void registerAccessor(Type someType, TweenAccessor defaultAccessor) {
-    _registeredAccessors[someType] = defaultAccessor;
-  }
-
-  /// Gets the registered TweenAccessor associated with the given object class.
-  ///
-  /// [someType] An object type.
-  static TweenAccessor getRegisteredAccessor(Type someType) {
-    return _registeredAccessors[someType];
-  }
 
   // -------------------------------------------------------------------------
   // Static -- factories
@@ -246,6 +203,53 @@ class Tween extends BaseTween {
     return tween;
   }
 
+  Tween._() {
+    reset();
+  }
+
+  ///Changes the [limit] for combined attributes. Defaults to 3 to reduce memory footprint.
+  static set combinedAttributesLimit(int limit) {
+    Tween._combinedAttrsLimit = limit;
+  }
+
+  ///Changes the [limit] of allowed waypoints for each tween. Defaults to 0 to reduce memory footprint.
+  static set waypointsLimit(int limit) {
+    Tween._waypointsLimit = limit;
+  }
+
+  ///Gets the version number of the library.
+  static String get version => "0.11.1";
+
+  /// Used for debug purpose. Gets the current number of objects that are waiting in the Tween pool.
+  int getPoolSize() => _pool.size();
+
+  //Increases the minimum capacity of the pool. Capacity defaults to 20.
+  //static void ensurePoolCapacity(int minCapacity) => _pool.ensureCapacity(minCapacity);
+
+  // -------------------------------------------------------------------------
+  // Static -- tween accessors
+  // -------------------------------------------------------------------------
+
+  static final Map<Type, TweenAccessor> _registeredAccessors =
+      Map<Type, TweenAccessor>();
+
+  /// Registers an accessor with the class of an object. This accessor will be
+  /// used by tweens applied to every objects implementing the registered
+  /// class, or inheriting from it.
+  ///
+  /// [someType] An object type.
+  /// [defaultAccessor] Th e accessor that will be used to tween any object of class "someClass".
+  static void registerAccessor(Type someType, TweenAccessor defaultAccessor) {
+    _registeredAccessors[someType] = defaultAccessor;
+  }
+
+  /// Gets the registered TweenAccessor associated with the given object class.
+  ///
+  /// [someType] An object type.
+  static TweenAccessor getRegisteredAccessor(Type someType) {
+    return _registeredAccessors[someType];
+  }
+
   // -------------------------------------------------------------------------
   // Attributes
   // -------------------------------------------------------------------------
@@ -285,10 +289,6 @@ class Tween extends BaseTween {
   // -------------------------------------------------------------------------
   // Setup
   // -------------------------------------------------------------------------
-
-  Tween._() {
-    reset();
-  }
 
   //@Override
   void reset() {

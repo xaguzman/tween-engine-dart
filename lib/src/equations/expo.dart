@@ -6,6 +6,7 @@ part of tweenengine;
 ///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
 ///    Xavier Guzman (dart port)
 class Expo extends TweenEquation {
+  Expo._();
   static num _computeIN(num t) => (t == 0) ? 0 : Math.pow(2, 10 * (t - 1));
 
   static num _computeOUT(num t) => (t == 1) ? 1 : -Math.pow(2, -10 * t) + 1;
@@ -28,6 +29,4 @@ class Expo extends TweenEquation {
   static final Expo INOUT = Expo._()
     ..name = "Expo.INOUT"
     ..compute = _computeINOUT;
-
-  Expo._();
 }

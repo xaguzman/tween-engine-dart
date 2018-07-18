@@ -57,14 +57,6 @@ class Timeline extends BaseTween {
   static final Pool<Timeline> _pool = Pool<Timeline>(_poolCallback)
     ..create = () => Timeline._();
 
-  ///Used for debug purpose. Gets the current number of empty timelines that are waiting in the Timeline pool.
-  static int get poolSize => _pool.size();
-
-  ///Increases the minimum capacity of the pool. Capacity defaults to 10.
-  static void ensurePoolCapacity(int minCapacity) {
-    _pool.ensureCapacity(minCapacity);
-  }
-
   // -------------------------------------------------------------------------
   // Static -- factories
   // -------------------------------------------------------------------------
@@ -83,6 +75,18 @@ class Timeline extends BaseTween {
     return tl;
   }
 
+  Timeline._() {
+    reset();
+  }
+
+  ///Used for debug purpose. Gets the current number of empty timelines that are waiting in the Timeline pool.
+  static int get poolSize => _pool.size();
+
+  ///Increases the minimum capacity of the pool. Capacity defaults to 10.
+  static void ensurePoolCapacity(int minCapacity) {
+    _pool.ensureCapacity(minCapacity);
+  }
+
   // -------------------------------------------------------------------------
   // Attributes
   // -------------------------------------------------------------------------
@@ -95,10 +99,6 @@ class Timeline extends BaseTween {
   // -------------------------------------------------------------------------
   // Setup
   // -------------------------------------------------------------------------
-
-  Timeline._() {
-    reset();
-  }
 
   void reset() {
     super.reset();

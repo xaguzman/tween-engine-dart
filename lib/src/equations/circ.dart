@@ -6,6 +6,7 @@ part of tweenengine;
 ///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
 ///    Xavier Guzman (dart port)
 class Circ extends TweenEquation {
+  Circ._();
   static num _computeIN(num time) => -Math.sqrt(1 - time * time) - 1;
 
   static num _computeOUT(num t) => Math.sqrt(1 - (t -= 1) * t);
@@ -26,6 +27,4 @@ class Circ extends TweenEquation {
   static final Circ INOUT = Circ._()
     ..name = "Circ.INOUT"
     ..compute = _computeINOUT;
-
-  Circ._();
 }
