@@ -1,31 +1,29 @@
 part of tweenengine;
 
-/**
- * TweenCallbacks are used to trigger actions at some specific times.
- * They are used in both Tweens and Timelines.
- * The moment when the callback is triggered depends on its registered triggers:
- *
- * * [TweenCallback.begin]: right after the delay (if any)
- * * [TweenCallback.start]: at each iteration beginning
- * * [TweenCallback.end]: at each iteration ending, before the repeat delay
- * * [TweenCallback.complete]: at last END event
- * * [TweenCallback.backBegin]: at the beginning of the first backward iteration
- * * [TweenCallback.backStart]: at each backward iteration beginning, after the repeat delay
- * * [TweenCallback.backEnd]: at each backward iteration ending
- * * [TweenCallback.backComplete]: at last BACK_END event
- * 
- * forward :      begin                                   complete
- * forward :      start    end      start    end      start    end
- * |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
- * backward:      bEnd  bStart      bEnd  bStart      bEnd  bStart
- * backward:      bComplete                                 bBegin
- *
- * see [Tween]
- * see [Timeline]
- * author 
- *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
- *    Xavier Guzman (dart port)
- */
+/// TweenCallbacks are used to trigger actions at some specific times.
+/// They are used in both Tweens and Timelines.
+/// The moment when the callback is triggered depends on its registered triggers:
+///
+/// * [TweenCallback.begin]: right after the delay (if any)
+/// * [TweenCallback.start]: at each iteration beginning
+/// * [TweenCallback.end]: at each iteration ending, before the repeat delay
+/// * [TweenCallback.complete]: at last END event
+/// * [TweenCallback.backBegin]: at the beginning of the first backward iteration
+/// * [TweenCallback.backStart]: at each backward iteration beginning, after the repeat delay
+/// * [TweenCallback.backEnd]: at each backward iteration ending
+/// * [TweenCallback.backComplete]: at last BACK_END event
+///
+/// forward :      begin                                   complete
+/// forward :      start    end      start    end      start    end
+/// |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
+/// backward:      bEnd  bStart      bEnd  bStart      bEnd  bStart
+/// backward:      bComplete                                 bBegin
+///
+/// see [Tween]
+/// see [Timeline]
+/// author
+///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+///    Xavier Guzman (dart port)
 class TweenCallback {
   TweenCallback._();
 

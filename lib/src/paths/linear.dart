@@ -1,8 +1,6 @@
 part of tweenengine;
 
-/**
- * @author Aurelien Ribon | http://www.aurelienribon.com/
- */
+/// @author Aurelien Ribon | http://www.aurelienribon.com/
 class LinearPath extends TweenPath {
   LinearPath() {
     this.compute = _compute;

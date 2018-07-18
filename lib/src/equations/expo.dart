@@ -1,12 +1,10 @@
 part of tweenengine;
 
-/**
- * Easing equation based on Robert Penner's work:
- * http://robertpenner.com/easing/
- * author 
- *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
- *    Xavier Guzman (dart port)
- */
+/// Easing equation based on Robert Penner's work:
+/// http://robertpenner.com/easing/
+/// author
+///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+///    Xavier Guzman (dart port)
 class Expo extends TweenEquation {
   static num _computeIN(num t) => (t == 0) ? 0 : Math.pow(2, 10 * (t - 1));
 

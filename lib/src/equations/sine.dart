@@ -1,12 +1,10 @@
 part of tweenengine;
 
-/**
- * Easing equation based on Robert Penner's work:
- * http://robertpenner.com/easing/
- * author 
- *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
- *    Xavier Guzman (dart port)
- */
+/// Easing equation based on Robert Penner's work:
+/// http://robertpenner.com/easing/
+/// author
+///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+///    Xavier Guzman (dart port)
 class Sine extends TweenEquation {
   //private static final float PI = 3.14159265f;
 

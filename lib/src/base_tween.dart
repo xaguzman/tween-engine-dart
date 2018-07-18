@@ -1,20 +1,18 @@
 part of tweenengine;
 
-/**
- * BaseTween is the base class of Tween and Timeline. It defines the
- * iteration engine used to play animations for any number of times, and in
- * any direction, at any speed.
- *
- * It is responsible for calling the different callbacks at the right moments,
- * and for making sure that every callbacks are triggered, even if the update
- * engine gets a big delta time at once.
- *
- * see [Tween]
- * see [Timeline]
- * author 
- *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
- *    Xavier Guzman (dart port)
- */
+/// BaseTween is the base class of Tween and Timeline. It defines the
+/// iteration engine used to play animations for any number of times, and in
+/// any direction, at any speed.
+///
+/// It is responsible for calling the different callbacks at the right moments,
+/// and for making sure that every callbacks are triggered, even if the update
+/// engine gets a big delta time at once.
+///
+/// see [Tween]
+/// see [Timeline]
+/// author
+///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+///    Xavier Guzman (dart port)
 abstract class BaseTween {
   // General
   int _step;
@@ -25,6 +23,7 @@ abstract class BaseTween {
   // Timings
   /// the delay of the tween or timeline. Nothing will happen before
   num delay;
+
   /// the duration of a single iteration.
   num duration;
   num _repeatDelay;
@@ -39,6 +38,7 @@ abstract class BaseTween {
   // Misc
   TweenCallbackHandler _callback;
   int _callbackTriggers;
+
   /// Attached data to the tween, it can be useful in order to retrieve some data on a [TweenCallbackHandler].
   Object userData;
 
@@ -68,13 +68,11 @@ abstract class BaseTween {
   // -------------------------------------------------------------------------
   void build() {}
 
-  /**
-   * Starts or restarts the object unmanaged. If no [manager] is passed, you will need to take care of
-   * its life-cycle. 
-   * 
-   * If you want the tween to be managed for you, use a [TweenManager] 
-   * so the life cycle is handled for you, then you can relax and enjoy the animation.
-   */
+  /// Starts or restarts the object unmanaged. If no [manager] is passed, you will need to take care of
+  /// its life-cycle.
+  ///
+  /// If you want the tween to be managed for you, use a [TweenManager]
+  /// so the life cycle is handled for you, then you can relax and enjoy the animation.
   void start([TweenManager manager]) {
     if (manager == null) {
       build();
@@ -90,11 +88,9 @@ abstract class BaseTween {
     _isKilled = true;
   }
 
-  /**
-   * Stops and resets the tween or timeline, and sends it to its pool, for
-   * later reuse. Note that if you use a [TweenManager], this method
-   * is automatically called once the animation is finished.
-  */
+  /// Stops and resets the tween or timeline, and sends it to its pool, for
+  /// later reuse. Note that if you use a [TweenManager], this method
+  /// is automatically called once the animation is finished.
   void free() {}
 
   ///Pauses the tween or timeline. Further update calls won't have any effect.
@@ -107,24 +103,20 @@ abstract class BaseTween {
     _isPaused = false;
   }
 
-  /**
-   * Repeats the tween or timeline [count] times.
-   * 
-   * [count] the number of repetitions. For infinite repetition, use [Tween.infinity], or a negative number.
-   * [delay] a delay between each iteration.
-   * [isYoyo] wether the repetions should be played in yoyo mode or not
-   */
+  /// Repeats the tween or timeline [count] times.
+  ///
+  /// [count] the number of repetitions. For infinite repetition, use [Tween.infinity], or a negative number.
+  /// [delay] a delay between each iteration.
+  /// [isYoyo] wether the repetions should be played in yoyo mode or not
   void repeat(int count, num delay) {
     _setupRepeat(count, delay, false);
   }
 
-  /**
-   * Repeats the tween or timeline [count] times.
-   * Every two iterations, it will be played backwards.
-   *
-   * [count] The number of repetitions. For infinite repetition,  use [Tween.infinity], or `-1`.
-   * [delay] A delay before each repetition.
-   */
+  /// Repeats the tween or timeline [count] times.
+  /// Every two iterations, it will be played backwards.
+  ///
+  /// [count] The number of repetitions. For infinite repetition,  use [Tween.infinity], or `-1`.
+  /// [delay] A delay before each repetition.
   void repeatYoyo(int count, num delay) {
     _setupRepeat(count, delay, true);
   }
@@ -149,26 +141,22 @@ abstract class BaseTween {
   ///the delay occuring between two iterations.
   num get repeatDelay => _repeatDelay;
 
-  /**
-   * Returns the complete duration, including initial delay and repetitions.
-   * 
-   * The formula is as follows:
-   * 
-   *    fullDuration = delay + duration + (repeatDelay + duration) * repeatCnt
-   */
+  /// Returns the complete duration, including initial delay and repetitions.
+  ///
+  /// The formula is as follows:
+  ///
+  ///    fullDuration = delay + duration + (repeatDelay + duration) * repeatCnt
   num get fullDuration => _repeatCnt < 0
       ? -1
       : delay + duration + (_repeatDelay + duration) * _repeatCnt;
 
-  /**
-   * Gets the id of the current step. Values are as follows:
-   * 
-   * * even numbers mean that an iteration is playing
-   * * odd numbers mean that we are between two iterations
-   * * -2 means that the initial [delay] has not ended
-   * * -1 means that we are before the first iteration
-   * * [repeatCount]*2 + 1 means that we are after the last iteration
-   */
+  /// Gets the id of the current step. Values are as follows:
+  ///
+  /// * even numbers mean that an iteration is playing
+  /// * odd numbers mean that we are between two iterations
+  /// * -2 means that the initial [delay] has not ended
+  /// * -1 means that we are before the first iteration
+  /// * [repeatCount]*2 + 1 means that we are after the last iteration
   int get step => _step;
 
   ///The local time
@@ -181,18 +169,14 @@ abstract class BaseTween {
   ///Returns true if the tween or timeline has been started.
   bool get isStarted => _isStarted;
 
-  /**
-   * Returns true if the tween or timeline has been initialized. Starting
-   * values for tweens are stored at initialization time. This initialization
-   * takes place right after the initial delay, if any.
-   */
+  /// Returns true if the tween or timeline has been initialized. Starting
+  /// values for tweens are stored at initialization time. This initialization
+  /// takes place right after the initial delay, if any.
   bool get isInitialized => _isInitialized;
 
-  /**
-   * Returns true if the tween is finished (i.e. if the tween has reached
-   * its end or has been killed). If you don't use a [TweenManager], you may
-   * want to call [free] to reuse the object later.
-   */
+  /// Returns true if the tween is finished (i.e. if the tween has reached
+  /// its end or has been killed). If you don't use a [TweenManager], you may
+  /// want to call [free] to reuse the object later.
   bool get isFinished => _isFinished || _isKilled;
 
   ///Returns true if the iterations are played as yoyo. Yoyo means that every two iterations, the animation will be played backwards.
@@ -203,35 +187,31 @@ abstract class BaseTween {
 
   bool get isKilled => _isKilled;
 
-  /**
-   * Sets the [TweenCallbackHandler]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE). 
-   * If you want to change this behavior and add more triggers, use the [setCallbackTriggers] method.
-   */
+  /// Sets the [TweenCallbackHandler]. By default, it will be fired at the completion of the tween or timeline (event COMPLETE).
+  /// If you want to change this behavior and add more triggers, use the [setCallbackTriggers] method.
   set callback(TweenCallbackHandler callback) {
     _callback = callback;
   }
 
-  /**
-   * Changes the triggers of the callback. The available triggers are:
-   *
-   * * [TweenCallback.BEGIN]: right after the delay (if any)
-   * * [TweenCallback.START]: at each iteration beginning
-   * * [TweenCallback.END]: at each iteration ending, before the repeat delay
-   * * [TweenCallback.COMPLETE]: at last END event
-   * * [TweenCallback.BACK_BEGIN]: at the beginning of the first backward iteration
-   * * [TweenCallback.BACK_START]: at each backward iteration beginning, after the repeat delay
-   * * [TweenCallback.BACK_END]: at each backward iteration ending
-   * * [TweenCallback.BACK_COMPLETE]: at last BACK_END event
-   * 
-   * forward :      BEGIN                                   COMPLETE
-   * forward :      START    END      START    END      START    END
-   * |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
-   * backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
-   * backward:      bCOMPLETE                                 bBEGIN
-   * 
-   *
-   * [flags] one or more triggers, separated by the '|' operator.
-   */
+  /// Changes the triggers of the callback. The available triggers are:
+  ///
+  /// * [TweenCallback.BEGIN]: right after the delay (if any)
+  /// * [TweenCallback.START]: at each iteration beginning
+  /// * [TweenCallback.END]: at each iteration ending, before the repeat delay
+  /// * [TweenCallback.COMPLETE]: at last END event
+  /// * [TweenCallback.BACK_BEGIN]: at the beginning of the first backward iteration
+  /// * [TweenCallback.BACK_START]: at each backward iteration beginning, after the repeat delay
+  /// * [TweenCallback.BACK_END]: at each backward iteration ending
+  /// * [TweenCallback.BACK_COMPLETE]: at last BACK_END event
+  ///
+  /// forward :      BEGIN                                   COMPLETE
+  /// forward :      START    END      START    END      START    END
+  /// |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
+  /// backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
+  /// backward:      bCOMPLETE                                 bBEGIN
+  ///
+  ///
+  /// [flags] one or more triggers, separated by the '|' operator.
   set callbackTriggers(int flags) {
     _callbackTriggers = flags;
   }
@@ -295,16 +275,14 @@ abstract class BaseTween {
   // Update engine
   // -------------------------------------------------------------------------
 
-  /**
-   * Updates the tween or timeline state. **You may want to use a
-   * TweenManager to update objects for you.**
-   *
-   * Slow motion, fast motion and backward play can be easily achieved by
-   * tweaking this delta time. Multiply it by -1 to play the animation
-   * backward, or by 0.5 to play it twice slower than its normal speed.
-   *
-   * [delta] The time between now and the last call, in seconds.
-   */
+  /// Updates the tween or timeline state. **You may want to use a
+  /// TweenManager to update objects for you.**
+  ///
+  /// Slow motion, fast motion and backward play can be easily achieved by
+  /// tweaking this delta time. Multiply it by -1 to play the animation
+  /// backward, or by 0.5 to play it twice slower than its normal speed.
+  ///
+  /// [delta] The time between now and the last call, in seconds.
   void update(num delta) {
     if (!_isStarted || _isPaused || _isKilled) return;
 

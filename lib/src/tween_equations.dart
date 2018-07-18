@@ -1,22 +1,17 @@
 part of tweenengine;
 
-/**
- * Computes the next value of the interpolation.
-*
- * [time] The current time, between 0 and 1.
- * Returns the current value.
- */
+/// Computes the next value of the interpolation.
+/// [time] The current time, between 0 and 1.
+/// Returns the current value.
 typedef num ComputingFunction(num time);
 
-/**
- * Base class for every easing equation. You can create your own equations
- * and directly use them in the Tween engine by inheriting from this class.
- *
- * see [Tween]
-  * author 
- *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
- *    Xavier Guzman (dart port)
- */
+/// Base class for every easing equation. You can create your own equations
+/// and directly use them in the Tween engine by inheriting from this class.
+///
+/// see [Tween]
+/// author
+///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+///    Xavier Guzman (dart port)
 abstract class TweenEquation {
   ///The [ComputingFunction] for this equation
   ComputingFunction compute;
@@ -24,23 +19,19 @@ abstract class TweenEquation {
   ///String representation of this function
   String name;
 
-  /**
-  * Returns true if the given string is the name of this equation (the name
-  * is returned in the toString() method, don't forget to override it).
-  * This method is usually used to save/load a tween to/from a text file.
-  */
+  /// Returns true if the given string is the name of this equation (the name
+  /// is returned in the toString() method, don't forget to override it).
+  /// This method is usually used to save/load a tween to/from a text file.
   bool isValueOf(String str) {
     return str == toString();
   }
 }
 
-/**
- * Collection of built-in easing equations
- *
-  * author 
- *    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
- *    Xavier Guzman (dart port)
- */
+/// Collection of built-in easing equations
+///
+/// author
+///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
+///    Xavier Guzman (dart port)
 abstract class TweenEquations {
   static final Linear easeNone = Linear.INOUT;
   static final Quad easeInQuad = Quad.IN;

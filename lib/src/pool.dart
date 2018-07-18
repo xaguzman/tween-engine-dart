@@ -1,9 +1,7 @@
 part of tweenengine;
 
-/**
- * A light pool of objects that can be resused to avoid allocation.
- * Based on Nathan Sweet pool implementation
- */
+/// A light pool of objects that can be resused to avoid allocation.
+/// Based on Nathan Sweet pool implementation
 class Pool<T> {
   Queue<T> _objects;
   PoolCallback<T> _callback;
