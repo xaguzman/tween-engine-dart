@@ -164,7 +164,7 @@ abstract class BaseTween {
 
   ///The local time, normalized (0 <= [currentTime] <= 1)
   num get normalTime =>
-      _currentTime == null ? 0 : Math.min(_currentTime / duration, 1);
+      _currentTime == null ? 0 : math.min(_currentTime / duration, 1);
 
   ///Returns true if the tween or timeline has been started.
   bool get isStarted => _isStarted;

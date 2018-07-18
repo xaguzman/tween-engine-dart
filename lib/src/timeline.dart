@@ -223,7 +223,7 @@ class Timeline extends BaseTween {
           break;
 
         case TimelineMode.parallel:
-          duration = Math.max(duration, obj.fullDuration);
+          duration = math.max(duration, obj.fullDuration);
           break;
       }
     }

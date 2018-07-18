@@ -8,8 +8,8 @@ class CatmullRom extends TweenPath {
 
   num _compute(num t, List<num> points, int pointsCnt) {
     num segment = ((pointsCnt - 1) * t).floor();
-    segment = Math.max(segment, 0);
-    segment = Math.min(segment, pointsCnt - 2);
+    segment = math.max(segment, 0);
+    segment = math.min(segment, pointsCnt - 2);
 
     t = t * (pointsCnt - 1) - segment;
 
