@@ -6,7 +6,7 @@ class MainMenu extends Screen {
 
   MainMenu(CanvasRenderingContext2D context) : super(context, "Tween Engine");
 
-  initialize() {
+  void initialize() {
     num width = 125;
     num height = 80;
 
@@ -47,7 +47,7 @@ class MainMenu extends Screen {
     }
   }
 
-  render(num delta) {
+  void render(num delta) {
     super.render(delta);
     _tweenManager.update(delta);
 
@@ -70,7 +70,7 @@ class MainMenu extends Screen {
     }
   }
 
-  dispose() {
+  void dispose() {
     _tweenManager.killAll();
   }
 }

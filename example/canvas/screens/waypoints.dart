@@ -6,7 +6,7 @@ class Waypoints extends Screen {
 
   Waypoints(CanvasRenderingContext2D context) : super(context, "Waypoints");
 
-  initialize() {
+  void initialize() {
     pos = Vector2(50, 30);
     waypoints.add(Vector2(200, 100));
     waypoints.add(Vector2(100, 250));
@@ -37,7 +37,7 @@ class Waypoints extends Screen {
     }
   }
 
-  render(num delta) {
+  void render(num delta) {
     super.render(delta);
     _tweenManager.update(delta);
 
@@ -66,7 +66,7 @@ class Waypoints extends Screen {
       ..stroke();
   }
 
-  dispose() {
+  void dispose() {
     _tweenManager.killAll();
   }
 }

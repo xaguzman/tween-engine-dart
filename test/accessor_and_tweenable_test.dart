@@ -4,7 +4,7 @@ import 'package:tweenengine/tweenengine.dart';
 
 /// Fixture [TweenAccessor] for tests
 class MyAccessor implements TweenAccessor<MyClass> {
-  static const xy = 1;
+  static const int xy = 1;
 
   int getValues(
       MyClass target, Tween tween, int tweenType, List<num> returnValues) {
@@ -64,7 +64,7 @@ class MyTweenable implements Tweenable {
 //   - myClass with null properties
 //   - myClass with non-numeric properties
 
-main() {
+void main() {
   TweenManager myManager;
   Stopwatch watch;
   Timer timer;

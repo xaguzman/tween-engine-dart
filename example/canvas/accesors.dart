@@ -32,8 +32,8 @@ class VectorAccessor implements TweenAccessor<Vector2> {
 }
 
 class ColorAccessor implements TweenAccessor<Color> {
-  static const rgb = 1;
-  static const rgba = 2;
+  static const int rgb = 1;
+  static const int rgba = 2;
 
   int getValues(
       Color target, Tween tween, int tweenType, List<num> returnValues) {

@@ -5,7 +5,7 @@ class Repetitions extends Screen {
 
   Repetitions(CanvasRenderingContext2D context) : super(context, "Repetitions");
 
-  initialize() {
+  void initialize() {
     pos1 = Vector2();
     pos2 = Vector2();
 
@@ -27,7 +27,7 @@ class Repetitions extends Screen {
       ..start(_tweenManager);
   }
 
-  render(num delta) {
+  void render(num delta) {
     super.render(delta);
     _tweenManager.update(delta);
     context
@@ -49,7 +49,7 @@ class Repetitions extends Screen {
     }
   }
 
-  dispose() {
+  void dispose() {
     _tweenManager.killAll();
   }
 }

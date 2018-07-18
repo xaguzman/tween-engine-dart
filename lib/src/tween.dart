@@ -375,7 +375,7 @@ class Tween extends BaseTween {
   // -------------------------------------------------------------------------
 
   ///Gets the target object.
-  get target => _target;
+  Object get target => _target;
 
   ///Gets the type of the tween.
   int get tweenType => _type;

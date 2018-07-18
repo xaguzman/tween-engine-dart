@@ -7,7 +7,7 @@ class SimpleTimeline extends Screen {
   SimpleTimeline(CanvasRenderingContext2D context)
       : super(context, "Simple Timeline");
 
-  initialize() {
+  void initialize() {
     pos = Vector2();
     size = Vector2();
     color = Color();
@@ -38,7 +38,7 @@ class SimpleTimeline extends Screen {
       ..start(_tweenManager);
   }
 
-  render(num delta) {
+  void render(num delta) {
     super.render(delta);
     _tweenManager.update(delta);
     context
@@ -59,7 +59,7 @@ class SimpleTimeline extends Screen {
     }
   }
 
-  dispose() {
+  void dispose() {
     _tweenManager.killAll();
   }
 }

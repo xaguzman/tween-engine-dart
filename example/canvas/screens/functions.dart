@@ -8,7 +8,7 @@ class Functions extends Screen {
   Functions(CanvasRenderingContext2D context)
       : super(context, "Easing Functions");
 
-  initialize() {
+  void initialize() {
     vectors = [
       Vector2(160, 90),
       Vector2(160, 130),
@@ -68,7 +68,7 @@ class Functions extends Screen {
       ..start(_tweenManager);
   }
 
-  startFunctions(num delay) {
+  void startFunctions(num delay) {
     var timeline = Timeline.parallel()
       ..repeat(Tween.infinity, 1.0)
       ..delay = delay;
@@ -82,7 +82,7 @@ class Functions extends Screen {
     timeline.start(_tweenManager);
   }
 
-  render(num delta) {
+  void render(num delta) {
     super.render(delta);
     _tweenManager.update(delta);
 
@@ -101,7 +101,7 @@ class Functions extends Screen {
     }
   }
 
-  dispose() {
+  void dispose() {
     _tweenManager.killAll();
   }
 }

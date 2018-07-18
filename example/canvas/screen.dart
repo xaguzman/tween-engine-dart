@@ -18,14 +18,14 @@ abstract class Screen {
 
   void onKeyDown(KeyboardEvent e) {}
 
-  initialize();
+  void initialize();
 
-  render(num delta) {
+  void render(num delta) {
     num textX = context.canvas.width * 0.5 - (title.length * 5);
     context.font = this.font;
     context.fillStyle = 'White';
     context.fillText(title, textX, 30);
   }
 
-  dispose();
+  void dispose();
 }

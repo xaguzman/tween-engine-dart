@@ -6,7 +6,7 @@ class SimpleTween extends Screen {
   SimpleTween(CanvasRenderingContext2D context)
       : super(context, "Simple Tween");
 
-  initialize() {
+  void initialize() {
     pos = Vector2(150, 200);
 
     this.info = """A 'tween' is an interpolation from a value to another
@@ -41,7 +41,7 @@ class SimpleTween extends Screen {
     }
   }
 
-  render(num delta) {
+  void render(num delta) {
     super.render(delta);
     _tweenManager.update(delta);
 
@@ -55,7 +55,7 @@ class SimpleTween extends Screen {
       ..stroke();
   }
 
-  dispose() {
+  void dispose() {
     _tweenManager.killAll();
   }
 }

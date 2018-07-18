@@ -13,7 +13,7 @@ part 'screens/repetitions.dart';
 part 'screens/waypoints.dart';
 part 'screens/main_menu.dart';
 
-main() {
+void main() {
   var app = ExampleApp("#canvas");
   app.start();
 
@@ -49,7 +49,7 @@ class ExampleApp {
     setScreen(MainMenu(context));
   }
 
-  render(num delta) {
+  void render(num delta) {
     num deltaTime = (delta - lastUpdate) / 1000;
     lastUpdate = delta;
 
