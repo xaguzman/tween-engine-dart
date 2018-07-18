@@ -80,10 +80,12 @@ void main() {
       }, count: 2);
 
       TweenCallbackHandler callback = (int type, BaseTween tween) {
-        if (type == TweenCallback.begin || type == TweenCallback.start)
+        if (type == TweenCallback.begin || type == TweenCallback.start) {
           expectOnBegin(tween);
-        else if (type == TweenCallback.complete || type == TweenCallback.end)
+        } else if (type == TweenCallback.complete ||
+            type == TweenCallback.end) {
           expectOnComplete(tween);
+        }
       };
 
       Tween.to(myClass, 1, 0.25)
@@ -108,10 +110,12 @@ void main() {
       }, count: 2);
 
       TweenCallbackHandler callback = (int type, BaseTween tween) {
-        if (type == TweenCallback.begin || type == TweenCallback.start)
+        if (type == TweenCallback.begin || type == TweenCallback.start) {
           expectOnBegin(tween);
-        else if (type == TweenCallback.complete || type == TweenCallback.end)
+        } else if (type == TweenCallback.complete ||
+            type == TweenCallback.end) {
           expectOnComplete(tween);
+        }
       };
 
       Tween.from(myClass, 1, 0.25)

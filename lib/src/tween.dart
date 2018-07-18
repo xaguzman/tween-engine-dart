@@ -319,7 +319,7 @@ class Tween extends BaseTween {
     _target = target;
     _targetClass = target != null ? _findTargetClass() : null;
     _type = tweenType;
-    duration = duration;
+    this.duration = duration;
   }
 
   Type _findTargetClass() {
