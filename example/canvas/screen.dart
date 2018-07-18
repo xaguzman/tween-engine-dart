@@ -2,7 +2,6 @@ part of tweenengine.canvasexample;
 
 abstract class Screen {
   final TweenManager _tweenManager = TweenManager();
-  List<bool> _useDots;
   CanvasRenderingContext2D context;
   String font;
   ExampleApp app;
