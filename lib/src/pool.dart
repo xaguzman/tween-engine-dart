@@ -8,7 +8,7 @@ class Pool<T> {
 
   InstanceCreator<T> create;
 
-  Pool(PoolCallback<T> this._callback) {
+  Pool(this._callback) {
     this._objects = Queue();
   }
 
