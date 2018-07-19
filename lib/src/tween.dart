@@ -218,7 +218,7 @@ class Tween extends BaseTween {
   }
 
   ///Gets the version number of the library.
-  static String get version => "0.11.1";
+  static String get version => "0.12.0";
 
   /// Used for debug purpose. Gets the current number of objects that are waiting in the Tween pool.
   int getPoolSize() => _pool.size();
