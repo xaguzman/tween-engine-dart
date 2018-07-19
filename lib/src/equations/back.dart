@@ -7,34 +7,34 @@ part of tweenengine;
 ///    Xavier Guzman (dart port)
 class Back extends TweenEquation {
   Back._();
-  static num _param_s = 1.70158;
+  static num _paramS = 1.70158;
 
-  static num _computeIN(num time) {
-    num s = _param_s;
+  static num _computeIn(num time) {
+    num s = _paramS;
     return time * time * ((s + 1) * time - s);
   }
 
-  static num _computeOUT(num time) {
-    num s = _param_s;
+  static num _computeOut(num time) {
+    num s = _paramS;
     return (time -= 1) * time * ((s + 1) * time + s) + 1;
   }
 
-  static num _computeINOUT(num time) {
-    num s = _param_s;
+  static num _computeInOut(num time) {
+    num s = _paramS;
     if ((time *= 2) < 1)
       return 0.5 * (time * time * (((s *= (1.525)) + 1) * time - s));
     return 0.5 * ((time -= 2) * time * (((s *= (1.525)) + 1) * time + s) + 2);
   }
 
-  static final Back IN = Back._()
-    ..compute = _computeIN
-    ..name = "BACK.IN";
+  static final Back easeIn = Back._()
+    ..compute = _computeIn
+    ..name = "BACK.easeIn";
 
-  static final Back OUT = Back._()
-    ..compute = _computeOUT
-    ..name = "BACK.OUT";
+  static final Back easeOut = Back._()
+    ..compute = _computeOut
+    ..name = "BACK.easeOut";
 
-  static final Back INOUT = Back._()
-    ..compute = _computeINOUT
-    ..name = "BACK.INOUT";
+  static final Back easeInOut = Back._()
+    ..compute = _computeInOut
+    ..name = "BACK.easeInOut";
 }

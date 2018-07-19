@@ -125,7 +125,7 @@ void main() {
 
       Tween.to(myClass, MyAccessor.xy, 0.5)
         ..targetValues = [20, 30]
-        ..easing = Elastic.INOUT
+        ..easing = Elastic.easeInOut
         ..callback = myCallback
         ..callbackTriggers = TweenCallback.any
         ..start(myManager);
@@ -167,7 +167,7 @@ void main() {
       // Tween the answer
       Tween.to(life, MyTweenable.typeAnswer, 0.5)
         ..targetValues = [69]
-        ..easing = Linear.INOUT
+        ..easing = Linear.easeInOut
         ..callback = myCallback
         ..callbackTriggers = TweenCallback.any
         ..start(myManager);

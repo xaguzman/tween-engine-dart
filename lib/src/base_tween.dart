@@ -195,20 +195,20 @@ abstract class BaseTween {
 
   /// Changes the triggers of the callback. The available triggers are:
   ///
-  /// * [TweenCallback.BEGIN]: right after the delay (if any)
+  /// * [TweenCallback.BEGeaseIn]: right after the delay (if any)
   /// * [TweenCallback.START]: at each iteration beginning
   /// * [TweenCallback.END]: at each iteration ending, before the repeat delay
   /// * [TweenCallback.COMPLETE]: at last END event
-  /// * [TweenCallback.BACK_BEGIN]: at the beginning of the first backward iteration
+  /// * [TweenCallback.BACK_BEGeaseIn]: at the beginning of the first backward iteration
   /// * [TweenCallback.BACK_START]: at each backward iteration beginning, after the repeat delay
   /// * [TweenCallback.BACK_END]: at each backward iteration ending
   /// * [TweenCallback.BACK_COMPLETE]: at last BACK_END event
   ///
-  /// forward :      BEGIN                                   COMPLETE
+  /// forward :      BEGeaseIn                                   COMPLETE
   /// forward :      START    END      START    END      START    END
   /// |--------------[XXXXXXXXXX]------[XXXXXXXXXX]------[XXXXXXXXXX]
   /// backward:      bEND  bSTART      bEND  bSTART      bEND  bSTART
-  /// backward:      bCOMPLETE                                 bBEGIN
+  /// backward:      bCOMPLETE                                 bBEGeaseIn
   ///
   ///
   /// [flags] one or more triggers, separated by the '|' operator.

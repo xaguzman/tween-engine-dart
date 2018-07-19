@@ -7,24 +7,24 @@ part of tweenengine;
 ///    Xavier Guzman (dart port)
 class Cubic extends TweenEquation {
   Cubic._();
-  static num _computeIN(num time) => time * time * time;
+  static num _computeIn(num time) => time * time * time;
 
-  static num _computeOUT(num t) => (t -= 1) * t * t + 1;
+  static num _computeOut(num t) => (t -= 1) * t * t + 1;
 
-  static num _computeINOUT(num t) {
+  static num _computeInOut(num t) {
     if ((t *= 2) < 1) return 0.5 * t * t * t;
     return 0.5 * ((t -= 2) * t * t + 2);
   }
 
-  static final Cubic IN = Cubic._()
-    ..name = "Cubic.IN"
-    ..compute = _computeIN;
+  static final Cubic easeIn = Cubic._()
+    ..name = "Cubic.easeIn"
+    ..compute = _computeIn;
 
-  static final Cubic OUT = Cubic._()
-    ..name = "Cubic.OUT"
-    ..compute = _computeOUT;
+  static final Cubic easeOut = Cubic._()
+    ..name = "Cubic.easeOut"
+    ..compute = _computeOut;
 
-  static final Cubic INOUT = Cubic._()
-    ..name = "Cubic.INOUT"
-    ..compute = _computeINOUT;
+  static final Cubic easeInOut = Cubic._()
+    ..name = "Cubic.easeInOut"
+    ..compute = _computeInOut;
 }

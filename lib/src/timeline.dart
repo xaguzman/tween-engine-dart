@@ -20,18 +20,18 @@ part of tweenengine;
 ///       ..beginParallel()
 ///         ..push(new Tween.to(myObject, OPACITY, 0.5)
 ///           ..targetValues = 1
-///           ..easing = Quad.INOUT)
+///           ..easing = Quad.easeInOut)
 ///         ..push(new Tween.to(myObject, SCALE, 0.5)
 ///           ..targetValues = [1, 1]
-///           ..easing = Quad.INOUT)
+///           ..easing = Quad.easeInOut)
 ///      ..end()
 ///      ..pushPause(1.0)
 ///      ..push(new Tween.to(myObject, POSITION_X, 0.5)
 ///        ..targetValues = 100
-///        ..easing = Quad.INOUT)
+///        ..easing = Quad.easeInOut)
 ///      ..push(new Tween.to(myObject, ROTATION, 0.5)
 ///        ..targetValues = 360
-///        ..easing = Quad.INOUT)
+///        ..easing = Quad.easeInOut)
 ///      ..repeat(5, 0.5)
 ///      ..start(myManager);
 ///

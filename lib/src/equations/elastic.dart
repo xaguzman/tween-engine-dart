@@ -8,24 +8,24 @@ part of tweenengine;
 class Elastic extends TweenEquation {
   //static final num PI = 3.14159265f;
 
-  num param_a = 0;
-  num param_p = 0;
+  num paramA = 0;
+  num paramP = 0;
   bool setA = false;
   bool setP = false;
 
   Elastic._();
 
   void a(num a) {
-    param_a = a;
+    paramA = a;
     this.setA = true;
   }
 
   void p(num p) {
-    param_p = p;
+    paramP = p;
     this.setP = true;
   }
 
-  static num _computeIN(num t) {
+  static num _computeIn(num t) {
     //num a = param_a;
     //num p = param_p;
     if (t == 0) return 0;
@@ -44,7 +44,7 @@ class Elastic extends TweenEquation {
         math.sin((t - s) * (2 * math.pi) / p));
   }
 
-  static num _computeOUT(num t) {
+  static num _computeOut(num t) {
 //    num a = param_a;
 //    num p = param_p;
     if (t == 0) return 0;
@@ -60,7 +60,7 @@ class Elastic extends TweenEquation {
     return a * math.pow(2, -10 * t) * math.sin((t - s) * (2 * math.pi) / p) + 1;
   }
 
-  static num _computeINOUT(num t) {
+  static num _computeInOut(num t) {
 //    num a = param_a;
 //    num p = param_p;
     if (t == 0) return 0;
@@ -86,15 +86,15 @@ class Elastic extends TweenEquation {
         1;
   }
 
-  static final Elastic IN = Elastic._()
-    ..name = "Elastic.IN"
-    ..compute = _computeIN;
+  static final Elastic easeIn = Elastic._()
+    ..name = "Elastic.easeIn"
+    ..compute = _computeIn;
 
-  static final Elastic OUT = Elastic._()
-    ..name = "Elastic.OUT"
-    ..compute = _computeOUT;
+  static final Elastic easeOut = Elastic._()
+    ..name = "Elastic.easeOut"
+    ..compute = _computeOut;
 
-  static final Elastic INOUT = Elastic._()
-    ..name = "Elastic.INOUT"
-    ..compute = _computeINOUT;
+  static final Elastic easeInOut = Elastic._()
+    ..name = "Elastic.easeInOut"
+    ..compute = _computeInOut;
 }

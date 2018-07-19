@@ -6,8 +6,8 @@ part of tweenengine;
 ///    Aurelien Ribon | http://www.aurelienribon.com/ (Original java code)
 ///    Xavier Guzman (dart port)
 class Linear extends TweenEquation {
-  static final Linear INOUT = Linear._()
-    ..name = "Linear.INOUT"
+  static final Linear easeInOut = Linear._()
+    ..name = "Linear.easeInOut"
     ..compute = (num t) => t;
 
   Linear._();

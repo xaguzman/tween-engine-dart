@@ -7,9 +7,9 @@ part of tweenengine;
 ///    Xavier Guzman (dart port)
 class Bounce extends TweenEquation {
   Bounce._();
-  static num _computeIN(num time) => 1 - _computeOUT(1 - time);
+  static num _computeIn(num time) => 1 - _computeOut(1 - time);
 
-  static num _computeOUT(num t) {
+  static num _computeOut(num t) {
     if (t < (1 / 2.75)) {
       return 7.5625 * t * t;
     } else if (t < (2 / 2.75)) {
@@ -21,22 +21,22 @@ class Bounce extends TweenEquation {
     }
   }
 
-  static num _computeINOUT(num t) {
+  static num _computeInOut(num t) {
     if (t < 0.5)
-      return _computeIN(t * 2) * 0.5;
+      return _computeIn(t * 2) * 0.5;
     else
-      return _computeOUT(t * 2 - 1) * 0.5 + 0.5;
+      return _computeOut(t * 2 - 1) * 0.5 + 0.5;
   }
 
-  static final Bounce IN = Bounce._()
-    ..name = "Bounce.IN"
-    ..compute = _computeIN;
+  static final Bounce easeIn = Bounce._()
+    ..name = "Bounce.easeIn"
+    ..compute = _computeIn;
 
-  static final Bounce OUT = Bounce._()
-    ..name = "Bounce.OUT"
-    ..compute = _computeOUT;
+  static final Bounce easeOut = Bounce._()
+    ..name = "Bounce.easeOut"
+    ..compute = _computeOut;
 
-  static final Bounce INOUT = Bounce._()
-    ..name = "Bounce.INOUT"
-    ..compute = _computeINOUT;
+  static final Bounce easeInOut = Bounce._()
+    ..name = "Bounce.easeInOut"
+    ..compute = _computeInOut;
 }
