@@ -357,11 +357,12 @@ class Tween extends BaseTween {
   /// use a smooth catmull-rom spline to navigate between the waypoints, but
   /// you can change this behavior by setting the [path].
   ///
-  /// [waypoints] The targets of this waypoint.
-  void addWaypoint(List<num> waypoints) {
+  /// [waypoint] The targets of this waypoint. The amount of values in one
+  /// waypoint needs to be the same for every call.
+  void addWaypoint(List<num> waypoint) {
     if (_waypointsCnt == _waypointsLimit) _throwWaypointsLimitReached();
-    _waypoints.setAll(_waypointsCnt * waypoints.length, waypoints);
-    _waypointsCnt += waypoints.length;
+    _waypoints.setAll(_waypointsCnt * waypoint.length, waypoint);
+    _waypointsCnt += 1;
   }
 
   // -------------------------------------------------------------------------
