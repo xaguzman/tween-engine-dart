@@ -16,9 +16,9 @@ class Functions extends Screen {
       Vector2(160, 210)
     ];
     equations = {
-      0: [Quad.INOUT, Cubic.INOUT, Quart.INOUT, Quint.INOUT],
-      1: [Linear.INOUT, Sine.INOUT, Expo.INOUT, Circ.INOUT],
-      2: [Back.INOUT, Elastic.INOUT, Bounce.INOUT]
+      0: [Quad.easeInOut, Cubic.easeInOut, Quart.easeInOut, Quint.easeInOut],
+      1: [Linear.easeInOut, Sine.easeInOut, Expo.easeInOut, Circ.easeInOut],
+      2: [Back.easeInOut, Elastic.easeInOut, Bounce.easeInOut]
     };
     state = 0;
     this.info =

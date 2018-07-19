@@ -13,8 +13,8 @@ void main() {
   html.ButtonElement btn = html.querySelector('#btnToggle');
   btn.onClick.listen((event) => _paused = !_paused);
 
-  SvgSvgElement svg_box = html.querySelector('#svg');
-  RectElement rectangle = svg_box.children.first as RectElement;
+  SvgSvgElement svgBox = html.querySelector('#svg');
+  RectElement rectangle = svgBox.children.first as RectElement;
 
   //these are the keyframes...they could be loaded from some other svg
   RectElement kf1 = RectElement()
@@ -96,6 +96,8 @@ class RectAccessor implements TweenAccessor<RectElement> {
         returnValues.setRange(
             0, 2, [target.width.baseVal.value, target.height.baseVal.value]);
         return 2;
+      default:
+        throw new ArgumentError.value(tweenType, 'tweenType');
     }
   }
 

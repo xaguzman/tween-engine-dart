@@ -23,7 +23,7 @@ class Waypoints extends Screen {
       ..addWaypoint([waypoints[2].x, waypoints[2].y])
       ..addWaypoint([waypoints[3].x, waypoints[3].y])
       ..targetValues = [350, 250]
-      ..easing = Quad.INOUT
+      ..easing = Quad.easeInOut
       ..path = TweenPaths.catmullRom
       ..repeatYoyo(Tween.infinity, 0.2)
       ..delay = 0.5
