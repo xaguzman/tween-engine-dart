@@ -1,9 +1,9 @@
 #### V 0.12.0
 
 * compatible with Dart 2.0/strong mode
-* `Tween.targetValues`, `Tween.targetRelative` and `Tween.addWayoint` no longer accepts num, only List<num>
+* `Tween.targetValues`, `Tween.targetRelative` and `Tween.addWayoint` no longer accepts `num`, only `List<num>`
 * constants are no longer SCREAMING_CAPS but lowerCamelCase
-* `TweenEquation` (e.g. `Bounce.IN`, `Sine.OUT`, etc.) values have been renamed from `IN`, `OUT`, `INOUT` to `easeIn`, `easeOut`, `easeInOut` respectivly
+* `TweenEquation` (e.g. `Bounce.IN`, `Sine.OUT`, etc.) values have been renamed from `IN`, `OUT`, `INOUT` to `easeIn`, `easeOut`, `easeInOut` respectively
 
 #### V 0.11.0
 
