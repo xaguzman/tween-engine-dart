@@ -1,3 +1,10 @@
+#### V 0.12.0
+
+* compatible with Dart 2.0/strong mode
+* `Tween.targetValues`, `Tween.targetRelative` and `Tween.addWayoint` no longer accepts num, only List<num>
+* constants are no longer SCREAMING_CAPS but lowerCamelCase
+* `TweenEquation` (e.g. `Bounce.IN`, `Sine.OUT`, etc.) values have been renamed from `IN`, `OUT`, `INOUT` to `easeIn`, `easeOut`, `easeInOut` respectivly
+
 #### V 0.11.0
 
 * Fixed [issue #12](https://github.com/xaguzman/tween-engine-dart/issues/12) typo in tween.containsTarget which would make it missfunction
@@ -6,7 +13,7 @@
 
 * Timeline.createSequence() and Timeline.createParallel() are now replaced for factory named constructors:
   * new Timeline.sequence()
-  * new Timeline.parallel()=
+  * new Timeline.parallel()
 * Tween.to, Tween.from, Tween.set, Tween.call and Tween.mark are now replaced for factory named constructors:
   * new Tween.to()
   * new Tweee.from()
