@@ -1,7 +1,7 @@
 library tweenengine;
 
 import 'dart:typed_data';
-import 'dart:math' as Math;
+import 'dart:math' as math;
 import 'dart:collection';
 
 part 'src/base_tween.dart';
@@ -31,4 +31,3 @@ part 'src/equations/sine.dart';
 //paths
 part 'src/paths/catmull_rom.dart';
 part 'src/paths/linear.dart';
-

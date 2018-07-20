@@ -15,9 +15,11 @@ Thumbs.db
 # Dart
 .buildlog
 packages
+.packages
 pubspec.lock
 build/*
 out
 test/*.js
 test/*.js.map
 test/*.js.deps
+.dart_tool/

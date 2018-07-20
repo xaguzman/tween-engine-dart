@@ -1,28 +1,28 @@
 part of tweenengine.canvasexample;
 
-class SimpleTween extends Screen{
+class SimpleTween extends Screen {
   Vector2 pos;
-  
-  SimpleTween(CanvasRenderingContext2D context): super(context, "Simple Tween");
-  
-  initialize(){
-    
-    pos = new Vector2(150, 200);
-    
+
+  SimpleTween(CanvasRenderingContext2D context)
+      : super(context, "Simple Tween");
+
+  void initialize() {
+    pos = Vector2(150, 200);
+
     this.info = """A 'tween' is an interpolation from a value to another
         (click anywhere in the canvas to start a 'position tween'). Press escape to go back""";
   }
-  
-  void onClick(MouseEvent e){
+
+  void onClick(MouseEvent e) {
     var boundingRect = context.canvas.getBoundingClientRect();
-    num x =  e.client.x - boundingRect.left;
+    num x = e.client.x - boundingRect.left;
     num y = e.client.y - boundingRect.top;
-    
-    new Tween.to(pos, VectorAccessor.XY, 1)
+
+    Tween.to(pos, VectorAccessor.xy, 1)
       ..delay = 0.3
       ..targetValues = [x, y]
-    ..start(_tweenManager);
-    
+      ..start(_tweenManager);
+
 //    Tween.to(pos, VectorAccessor.XY, 1)
 //      ..delay = 0.3
 //      ..targetValues = [x, y]
@@ -32,19 +32,19 @@ class SimpleTween extends Screen{
 //            ..start(_tweenManager);
 //      }
 //      ..start(_tweenManager);
-  } 
-  
-  void onKeyDown(KeyboardEvent e){
-    if (e.keyCode == KeyCode.ESC){
-      app.setScreen(new MainMenu(context));
+  }
+
+  void onKeyDown(KeyboardEvent e) {
+    if (e.keyCode == KeyCode.ESC) {
+      app.setScreen(MainMenu(context));
       dispose();
     }
   }
-  
-  render(num delta){
+
+  void render(num delta) {
     super.render(delta);
     _tweenManager.update(delta);
-    
+
     context
       ..beginPath()
       ..rect(pos.x, pos.y, 20, 20)
@@ -54,9 +54,8 @@ class SimpleTween extends Screen{
       ..strokeStyle = 'white'
       ..stroke();
   }
-  
-  dispose(){
+
+  void dispose() {
     _tweenManager.killAll();
   }
-  
 }

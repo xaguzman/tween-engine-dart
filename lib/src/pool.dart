@@ -1,17 +1,15 @@
 part of tweenengine;
 
-/**
- * A light pool of objects that can be resused to avoid allocation.
- * Based on Nathan Sweet pool implementation
- */
+/// A light pool of objects that can be resused to avoid allocation.
+/// Based on Nathan Sweet pool implementation
 class Pool<T> {
   Queue<T> _objects;
   PoolCallback<T> _callback;
 
   InstanceCreator<T> create;
 
-  Pool(PoolCallback<T> this._callback) {
-    this._objects = new Queue();
+  Pool(this._callback) {
+    this._objects = Queue();
   }
 
   T get() {
@@ -38,7 +36,6 @@ class Pool<T> {
   void ensureCapacity(int minCapacity) {
     //_objects.ensureCapacity(minCapacity);
   }
-  
 }
 
 //Defines the actions to take when an object is pooled / unpooled
@@ -48,8 +45,8 @@ typedef void CallbackAction<T>(T obj);
 typedef T InstanceCreator<T>();
 
 class PoolCallback<T> {
-  CallbackAction onPool;
-  CallbackAction onUnPool;
-  
+  CallbackAction<T> onPool;
+  CallbackAction<T> onUnPool;
+
   PoolCallback([this.onPool, this.onUnPool]);
 }
