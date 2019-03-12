@@ -1,3 +1,6 @@
+#### V 0.12.1
+* makes it work with dart >=2.0.0 <3.0.0
+
 #### V 0.12.0
 
 * compatible with Dart 2.0/strong mode
