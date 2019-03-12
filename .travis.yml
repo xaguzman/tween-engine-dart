@@ -3,8 +3,8 @@ language: dart
 dart:
   # Install the latest stable release
   # - dev
-  #- stable
-  - 2.0.0
+  - stable
+  # - 2.0.0
 
 #with_content_shell: true
 dart_task:
